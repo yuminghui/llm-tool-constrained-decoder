@@ -1,0 +1,340 @@
+[
+    {
+        "name": "get_weather",
+        "description": "获取天气信息，无附加参数。",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": false
+    },
+    {
+        "name": "get_time",
+        "description": "获取当前系统时间，以`日`为最小时间粒度，无附加参数。返回格式为当前时间为：yyyy-mm-dd",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "task_done",
+        "description": "任务完成，无附加参数。调用后表示任务已结束。",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "chat_response",
+        "description": "透出信息给用户，需要一个参数 text",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string",
+                    "description": "回复用户的文本内容"
+                }
+            },
+            "required": ["text"]
+        },
+        "enabled": false
+    },
+    {
+        "name": "task_summary",
+        "description": "任务总结工具。此工具用于对当前任务的整个执行过程进行逻辑总结。作为任务闭环的重要环节，你应当在调用 task_done（任务结束）之前，使用此工具将分散的任务步骤、获取的数据以及最终处理结果整合为一份清晰的报告，并将其透出给用户。总结内容应包含：1. 已执行的关键步骤；2. 获取的核心数据或信息；3. 给用户的最终建议或处理结果预览。禁止在任务尚未开始或未取得实质进展时调用此工具。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "summary_title": {
+                    "type": "string",
+                    "description": "总结报告的标题"
+                },
+                "key_findings": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "一个包含关键发现或已完成步骤的列表"
+                },
+                "final_conclusion": {
+                    "type": "string",
+                    "description": "最终的结论性陈述，直接反馈给用户"
+                }
+            },
+            "required": ["summary_title", "final_conclusion"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "path_workspace",
+        "description": "查看当前工作区路径工具。使用此工具获取当前工作区的路径。",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "list_remote_sensing_index",
+        "description": "查询可用指数工具。使用此工具查看遥感波段指数计算工具可以计算的所有卫星遥感指数，工具会列出使用遥感波段指数计算工具计算相应指数可选的 index 参数。返回：所有可以计算的指数及计算对应指数需要的 index 参数。支持的指数类型包括：植被指数(ndvi, savi, evi, gndvi, arvi, msavi, lai, sr, osavi, rdvi, cvi, cigreen, grvi, gli, vari)、水体指数(ndwi, mndwi, awei_nsh, awei_sh, ndti)、土壤指数(gsi, ci, bi, bi2, ri, sci, ndshi, ndsvi)、藻类指数(fai, ndci, sabi, atbi, cig)、燃烧/色素/建筑指数(bai, nbr, sipi, vgnir_bi, building_bi)。",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "remote_sensing_calculate_cli",
+        "description": "遥感波段指数计算工具。这是一个专业的遥感波段指数计算工具，用于处理卫星或航空遥感图像，计算各种专业指数以提取地物信息。该工具支持多种指数计算、批量处理和并行加速，适用于遥感数据分析、环境监测、土地利用分类等场景。该工具运行在 /var/opt/my_app_2 下。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "input_path": {
+                    "type": "string",
+                    "description": "单个 tif 文件路径，或包含多个 tif 的目录路径"
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": "输出 tif 文件路径或输出目录路径"
+                },
+                "index": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "指数名列表"
+                },
+                "workers": {
+                    "type": "integer",
+                    "description": "可选，并行线程数"
+                }
+            },
+            "required": ["input_path", "output_path", "index"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "bash_ls",
+        "description": "Bash 命令行工具 ls。与 Linux 中的命令行工具 ls 功能一致，列出当前或指定目录下的文件结构。该工具运行在 /var/opt 下。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "target_path": {
+                    "type": "string",
+                    "description": "ls 的目标目录，缺省则在当前目录下"
+                },
+                "show_hidden": {
+                    "type": "boolean",
+                    "description": "是否展示隐藏文件，默认 false"
+                },
+                "show_detail": {
+                    "type": "boolean",
+                    "description": "是否展示文件详细信息，默认 false"
+                },
+                "pattern": {
+                    "type": "string",
+                    "description": "用于匹配 ls 结果的正则表达式"
+                }
+            },
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "gf_pms_preprocess_cli",
+        "description": "高分卫星影像预处理系统。该工具是一个专为高分卫星影像设计的场景级批量预处理流水线系统，支持 GF1/GF1B/GF1C/GF1D/GF6 等卫星数据的全流程处理。预处理流水线过程：输入原始影像 -> step1 RPC粗校正 -> step2 辐射定标 -> step3 6S大气校正 -> step4 融合(brovey/nndiffuse) -> step5 精校正(SIFT或SuperPoint+LightGlue ONNX分块配准)。其中融合步骤(step4)和精校正步骤(step5)性能要求较高，内存开销较大，请谨慎调用。该工具运行在 /var/opt/my_app_1 下。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "input_path": {
+                    "type": "string",
+                    "description": "输入图像数据路径，支持文件或目录"
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": "输出数据路径"
+                },
+                "case": {
+                    "type": "integer",
+                    "description": "模板参数，按指定步骤的固定模板运行工具。1: step1+step2仅粗校正；2: step1~step3到大气校正；3: step1~step4到融合；4: step1~step5到精校正(全流程)"
+                },
+                "mem": {
+                    "type": "string",
+                    "enum": ["balanced", "low", "ultra_low", "high"],
+                    "description": "内存策略，默认 balanced。balanced: 平衡策略；low: 低内存策略(速度较慢但更省内存)；ultra_low: 极低内存策略(速度更慢最省内存)；high: 高性能策略(快但内存消耗较大)"
+                }
+            },
+            "required": ["input_path", "output_path", "case"]
+        },
+        "enabled": false
+    },
+    {
+        "name": "get_tools_list",
+        "description": "获取当前可用工具列表。获取当前所有可用的工具，返回一个列表。",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "enabled": true
+    },
+    {
+        "name": "dcva_cd",
+        "description": "遥感变化检测工具。这是一个遥感变化检测工具，用于对比同一地区两幅不同时相遥感影像，输出发生变化的区域/变化掩膜图。当用户提到'变化检测'、'两期影像对比'、'两幅遥感图像对比'、'新旧影像差异'、'变化区域提取'、'变化掩膜'等需求时，优先使用此工具。支持单图对单图变化检测和 A/B 文件夹批量变化检测两种模式。该工具运行在 /var/opt/my_app_4 下。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "input_path": {
+                    "type": "string",
+                    "description": "输入路径，支持两种形式：1) 单图对单图：传第一时相影像路径，须同时传 img2；2) A/B 文件夹批量：传包含 A/ 和 B/ 两个子目录的文件夹路径"
+                },
+                "img2": {
+                    "type": "string",
+                    "description": "第二时相影像路径，单图对单图模式时必须传"
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": "输出变化检测结果图路径或输出目录"
+                }
+            },
+            "required": ["input_path", "output_path"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "file_search",
+        "description": "文件搜索工具。该工具使用路径关键词搜索所有文件名中包含该关键词的文件。返回一个列表，列表元素是匹配上的文件的绝对路径。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "keyword": {
+                    "type": "string",
+                    "description": "搜索的路径关键词"
+                },
+                "case_sensitive": {
+                    "type": "boolean",
+                    "description": "是否大小写敏感，默认 false"
+                }
+            },
+            "required": ["keyword"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "wait_user_instruction",
+        "description": "等待用户输入指令。该工具可以给用户输出一段提示信息，之后等待用户的指令输入。当你认为用户的指令模糊不清，或是需要用户额外的指令，或是其他任何需要和用户交互的情形时使用此工具。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "tip": {
+                    "type": "string",
+                    "description": "给用户的提示信息，用于提示用户应该输入什么样的指令"
+                }
+            },
+            "required": ["tip"]
+        },
+            "enabled": false
+    },
+    {
+        "name": "dir_search",
+        "description": "目录搜索工具。该工具使用路径关键词搜索所有绝对路径中包含该关键词的目录。返回一个列表，列表元素是匹配上的目录的绝对路径。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "keyword": {
+                    "type": "string",
+                    "description": "搜索的路径关键词"
+                },
+                "case_sensitive": {
+                    "type": "boolean",
+                    "description": "是否大小写敏感，默认 false"
+                }
+            },
+            "required": ["keyword"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "plan",
+        "description": "该工具用于对你将要执行的复杂任务进行拆解并规划为多个清晰、可执行的步骤，从而可以在之后分步执行。当你需要规划任务执行步骤或处于plan mode时，在发起其它工具调用前使用此工具",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "任务的标题，用于描述规划任务的主体"
+                },
+                "steps": {
+                    "type": "array",
+                    "description": "规划任务执行步骤的列表",
+                    "items": {
+                        "type": "object",
+                        "description": "单个任务执行步骤",
+                        "properties": {
+                            "step_number": {
+                                "type": "integer",
+                                "description": "步骤编号"
+                            },
+                            "step_name": {
+                                "type": "string",
+                                "description": "步骤名称"
+                            },
+                            "description": {
+                                "type": "string",
+                                "description": "该步骤的详细描述"
+                            },
+                            "expected_tools": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "description": "预计使用的工具名称列表"
+                            }
+                        },
+                        "required": ["step_number", "step_name", "description"]
+                    }
+                }
+            },
+            "required": ["title", "steps"]
+        },
+        "enabled": true
+    },
+    {
+        "name": "search_tif_data",
+        "description": "卫星影像数据检索工具，根据时间和区域信息在 /data 目录下搜索匹配的 tif 文件。返回匹配文件的绝对路径列表，是用于查找卫星影像数据的功能特化搜索工具。",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "year": {
+                    "type": "string",
+                    "description": "数据时间-年份，格式 yyyy，例如 2024"
+                },
+                "month": {
+                    "type": "string",
+                    "description": "数据时间-月份，格式 mm（如 01），缺省时匹配全年所有月份"
+                },
+                "day": {
+                    "type": "string",
+                    "description": "数据时间-日期，格式 dd（如 15），缺省时匹配全月所有日期，只有在month未缺省时日期才有意义"
+                },
+                "region": {
+                    "type": "string",
+                    "description": "数据对应的区域名称（如 上海、北京 等）"
+                },
+                "latest_descending": {
+                    "type": "boolean",
+                    "description": "是否按时间降序排序，默认 True"
+                }
+            },
+            "required": ["year", "region"]
+        },
+        "enabled": true
+    }
+]
