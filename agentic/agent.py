@@ -123,8 +123,21 @@ class Agent:
     # Public API
     # ------------------------------------------------------------------
 
-    def run(self, user_query: str) -> AgentResult:
-        """Execute the agent loop for *user_query* and return an AgentResult."""
+    def run(
+        self,
+        user_query: str,
+        *,
+        pre_seeded_plan: Optional[Dict[str, Any]] = None,
+    ) -> AgentResult:
+        """Execute the agent loop for *user_query* and return an AgentResult.
+
+        Args:
+            user_query: The user's task description.
+            pre_seeded_plan: If provided, skip the plan-generation step and inject
+                this plan directly into the conversation.  Must contain keys
+                ``tool_name``, ``tool_args``, ``generated_text``, and optionally
+                ``tool_result``.  Used for Experiment 2 (separate plan + agent).
+        """
         start_time = time.time()
         result = AgentResult(user_query=user_query)
 
@@ -135,19 +148,35 @@ class Agent:
             ]
             tool_defs = self.tools.get_definitions()
 
-            # ---- Step 1: Force plan (always constrained) ----
-            plan_step = self._force_plan(messages, tool_defs, start_time)
-            result.steps.append(plan_step)
-            result.total_tokens += len(plan_step.generated_text)
+            if pre_seeded_plan is not None:
+                # ---- Plan pre-seeded: inject plan, skip step 0 ----
+                plan_step = AgentStep(
+                    step_index=-1,                    # -1 = external / pre-seeded
+                    tool_name=pre_seeded_plan.get("tool_name", "plan"),
+                    tool_args=pre_seeded_plan.get("tool_args", {}),
+                    tool_result=pre_seeded_plan.get("tool_result"),
+                    generated_text=pre_seeded_plan.get("generated_text", ""),
+                    is_constrained=True,
+                    elapsed=0.0,
+                )
+                result.steps.append(plan_step)
+                self._append_tool_call(messages, plan_step)
+                start_turn = 1
+            else:
+                # ---- Step 1: Force plan (always constrained) ----
+                plan_step = self._force_plan(messages, tool_defs, start_time)
+                result.steps.append(plan_step)
+                result.total_tokens += len(plan_step.generated_text)
 
-            if plan_step.tool_result is None:
-                result.success = False
-                result.error = "Plan step failed to produce valid tool call"
-                result.total_time = time.time() - start_time
-                return result
+                if plan_step.tool_result is None:
+                    result.success = False
+                    result.error = "Plan step failed to produce valid tool call"
+                    result.total_time = time.time() - start_time
+                    return result
 
-            # Add plan to conversation
-            self._append_tool_call(messages, plan_step)
+                # Add plan to conversation
+                self._append_tool_call(messages, plan_step)
+                start_turn = 1
 
             # ---- Steps 2+: Action loop ----
             plan_args = plan_step.tool_args or {}
@@ -155,11 +184,13 @@ class Agent:
 
             if self.config.use_constrained_decoder:
                 result = self._run_constrained_loop(
-                    result, messages, tool_defs, planned_tools, start_time
+                    result, messages, tool_defs, planned_tools, start_time,
+                    start_turn=start_turn,
                 )
             else:
                 result = self._run_free_loop(
-                    result, messages, tool_defs, start_time
+                    result, messages, tool_defs, start_time,
+                    start_turn=start_turn,
                 )
 
             result.total_time = time.time() - start_time
@@ -242,6 +273,7 @@ class Agent:
         tool_defs: List[Dict[str, Any]],
         planned_tools: List[str],
         start_time: float,
+        start_turn: int = 1,
     ) -> AgentResult:
         """Execute remaining steps with constrained decoding.
 
@@ -250,7 +282,7 @@ class Agent:
         """
         tool_queue = list(planned_tools)
 
-        for turn in range(1, self.config.max_turns + 1):
+        for turn in range(start_turn, self.config.max_turns + 1):
             if self.config.verbose:
                 print(f"\n--- Turn {turn} (constrained mode) ---")
 
@@ -344,12 +376,13 @@ class Agent:
         messages: List[Dict[str, str]],
         tool_defs: List[Dict[str, Any]],
         start_time: float,
+        start_turn: int = 1,
     ) -> AgentResult:
         """Execute remaining steps with free generation.
 
         At each turn the model may emit a tool call or a plain-text answer.
         """
-        for turn in range(1, self.config.max_turns + 1):
+        for turn in range(start_turn, self.config.max_turns + 1):
             if self.config.verbose:
                 print(f"\n--- Turn {turn} (free mode) ---")
 

@@ -1,0 +1,105 @@
+"""
+Experiment configuration — centralizes all tunable parameters.
+
+Add new models, adjust hyperparameters, or change paths here.
+Individual experiment files import from this module.
+"""
+
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+# ---------------------------------------------------------------------------
+# Project paths (relative to project root)
+# ---------------------------------------------------------------------------
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+TOOLS_JSON_PATH = os.path.join(PROJECT_ROOT, "tools.json")
+EVALUATE_JSON_PATH = os.path.join(PROJECT_ROOT, "experiments", "evaluate.json")
+
+# ---------------------------------------------------------------------------
+# Models — small language models (SLMs) suitable for local inference
+# ---------------------------------------------------------------------------
+
+# All models available for testing
+ALL_MODELS = [
+    "Qwen/Qwen2.5-0.5B-Instruct",
+    "Qwen/Qwen2.5-1.5B-Instruct",
+    "Qwen/Qwen2.5-3B-Instruct",
+]
+
+# Quick-test subset (use for fast iteration)
+QUICK_MODELS = [
+    "Qwen/Qwen2.5-0.5B-Instruct",
+]
+
+# ---------------------------------------------------------------------------
+# Experiment 1 — cross-model token comparison
+# ---------------------------------------------------------------------------
+
+EXP1_MODELS = ALL_MODELS          # models to compare
+EXP1_TASK_INDICES: Optional[List[int]] = None   # None = all tasks; or [0, 1, 2, ...]
+EXP1_MAX_TASKS: int = 10          # cap number of tasks per model (0 = unlimited)
+
+# ---------------------------------------------------------------------------
+# Experiment 2 — constrained plan vs separate plan
+# ---------------------------------------------------------------------------
+
+EXP2_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"  # single model for A/B comparison
+EXP2_TASK_INDICES: Optional[List[int]] = None
+EXP2_MAX_TASKS: int = 0           # 0 = unlimited
+
+# ---------------------------------------------------------------------------
+# Agent hyperparameters (shared across experiments)
+# ---------------------------------------------------------------------------
+
+TEMPERATURE = 0.7
+MAX_TURNS = 10
+
+# Token budget for generation calls
+PLAN_MAX_NEW_TOKENS = 256     # constrained plan generation
+FREE_MAX_NEW_TOKENS = 512     # free generation steps
+CONSTRAINED_MAX_NEW_TOKENS = 256  # constrained tool calls (non-plan)
+
+# ---------------------------------------------------------------------------
+# Task completion evaluation
+# ---------------------------------------------------------------------------
+
+# Weights for trajectory scoring
+REQUIRED_STEP_WEIGHT = 1.0    # full credit for each required step
+OPTIONAL_STEP_WEIGHT = 0.5    # bonus (clamped) for optional steps
+TASK_DONE_WEIGHT = 0.2        # bonus for calling task_done
+
+# Completion threshold: score >= this is considered "completed"
+COMPLETION_THRESHOLD = 0.8
+
+
+# ---------------------------------------------------------------------------
+# Dataclass form (optional — for programmatic use)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class ExperimentConfig:
+    """All experiment parameters in one object."""
+    # Models
+    models: List[str] = field(default_factory=lambda: ALL_MODELS)
+
+    # Paths
+    tools_json: str = TOOLS_JSON_PATH
+    evaluate_json: str = EVALUATE_JSON_PATH
+
+    # Agent
+    temperature: float = TEMPERATURE
+    max_turns: int = MAX_TURNS
+    plan_max_new_tokens: int = PLAN_MAX_NEW_TOKENS
+    free_max_new_tokens: int = FREE_MAX_NEW_TOKENS
+    constrained_max_new_tokens: int = CONSTRAINED_MAX_NEW_TOKENS
+
+    # Evaluation
+    required_step_weight: float = REQUIRED_STEP_WEIGHT
+    optional_step_weight: float = OPTIONAL_STEP_WEIGHT
+    task_done_weight: float = TASK_DONE_WEIGHT
+    completion_threshold: float = COMPLETION_THRESHOLD
