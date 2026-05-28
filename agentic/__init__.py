@@ -18,7 +18,8 @@ from .tools import (
 
 from .llm_backend import (
     LLMBackend,
-    GEMMA_TOOL_CALL_TEMPLATE,
+    TEMPLATE_REGISTRY,
+    DEFAULT_TEMPLATE,
 )
 
 from .agent import (
@@ -47,7 +48,8 @@ __all__ = [
     "load_tools_from_json",
     # LLM Backend
     "LLMBackend",
-    "GEMMA_TOOL_CALL_TEMPLATE",
+    "TEMPLATE_REGISTRY",
+    "DEFAULT_TEMPLATE",
     # Agent
     "Agent",
     "AgentConfig",

@@ -3,6 +3,17 @@ LLM Backend wrapping HuggingFace transformers models.
 
 Provides free generation and constrained generation (via ToolConstrainedDecoder),
 plus prompt building and tool-call parsing utilities.
+
+The tool-call format is **derived from the template string** — no per-model
+hardcoding of prefix/suffix.  The template contains the literal text that
+surrounds the JSON body::
+
+    "<tool_call|>{\"name\":\"{name}\",\"arguments\":{arguments}}<|tool_call>"
+    ^^^^^^^^^^^^                                                      ^^^^^^^^^^^^
+    prefix (auto-detected)                                            suffix (auto-detected)
+
+A model registry maps model-id prefixes to known templates, with a sensible
+default fallback.  Add new models by extending ``TEMPLATE_REGISTRY``.
 """
 
 from __future__ import annotations
@@ -10,7 +21,7 @@ from __future__ import annotations
 import json
 import sys
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -20,8 +31,120 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from constrained_decoding import ToolConstrainedDecoder, DecoderResult
 
-# Gemma 4 tool-call format template
-GEMMA_TOOL_CALL_TEMPLATE = '<tool_call|>{"name":"{name}","arguments":{arguments}}<|tool_call>'
+# ---------------------------------------------------------------------------
+# Model → template registry
+# ---------------------------------------------------------------------------
+
+# Default template (used when model_id doesn't match any entry)
+DEFAULT_TEMPLATE = '<tool_call|>{"name":"{name}","arguments":{arguments}}<|tool_call>'
+
+TEMPLATE_REGISTRY: Dict[str, str] = {
+    # -- Google --
+    "google/gemma":       '<tool_call|>{"name":"{name}","arguments":{arguments}}<|tool_call>',
+    # -- Qwen / Qwen2.5 / Qwen3 --
+    "Qwen/":              '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- Meta Llama 3/4 --
+    "meta-llama/":        '{"name":"{name}","arguments":{arguments}}',
+    # -- DeepSeek --
+    "deepseek-ai/":       '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- Mistral / Mixtral --
+    "mistralai/":         '[TOOL_CALLS]{"name":"{name}","arguments":{arguments}}',
+    # -- Microsoft Phi --
+    "microsoft/Phi":      '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- Yi (01.AI) --
+    "01-ai/":             '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- InternLM --
+    "internlm/":          '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- GLM (THUDM) --
+    "THUDM/":             '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+}
+"""Fallback registry mapping model-id prefixes to tool-call templates.
+
+Used only when auto-detection from the tokenizer's chat template fails.
+Keys are matched via ``str.startswith``.  First match wins.
+"""
+
+
+# ---------------------------------------------------------------------------
+# Template resolution: auto-detect > registry > default
+# ---------------------------------------------------------------------------
+
+def _detect_template_from_tokenizer(tokenizer) -> Optional[str]:
+    """Try to auto-detect the tool-call template from the tokenizer's chat template.
+
+    Scans the Jinja2 chat template string for known wrapper patterns.
+    This is the primary method — no per-model hardcoding needed.
+
+    Returns a compact template string like
+    ``<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>``
+    or None if detection fails.
+    """
+    ct = getattr(tokenizer, "chat_template", None)
+    if ct is None:
+        return None
+
+    # Normalize: if it's a dict (some tokenizers), convert to string
+    if isinstance(ct, dict):
+        ct = str(ct)
+
+    # Ordered list of (opening_tag, closing_tag) pairs to look for.
+    # First match wins.
+    KNOWN_WRAPPERS: List[Tuple[str, str]] = [
+        ("<tool_call|>", "<|tool_call>"),       # Gemma
+        ("<tool_call>", "</tool_call>"),         # Qwen, DeepSeek, Phi, Yi, InternLM, GLM
+        ("[TOOL_CALLS]", ""),                    # Mistral
+    ]
+
+    for opening, closing in KNOWN_WRAPPERS:
+        if opening in ct:
+            if closing:
+                return f'{opening}{{"name":"{{name}}","arguments":{{arguments}}}}{closing}'
+            else:
+                return f'{opening}{{"name":"{{name}}","arguments":{{arguments}}}}'
+
+    return None
+
+
+def _resolve_template(model_id: str, tokenizer=None) -> str:
+    """Return the tool-call template for *model_id*.
+
+    Resolution order (first success wins):
+    1. Auto-detect from tokenizer's chat template (``_detect_template_from_tokenizer``)
+    2. Match model_id prefix against ``TEMPLATE_REGISTRY``
+    3. ``DEFAULT_TEMPLATE``
+    """
+    # 1. Auto-detect from tokenizer
+    if tokenizer is not None:
+        detected = _detect_template_from_tokenizer(tokenizer)
+        if detected is not None:
+            return detected
+
+    # 2. Registry match by model_id prefix
+    for prefix, template in TEMPLATE_REGISTRY.items():
+        if model_id.startswith(prefix):
+            return template
+
+    # 3. Default
+    return DEFAULT_TEMPLATE
+
+
+def _derive_wrappers(template: str) -> Tuple[str, str]:
+    """Derive (prefix, suffix) from a tool-call template.
+
+    The template is expected to contain a single JSON object with
+    ``{name}`` and ``{arguments}`` placeholders.  Everything before
+    the opening ``{`` is the prefix; everything after the closing ``}``
+    is the suffix.
+
+    Example:
+        ``<tool_call|>{"name":"{name}","arguments":{arguments}}<|tool_call>``
+        → ``("<tool_call|>", "<|tool_call>")``
+    """
+    json_start = template.find("{")
+    json_end = template.rfind("}")
+    if json_start == -1 or json_end == -1:
+        return "", ""
+    return template[:json_start], template[json_end + 1:]
 
 
 class LLMBackend:
@@ -36,14 +159,27 @@ class LLMBackend:
     def __init__(
         self,
         model_id: str,
-        tool_call_template: str = GEMMA_TOOL_CALL_TEMPLATE,
+        tool_call_template: Optional[str] = None,
         device: Optional[str] = None,
     ):
         self.model_id = model_id
-        self.tool_call_template = tool_call_template
 
+        # Load tokenizer first — needed for template auto-detection
         print(f"[LLMBackend] Loading model: {model_id}")
         self.tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
+
+        # Resolve template: explicit arg > auto-detect from tokenizer > registry > default
+        if tool_call_template is not None:
+            self.tool_call_template = tool_call_template
+            print(f"[LLMBackend] Tool-call template (explicit): {self.tool_call_template!r}")
+        else:
+            self.tool_call_template = _resolve_template(model_id, tokenizer=self.tokenizer)
+            print(f"[LLMBackend] Tool-call template (auto-detected): {self.tool_call_template!r}")
+
+        # Derive prefix / suffix from template (used for parsing & formatting)
+        self.tool_call_prefix, self.tool_call_suffix = _derive_wrappers(
+            self.tool_call_template
+        )
 
         # Auto-detect device
         if device is None:
@@ -169,25 +305,27 @@ class LLMBackend:
     def parse_tool_call(self, text: str) -> Optional[Dict[str, Any]]:
         """Try to extract and parse a tool-call JSON object from *text*.
 
-        Handles Gemma-style ``<tool_call|>...</...>`` wrappers.
+        Strips the prefix/suffix derived from the tool-call template,
+        then attempts to find and parse a JSON object from the remainder.
+
         Returns None if no valid tool call is found.
         """
         if not text:
             return None
 
-        # Strip Gemma wrapper prefixes
         body = text
-        for prefix in ["<tool_call|>", "<|tool_call|>"]:
-            idx = body.find(prefix)
-            if idx >= 0:
-                body = body[idx + len(prefix) :]
-                break
 
-        # Strip wrapper suffixes
-        for suffix in ["<|tool_call>", "<|tool_call|>", "<|eot|>", "<eos>"]:
-            if body.rstrip().endswith(suffix):
-                body = body.rstrip()[: -len(suffix)]
-                break
+        # Strip prefix (derived from template, e.g. "<tool_call|>" for Gemma)
+        if self.tool_call_prefix:
+            idx = body.find(self.tool_call_prefix)
+            if idx >= 0:
+                body = body[idx + len(self.tool_call_prefix):]
+
+        # Strip suffix (derived from template, e.g. "<|tool_call>" for Gemma)
+        if self.tool_call_suffix:
+            body_rstrip = body.rstrip()
+            if body_rstrip.endswith(self.tool_call_suffix):
+                body = body_rstrip[:-len(self.tool_call_suffix)]
 
         body = body.strip()
 
@@ -213,3 +351,18 @@ class LLMBackend:
             return json.loads(json_str)
         except json.JSONDecodeError:
             return None
+
+    # ------------------------------------------------------------------
+    # Tool-call message formatting
+    # ------------------------------------------------------------------
+
+    def format_tool_call_message(self, tool_name: str, arguments: Dict[str, Any]) -> str:
+        """Render a tool-call as an assistant message string.
+
+        Uses the model-specific prefix/suffix derived from the template.
+        """
+        tool_call_json = json.dumps(
+            {"name": tool_name, "arguments": arguments},
+            ensure_ascii=False,
+        )
+        return f"{self.tool_call_prefix}{tool_call_json}{self.tool_call_suffix}"

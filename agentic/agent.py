@@ -20,7 +20,7 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from .tools import ToolRegistry
-from .llm_backend import LLMBackend, GEMMA_TOOL_CALL_TEMPLATE
+from .llm_backend import LLMBackend
 
 logger = logging.getLogger(__name__)
 
@@ -435,12 +435,10 @@ class Agent:
         step: AgentStep,
     ) -> None:
         """Append an assistant tool-call message and tool-result message."""
-        tool_call_dict = {
-            "name": step.tool_name,
-            "arguments": step.tool_args or {},
-        }
-        tool_call_json = json.dumps(tool_call_dict, ensure_ascii=False)
-        assistant_msg = f'<tool_call|>{tool_call_json}<|tool_call>'
+        assistant_msg = self.llm.format_tool_call_message(
+            step.tool_name or "unknown",
+            step.tool_args or {},
+        )
         messages.append({"role": "assistant", "content": assistant_msg})
         messages.append({"role": "tool", "content": step.tool_result or ""})
 
