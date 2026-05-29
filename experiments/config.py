@@ -53,6 +53,19 @@ EXP2_TASK_INDICES: Optional[List[int]] = None
 EXP2_MAX_TASKS: int = 0           # 0 = unlimited
 
 # ---------------------------------------------------------------------------
+# Experiment 3 — plan-first vs no-plan (LLM-as-Judge)
+# ---------------------------------------------------------------------------
+
+EXP3_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+EXP3_TASK_INDICES: Optional[List[int]] = None
+EXP3_MAX_TASKS: int = 0           # 0 = unlimited
+
+# Output paths for trajectory files
+EXP3_TRAJECTORY_DIR = os.path.join(PROJECT_ROOT, "experiments", "trajectories")
+EXP3_TRAJECTORY_WITH_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_yes.json")
+EXP3_TRAJECTORY_WITHOUT_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_no.json")
+
+# ---------------------------------------------------------------------------
 # Agent hyperparameters (shared across experiments)
 # ---------------------------------------------------------------------------
 
