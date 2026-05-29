@@ -66,6 +66,21 @@ EXP3_TRAJECTORY_WITH_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_yes.json")
 EXP3_TRAJECTORY_WITHOUT_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_no.json")
 
 # ---------------------------------------------------------------------------
+# Experiment 4 — ablation: constraint decoder for plan step
+# ---------------------------------------------------------------------------
+
+EXP4_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+EXP4_TASK_INDICES: Optional[List[int]] = None
+EXP4_MAX_TASKS: int = 0           # 0 = unlimited
+
+EXP4_TRAJECTORY_WITH_CONSTRAINT = os.path.join(
+    EXP3_TRAJECTORY_DIR, "ablation_with_constraint.json",
+)
+EXP4_TRAJECTORY_WITHOUT_CONSTRAINT = os.path.join(
+    EXP3_TRAJECTORY_DIR, "ablation_without_constraint.json",
+)
+
+# ---------------------------------------------------------------------------
 # Agent hyperparameters (shared across experiments)
 # ---------------------------------------------------------------------------
 

@@ -13,9 +13,12 @@ experiments/
 ├── trajectory_utils.py              # 轨迹保存/追加工具函数
 ├── experiment_context_tokens.py     # 实验1+2：token 消耗对比
 ├── experiment_plan.py               # 实验3：plan-first vs no-plan
+├── experiment_ablation.py           # 实验4：消融实验（约束解码器对 plan 的影响）
 └── trajectories/                    # 实验输出的轨迹 JSON 文件
     ├── plan_yes.json
-    └── plan_no.json
+    ├── plan_no.json
+    ├── ablation_with_constraint.json
+    └── ablation_without_constraint.json
 ```
 
 ## 配置说明 (`config.py`)
@@ -102,6 +105,43 @@ Completion Rate                      85.0%           82.0%          +3.0%
 
 ---
 
+## 实验 4 — 消融实验：约束解码器对 Plan 步骤的影响 (LLM-as-Judge)
+
+**文件**: `experiment_ablation.py`  
+**运行**: `python -m experiments.experiment_ablation`
+
+**目的**: 消融实验 — 在严格控制其他变量不变的条件下，**唯一变量**是第一步
+`plan` 工具是否使用约束解码器，测试该变量对 Agent 性能的影响。
+
+**控制变量**（两组完全相同）:
+
+| 控制变量 | 值 |
+|----------|-----|
+| 模型 | `EXP4_MODEL`（同一模型） |
+| System prompt | 同一段文本（均鼓励先 plan 再行动） |
+| Temperature | 相同 |
+| 任务集 | 相同的 `evaluate.json` 子集 |
+| 工具集 | 相同的 `tools.json` |
+
+**唯一变量**:
+
+|  | Mode A（实验组） | Mode B（对照组） |
+|------|------|------|
+| **Plan 步骤** | 约束解码器强制 `plan` | 自由生成（模型自行决定） |
+| **后续步骤** | 自由生成 | 自由生成 |
+
+**输出文件**:
+
+- `trajectories/ablation_with_constraint.json` — A 组轨迹
+- `trajectories/ablation_without_constraint.json` — B 组轨迹
+
+**分析要点**: 对比 A 组和 B 组的轨迹，可以回答：
+1. 约束解码器是否保证了 plan 一定被调用？（A 组 plan 调用率应为 100%）
+2. 强制 plan 是否导致后续步骤更有序/更少错误？
+3. 任务完成率是否有差异？
+
+---
+
 ## 工具函数 (`trajectory_utils.py`)
 
 | 函数 | 用途 |
@@ -132,4 +172,7 @@ python -m experiments.experiment_plan --quick --max-tasks 5
 
 # 实验3：指定模型
 python -m experiments.experiment_plan --model Qwen/Qwen2.5-1.5B-Instruct
+
+# 实验4：消融实验（约束解码器对 plan 的影响）
+python -m experiments.experiment_ablation --quick --max-tasks 5
 ```
