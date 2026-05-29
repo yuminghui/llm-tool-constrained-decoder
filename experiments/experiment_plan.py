@@ -258,7 +258,11 @@ def run_plan_experiment(
     backend = LLMBackend(model_id)
 
     results_with_plan: List[AgentResult] = []
+    ptokens_with: List[int] = []
+    gtokens_with: List[int] = []
     results_without_plan: List[AgentResult] = []
+    ptokens_without: List[int] = []
+    gtokens_without: List[int] = []
     task_ids: List[str] = []
 
     # Agent config for P+ (with plan)
@@ -270,6 +274,8 @@ def run_plan_experiment(
         system_prompt=SYSTEM_PROMPT_WITH_PLAN,
     )
 
+    tool_defs = tools_registry.get_definitions()
+
     for i, task in enumerate(all_tasks):
         question = task["question"]
         task_id = f"task_{i:03d}"
@@ -279,27 +285,48 @@ def run_plan_experiment(
 
         # ---- P+: with plan ----
         print("  P+ (with plan)...", end=" ", flush=True)
+
+        # Count prompt tokens
+        msg_with = [
+            {"role": "system", "content": SYSTEM_PROMPT_WITH_PLAN},
+            {"role": "user", "content": question},
+        ]
+        prompt_tokens_with = len(backend.tokenizer.encode(
+            backend.build_prompt(msg_with, tool_defs)
+        ))
+
         t0 = time.time()
         agent = Agent(backend, tools_registry, agent_config)
         result_with = agent.run(question)
         elapsed_with = time.time() - t0
 
-        # Count actual tokens
-        gen_tokens = sum(
+        gen_tokens_with = sum(
             len(backend.tokenizer.encode(s.generated_text))
             for s in result_with.steps
         )
-        result_with.total_tokens = gen_tokens
+        result_with.total_tokens = gen_tokens_with
 
         results_with_plan.append(result_with)
+        ptokens_with.append(prompt_tokens_with)
+        gtokens_with.append(gen_tokens_with)
 
         n_steps = len(result_with.steps)
         tools_called = [s.tool_name for s in result_with.steps if s.tool_name]
-        print(f"{n_steps} steps, {gen_tokens} tokens, {elapsed_with:.1f}s")
+        print(f"{n_steps} steps, {gen_tokens_with} tokens, {elapsed_with:.1f}s")
         print(f"         tools: {' -> '.join(tools_called) if tools_called else '(none)'}")
 
         # ---- P-: without plan ----
         print("  P- (no plan)...  ", end=" ", flush=True)
+
+        # Count prompt tokens for no-plan mode
+        msg_without = [
+            {"role": "system", "content": SYSTEM_PROMPT_WITHOUT_PLAN},
+            {"role": "user", "content": question},
+        ]
+        prompt_tokens_without = len(backend.tokenizer.encode(
+            backend.build_prompt(msg_without, tool_defs)
+        ))
+
         t0 = time.time()
         result_without = run_agent_no_plan(
             backend, tools_registry, question,
@@ -310,6 +337,9 @@ def run_plan_experiment(
         elapsed_without = time.time() - t0
 
         results_without_plan.append(result_without)
+        ptokens_without.append(prompt_tokens_without)
+        # generated tokens already counted inside run_agent_no_plan as total_tokens
+        gtokens_without.append(result_without.total_tokens)
 
         n_steps = len(result_without.steps)
         tools_called = [s.tool_name for s in result_without.steps if s.tool_name]
@@ -320,20 +350,20 @@ def run_plan_experiment(
     os.makedirs(EXP3_TRAJECTORY_DIR, exist_ok=True)
 
     path_with = save_trajectories_batch(
-        results_with_plan,
-        EXP3_TRAJECTORY_WITH_PLAN,
-        model_id=model_id,
-        config_name="with_plan",
+        results_with_plan, EXP3_TRAJECTORY_WITH_PLAN,
+        model_id=model_id, config_name="with_plan",
         task_ids=task_ids,
+        prompt_tokens_list=ptokens_with,
+        generated_tokens_list=gtokens_with,
         extra_meta={"experiment": "plan_vs_no_plan", "mode": "P+_with_plan"},
     )
 
     path_without = save_trajectories_batch(
-        results_without_plan,
-        EXP3_TRAJECTORY_WITHOUT_PLAN,
-        model_id=model_id,
-        config_name="without_plan",
+        results_without_plan, EXP3_TRAJECTORY_WITHOUT_PLAN,
+        model_id=model_id, config_name="without_plan",
         task_ids=task_ids,
+        prompt_tokens_list=ptokens_without,
+        generated_tokens_list=gtokens_without,
         extra_meta={"experiment": "plan_vs_no_plan", "mode": "P-_without_plan"},
     )
 

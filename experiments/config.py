@@ -19,6 +19,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TOOLS_JSON_PATH = os.path.join(PROJECT_ROOT, "tools.json")
 EVALUATE_JSON_PATH = os.path.join(PROJECT_ROOT, "experiments", "evaluate.json")
+TRAJECTORY_DIR = os.path.join(PROJECT_ROOT, "experiments", "trajectories")
+EXP3_TRAJECTORY_DIR = TRAJECTORY_DIR  # backward-compat alias
 
 # ---------------------------------------------------------------------------
 # Models — small language models (SLMs) suitable for local inference
@@ -43,6 +45,8 @@ QUICK_MODELS = [
 EXP1_MODELS = ALL_MODELS          # models to compare
 EXP1_TASK_INDICES: Optional[List[int]] = None   # None = all tasks; or [0, 1, 2, ...]
 EXP1_MAX_TASKS: int = 10          # cap number of tasks per model (0 = unlimited)
+# Output dir for per-model trajectory files
+EXP1_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp1_cross_model")
 
 # ---------------------------------------------------------------------------
 # Experiment 2 — constrained plan vs separate plan
@@ -51,6 +55,8 @@ EXP1_MAX_TASKS: int = 10          # cap number of tasks per model (0 = unlimited
 EXP2_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"  # single model for A/B comparison
 EXP2_TASK_INDICES: Optional[List[int]] = None
 EXP2_MAX_TASKS: int = 0           # 0 = unlimited
+EXP2_TRAJECTORY_A = os.path.join(TRAJECTORY_DIR, "exp2_inline_constrained.json")
+EXP2_TRAJECTORY_B = os.path.join(TRAJECTORY_DIR, "exp2_separate_plan.json")
 
 # ---------------------------------------------------------------------------
 # Experiment 3 — plan-first vs no-plan (LLM-as-Judge)
@@ -60,10 +66,8 @@ EXP3_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
 EXP3_TASK_INDICES: Optional[List[int]] = None
 EXP3_MAX_TASKS: int = 0           # 0 = unlimited
 
-# Output paths for trajectory files
-EXP3_TRAJECTORY_DIR = os.path.join(PROJECT_ROOT, "experiments", "trajectories")
-EXP3_TRAJECTORY_WITH_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_yes.json")
-EXP3_TRAJECTORY_WITHOUT_PLAN = os.path.join(EXP3_TRAJECTORY_DIR, "plan_no.json")
+EXP3_TRAJECTORY_WITH_PLAN = os.path.join(TRAJECTORY_DIR, "plan_yes.json")
+EXP3_TRAJECTORY_WITHOUT_PLAN = os.path.join(TRAJECTORY_DIR, "plan_no.json")
 
 # ---------------------------------------------------------------------------
 # Experiment 4 — ablation: constraint decoder for plan step
@@ -74,10 +78,10 @@ EXP4_TASK_INDICES: Optional[List[int]] = None
 EXP4_MAX_TASKS: int = 0           # 0 = unlimited
 
 EXP4_TRAJECTORY_WITH_CONSTRAINT = os.path.join(
-    EXP3_TRAJECTORY_DIR, "ablation_with_constraint.json",
+    TRAJECTORY_DIR, "ablation_with_constraint.json",
 )
 EXP4_TRAJECTORY_WITHOUT_CONSTRAINT = os.path.join(
-    EXP3_TRAJECTORY_DIR, "ablation_without_constraint.json",
+    TRAJECTORY_DIR, "ablation_without_constraint.json",
 )
 
 # ---------------------------------------------------------------------------

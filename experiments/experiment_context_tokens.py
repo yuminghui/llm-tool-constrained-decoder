@@ -41,6 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from agentic.llm_backend import LLMBackend
 from agentic.tools import load_tools_from_json
 from agentic.agent import Agent, AgentConfig, AgentResult, AgentStep
+from experiments.trajectory_utils import save_trajectories_batch
 
 from experiments.config import (
     TOOLS_JSON_PATH,
@@ -49,8 +50,11 @@ from experiments.config import (
     QUICK_MODELS,
     EXP1_MODELS,
     EXP1_MAX_TASKS,
+    EXP1_OUTPUT_DIR,
     EXP2_MODEL,
     EXP2_MAX_TASKS,
+    EXP2_TRAJECTORY_A,
+    EXP2_TRAJECTORY_B,
     TEMPERATURE,
     MAX_TURNS,
     PLAN_MAX_NEW_TOKENS,
@@ -265,6 +269,9 @@ def run_experiment_1(
             verbose=False,
         )
         report = ExperimentReport(experiment_name=f"Exp1 — {model_id}")
+        agent_results: List[AgentResult] = []
+        ptokens_list: List[int] = []
+        gtokens_list: List[int] = []
 
         for i, task in enumerate(tasks):
             question = task["question"]
@@ -314,6 +321,24 @@ def run_experiment_1(
             print(f"{status} | tokens={tr.total_tokens} | score={completion['score']:.2f} | "
                   f"{completion['required_called']}/{completion['required_total']} req")
 
+            agent_results.append(agent_result)
+            ptokens_list.append(prompt_tokens)
+            gtokens_list.append(generated_tokens)
+
+        # Save per-model trajectory file
+        os.makedirs(EXP1_OUTPUT_DIR, exist_ok=True)
+        safe_name = model_id.replace("/", "_").replace("\\", "_")
+        out_path = os.path.join(EXP1_OUTPUT_DIR, f"{safe_name}.json")
+        save_trajectories_batch(
+            agent_results, out_path,
+            model_id=model_id, config_name="constrained",
+            task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
+            prompt_tokens_list=ptokens_list,
+            generated_tokens_list=gtokens_list,
+            extra_meta={"experiment": "exp1_cross_model"},
+        )
+        print(f"  Trajectories saved: {out_path}")
+
         reports[model_id] = report
         _print_model_summary(model_id, report)
 
@@ -345,6 +370,13 @@ def run_experiment_2(
 
     report_a = ExperimentReport(experiment_name="Exp2A — Inline Constrained Plan")
     report_b = ExperimentReport(experiment_name="Exp2B — Separate Plan + Agent")
+
+    results_a: List[AgentResult] = []
+    ptokens_a: List[int] = []
+    gtokens_a: List[int] = []
+    results_b: List[AgentResult] = []
+    ptokens_b: List[int] = []
+    gtokens_b: List[int] = []
 
     for i, task in enumerate(tasks):
         question = task["question"]
@@ -467,6 +499,34 @@ def run_experiment_2(
         diff = tr_a.total_tokens - tr_b.total_tokens
         sign = "less" if diff < 0 else "more"
         print(f"      A vs B: A uses {abs(diff)} tokens {sign} than B")
+
+        results_a.append(result_a)
+        ptokens_a.append(prompt_tokens)
+        gtokens_a.append(gen_tokens_a)
+        results_b.append(result_b)
+        ptokens_b.append(tr_b.prompt_tokens)
+        gtokens_b.append(tr_b.generated_tokens)
+
+    # Save trajectories
+    save_trajectories_batch(
+        results_a, EXP2_TRAJECTORY_A,
+        model_id=model_id, config_name="inline_constrained",
+        task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
+        prompt_tokens_list=ptokens_a,
+        generated_tokens_list=gtokens_a,
+        extra_meta={"experiment": "exp2_constrained_vs_separate"},
+    )
+    print(f"  Trajectories A saved: {EXP2_TRAJECTORY_A}")
+
+    save_trajectories_batch(
+        results_b, EXP2_TRAJECTORY_B,
+        model_id=model_id, config_name="separate_plan",
+        task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
+        prompt_tokens_list=ptokens_b,
+        generated_tokens_list=gtokens_b,
+        extra_meta={"experiment": "exp2_constrained_vs_separate"},
+    )
+    print(f"  Trajectories B saved: {EXP2_TRAJECTORY_B}")
 
     return {"inline_constrained": report_a, "separate_plan": report_b}
 

@@ -222,7 +222,11 @@ def run_ablation_experiment(
     backend = LLMBackend(model_id)
 
     results_with: List[AgentResult] = []
+    ptokens_with: List[int] = []
+    gtokens_with: List[int] = []
     results_without: List[AgentResult] = []
+    ptokens_without: List[int] = []
+    gtokens_without: List[int] = []
     task_ids: List[str] = []
 
     # Mode A config: plan constrained, execution free
@@ -234,6 +238,8 @@ def run_ablation_experiment(
         system_prompt=SYSTEM_PROMPT,
     )
 
+    tool_defs = tools_registry.get_definitions()
+
     for i, task in enumerate(all_tasks):
         question = task["question"]
         task_id = f"task_{i:03d}"
@@ -243,6 +249,15 @@ def run_ablation_experiment(
 
         # ---- Mode A: plan constrained (constraint decoder ON for plan) ----
         print("  A (constraint ON for plan)...", end=" ", flush=True)
+
+        msg_a = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": question},
+        ]
+        prompt_tokens_a = len(backend.tokenizer.encode(
+            backend.build_prompt(msg_a, tool_defs)
+        ))
+
         t0 = time.time()
         agent_a = Agent(backend, tools_registry, config_a)
         result_a = agent_a.run(question)
@@ -254,6 +269,8 @@ def run_ablation_experiment(
         )
         result_a.total_tokens = gen_tokens_a
         results_with.append(result_a)
+        ptokens_with.append(prompt_tokens_a)
+        gtokens_with.append(gen_tokens_a)
 
         tools_a = [s.tool_name for s in result_a.steps if s.tool_name]
         plan_called_a = "plan" in tools_a
@@ -263,6 +280,15 @@ def run_ablation_experiment(
 
         # ---- Mode B: all free (constraint decoder OFF entirely) ----
         print("  B (constraint OFF entirely)...", end=" ", flush=True)
+
+        msg_b = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": question},
+        ]
+        prompt_tokens_b = len(backend.tokenizer.encode(
+            backend.build_prompt(msg_b, tool_defs)
+        ))
+
         t0 = time.time()
         result_b = run_agent_all_free(
             backend, tools_registry, question,
@@ -272,6 +298,8 @@ def run_ablation_experiment(
         )
         elapsed_b = time.time() - t0
         results_without.append(result_b)
+        ptokens_without.append(prompt_tokens_b)
+        gtokens_without.append(result_b.total_tokens)
 
         tools_b = [s.tool_name for s in result_b.steps if s.tool_name]
         plan_called_b = "plan" in tools_b
@@ -286,6 +314,8 @@ def run_ablation_experiment(
         results_with, EXP4_TRAJECTORY_WITH_CONSTRAINT,
         model_id=model_id, config_name="ablation_with_constraint",
         task_ids=task_ids,
+        prompt_tokens_list=ptokens_with,
+        generated_tokens_list=gtokens_with,
         extra_meta={
             "experiment": "ablation_constraint_decoder_for_plan",
             "variable": "constraint decoder ON for plan step",
@@ -296,6 +326,8 @@ def run_ablation_experiment(
         results_without, EXP4_TRAJECTORY_WITHOUT_CONSTRAINT,
         model_id=model_id, config_name="ablation_without_constraint",
         task_ids=task_ids,
+        prompt_tokens_list=ptokens_without,
+        generated_tokens_list=gtokens_without,
         extra_meta={
             "experiment": "ablation_constraint_decoder_for_plan",
             "variable": "constraint decoder OFF (all free)",
