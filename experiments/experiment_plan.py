@@ -46,12 +46,11 @@ from agentic.agent import (
 from experiments.config import (
     TOOLS_JSON_PATH,
     EVALUATE_JSON_PATH,
-    EXP3_MODEL,
+    EXP3_MODELS,
     EXP3_TASK_INDICES,
     EXP3_MAX_TASKS,
-    EXP3_TRAJECTORY_DIR,
-    EXP3_TRAJECTORY_WITH_PLAN,
-    EXP3_TRAJECTORY_WITHOUT_PLAN,
+    EXP3_OUTPUT_DIR,
+    TRAJECTORY_DIR,
     TEMPERATURE,
     MAX_TURNS,
     PLAN_MAX_NEW_TOKENS,
@@ -228,20 +227,17 @@ def run_agent_no_plan(
 # ==========================================================================
 
 def run_plan_experiment(
-    model_id: str = EXP3_MODEL,
+    models: List[str],
     task_indices: Optional[List[int]] = None,
     max_tasks: int = 0,
-) -> Dict[str, str]:
+) -> Dict[str, Dict[str, str]]:
     """Run plan vs no-plan experiment on evaluate.json benchmark.
 
-    Returns:
-        Dict with paths to the two trajectory files:
-        ``{"with_plan": path, "without_plan": path}``
+    Runs for each model in *models*.
+    Returns: ``{model_id: {"with_plan": path, "without_plan": path}}``
     """
-    # Load tasks
     with open(EVALUATE_JSON_PATH, "r", encoding="utf-8") as f:
         all_tasks = json.load(f)
-
     if task_indices is not None:
         all_tasks = [all_tasks[i] for i in task_indices if i < len(all_tasks)]
     if max_tasks and max_tasks > 0:
@@ -249,132 +245,124 @@ def run_plan_experiment(
 
     print("\n" + "=" * 70)
     print("  PLAN EXPERIMENT — Plan-first vs. No-plan")
-    print(f"  Model:  {model_id}")
-    print(f"  Tasks:  {len(all_tasks)}")
+    print(f"  Models: {len(models)}  |  Tasks: {len(all_tasks)}")
     print("=" * 70)
 
-    # Shared infrastructure
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
-    backend = LLMBackend(model_id)
+    all_paths: Dict[str, Dict[str, str]] = {}
 
-    results_with_plan: List[AgentResult] = []
-    ptokens_with: List[int] = []
-    gtokens_with: List[int] = []
-    results_without_plan: List[AgentResult] = []
-    ptokens_without: List[int] = []
-    gtokens_without: List[int] = []
-    task_ids: List[str] = []
+    for model_id in models:
+        print(f"\n{'─' * 60}")
+        print(f"  Model: {model_id}")
+        print(f"{'─' * 60}")
 
-    # Agent config for P+ (with plan)
-    agent_config = AgentConfig(
-        max_turns=MAX_TURNS,
-        temperature=TEMPERATURE,
-        use_constrained_decoder=True,
-        verbose=False,
-        system_prompt=SYSTEM_PROMPT_WITH_PLAN,
-    )
+        backend = LLMBackend(model_id)
 
-    tool_defs = tools_registry.get_definitions()
+        results_with_plan: List[AgentResult] = []
+        ptokens_with: List[int] = []
+        gtokens_with: List[int] = []
+        results_without_plan: List[AgentResult] = []
+        ptokens_without: List[int] = []
+        gtokens_without: List[int] = []
+        task_ids: List[str] = []
 
-    for i, task in enumerate(all_tasks):
-        question = task["question"]
-        task_id = f"task_{i:03d}"
-        task_ids.append(task_id)
-
-        print(f"\n[{i+1}/{len(all_tasks)}] {question[:80]}")
-
-        # ---- P+: with plan ----
-        print("  P+ (with plan)...", end=" ", flush=True)
-
-        # Count prompt tokens
-        msg_with = [
-            {"role": "system", "content": SYSTEM_PROMPT_WITH_PLAN},
-            {"role": "user", "content": question},
-        ]
-        prompt_tokens_with = len(backend.tokenizer.encode(
-            backend.build_prompt(msg_with, tool_defs)
-        ))
-
-        t0 = time.time()
-        agent = Agent(backend, tools_registry, agent_config)
-        result_with = agent.run(question)
-        elapsed_with = time.time() - t0
-
-        gen_tokens_with = sum(
-            len(backend.tokenizer.encode(s.generated_text))
-            for s in result_with.steps
+        agent_config = AgentConfig(
+            max_turns=MAX_TURNS, temperature=TEMPERATURE,
+            use_constrained_decoder=True, verbose=False,
+            system_prompt=SYSTEM_PROMPT_WITH_PLAN,
         )
-        result_with.total_tokens = gen_tokens_with
+        tool_defs = tools_registry.get_definitions()
 
-        results_with_plan.append(result_with)
-        ptokens_with.append(prompt_tokens_with)
-        gtokens_with.append(gen_tokens_with)
+        for i, task in enumerate(all_tasks):
+            question = task["question"]
+            task_id = f"task_{i:03d}"
+            task_ids.append(task_id)
 
-        n_steps = len(result_with.steps)
-        tools_called = [s.tool_name for s in result_with.steps if s.tool_name]
-        print(f"{n_steps} steps, {gen_tokens_with} tokens, {elapsed_with:.1f}s")
-        print(f"         tools: {' -> '.join(tools_called) if tools_called else '(none)'}")
+            print(f"\n  [{i+1}/{len(all_tasks)}] {question[:80]}")
 
-        # ---- P-: without plan ----
-        print("  P- (no plan)...  ", end=" ", flush=True)
+            # ---- P+: with plan ----
+            print("    P+ (with plan)...", end=" ", flush=True)
 
-        # Count prompt tokens for no-plan mode
-        msg_without = [
-            {"role": "system", "content": SYSTEM_PROMPT_WITHOUT_PLAN},
-            {"role": "user", "content": question},
-        ]
-        prompt_tokens_without = len(backend.tokenizer.encode(
-            backend.build_prompt(msg_without, tool_defs)
-        ))
+            msg_with = [
+                {"role": "system", "content": SYSTEM_PROMPT_WITH_PLAN},
+                {"role": "user", "content": question},
+            ]
+            prompt_tokens_with = len(backend.tokenizer.encode(
+                backend.build_prompt(msg_with, tool_defs)
+            ))
 
-        t0 = time.time()
-        result_without = run_agent_no_plan(
-            backend, tools_registry, question,
-            max_turns=MAX_TURNS,
-            temperature=TEMPERATURE,
-            verbose=False,
+            t0 = time.time()
+            agent = Agent(backend, tools_registry, agent_config)
+            result_with = agent.run(question)
+            elapsed_with = time.time() - t0
+
+            gen_tokens_with = sum(
+                len(backend.tokenizer.encode(s.generated_text))
+                for s in result_with.steps
+            )
+            result_with.total_tokens = gen_tokens_with
+            results_with_plan.append(result_with)
+            ptokens_with.append(prompt_tokens_with)
+            gtokens_with.append(gen_tokens_with)
+
+            tools_called = [s.tool_name for s in result_with.steps if s.tool_name]
+            print(f"{len(result_with.steps)} steps, {gen_tokens_with} tokens, {elapsed_with:.1f}s")
+            print(f"         tools: {' -> '.join(tools_called) if tools_called else '(none)'}")
+
+            # ---- P-: without plan ----
+            print("    P- (no plan)...  ", end=" ", flush=True)
+
+            msg_without = [
+                {"role": "system", "content": SYSTEM_PROMPT_WITHOUT_PLAN},
+                {"role": "user", "content": question},
+            ]
+            prompt_tokens_without = len(backend.tokenizer.encode(
+                backend.build_prompt(msg_without, tool_defs)
+            ))
+
+            t0 = time.time()
+            result_without = run_agent_no_plan(
+                backend, tools_registry, question,
+                max_turns=MAX_TURNS, temperature=TEMPERATURE,
+            )
+            elapsed_without = time.time() - t0
+            results_without_plan.append(result_without)
+            ptokens_without.append(prompt_tokens_without)
+            gtokens_without.append(result_without.total_tokens)
+
+            tools_called = [s.tool_name for s in result_without.steps if s.tool_name]
+            print(f"{len(result_without.steps)} steps, {result_without.total_tokens} tokens, {elapsed_without:.1f}s")
+            print(f"         tools: {' -> '.join(tools_called) if tools_called else '(none)'}")
+
+        # Per-model save
+        safe_name = model_id.replace("/", "_")
+        os.makedirs(EXP3_OUTPUT_DIR, exist_ok=True)
+        path_with = os.path.join(EXP3_OUTPUT_DIR, f"{safe_name}_plan_yes.json")
+        path_without = os.path.join(EXP3_OUTPUT_DIR, f"{safe_name}_plan_no.json")
+
+        save_trajectories_batch(
+            results_with_plan, path_with, model_id=model_id,
+            config_name="with_plan", task_ids=task_ids,
+            prompt_tokens_list=ptokens_with,
+            generated_tokens_list=gtokens_with,
+            extra_meta={"experiment": "plan_vs_no_plan", "mode": "P+_with_plan"},
         )
-        elapsed_without = time.time() - t0
+        save_trajectories_batch(
+            results_without_plan, path_without, model_id=model_id,
+            config_name="without_plan", task_ids=task_ids,
+            prompt_tokens_list=ptokens_without,
+            generated_tokens_list=gtokens_without,
+            extra_meta={"experiment": "plan_vs_no_plan", "mode": "P-_without_plan"},
+        )
+        print(f"\n  Trajectories saved:")
+        print(f"    P+ (with plan):    {path_with}")
+        print(f"    P- (without plan): {path_without}")
 
-        results_without_plan.append(result_without)
-        ptokens_without.append(prompt_tokens_without)
-        # generated tokens already counted inside run_agent_no_plan as total_tokens
-        gtokens_without.append(result_without.total_tokens)
+        _print_comparison(results_with_plan, results_without_plan)
 
-        n_steps = len(result_without.steps)
-        tools_called = [s.tool_name for s in result_without.steps if s.tool_name]
-        print(f"{n_steps} steps, {result_without.total_tokens} tokens, {elapsed_without:.1f}s")
-        print(f"         tools: {' -> '.join(tools_called) if tools_called else '(none)'}")
+        all_paths[model_id] = {"with_plan": path_with, "without_plan": path_without}
 
-    # ---- Save trajectories ----
-    os.makedirs(EXP3_TRAJECTORY_DIR, exist_ok=True)
-
-    path_with = save_trajectories_batch(
-        results_with_plan, EXP3_TRAJECTORY_WITH_PLAN,
-        model_id=model_id, config_name="with_plan",
-        task_ids=task_ids,
-        prompt_tokens_list=ptokens_with,
-        generated_tokens_list=gtokens_with,
-        extra_meta={"experiment": "plan_vs_no_plan", "mode": "P+_with_plan"},
-    )
-
-    path_without = save_trajectories_batch(
-        results_without_plan, EXP3_TRAJECTORY_WITHOUT_PLAN,
-        model_id=model_id, config_name="without_plan",
-        task_ids=task_ids,
-        prompt_tokens_list=ptokens_without,
-        generated_tokens_list=gtokens_without,
-        extra_meta={"experiment": "plan_vs_no_plan", "mode": "P-_without_plan"},
-    )
-
-    print(f"\nTrajectories saved:")
-    print(f"  P+ (with plan):    {path_with}")
-    print(f"  P- (without plan): {path_without}")
-
-    # ---- Quick summary ----
-    _print_comparison(results_with_plan, results_without_plan)
-
-    return {"with_plan": path_with, "without_plan": path_without}
+    return all_paths
 
 
 # ==========================================================================
@@ -448,12 +436,12 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    model = args.model or EXP3_MODEL
+    models = [args.model] if args.model else EXP3_MODELS
     max_t = args.max_tasks or EXP3_MAX_TASKS
     if args.quick and max_t == 0:
         max_t = 5
 
-    run_plan_experiment(model_id=model, max_tasks=max_t)
+    run_plan_experiment(models=models, max_tasks=max_t)
 
 
 if __name__ == "__main__":

@@ -57,6 +57,10 @@ TEMPLATE_REGISTRY: Dict[str, str] = {
     "internlm/":          '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
     # -- GLM (THUDM) --
     "THUDM/":             '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- HuggingFace SmolLM2 --
+    "HuggingFaceTB/":     '<tool_call>{"name":"{name}","arguments":{arguments}}</tool_call>',
+    # -- Stability AI --
+    "stabilityai/":       '{"name":"{name}","arguments":{arguments}}',
 }
 """Fallback registry mapping model-id prefixes to tool-call templates.
 

@@ -51,10 +51,9 @@ from experiments.config import (
     EXP1_MODELS,
     EXP1_MAX_TASKS,
     EXP1_OUTPUT_DIR,
-    EXP2_MODEL,
+    EXP2_MODELS,
     EXP2_MAX_TASKS,
-    EXP2_TRAJECTORY_A,
-    EXP2_TRAJECTORY_B,
+    EXP2_OUTPUT_DIR,
     TEMPERATURE,
     MAX_TURNS,
     PLAN_MAX_NEW_TOKENS,
@@ -350,185 +349,181 @@ def run_experiment_1(
 # ==========================================================================
 
 def run_experiment_2(
-    model_id: str,
+    models: List[str],
     task_indices: Optional[List[int]] = None,
     max_tasks: int = 0,
-) -> Dict[str, ExperimentReport]:
+) -> Dict[str, Dict[str, ExperimentReport]]:
     """Compare inline constrained plan (A) vs separate plan + agent (B).
 
-    Returns:
-        Dict with keys "inline_constrained" and "separate_plan" → ExperimentReport.
+    Runs for each model in *models*.
+    Returns: ``{model_id: {"inline_constrained": report, "separate_plan": report}}``
     """
     print("\n" + "=" * 70)
     print("  EXPERIMENT 2 — Constrained Plan vs. Separate Plan")
-    print(f"  Model: {model_id}")
+    print(f"  Models: {len(models)}")
     print("=" * 70)
 
     tasks = _load_tasks(task_indices, max_tasks)
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
-    backend = LLMBackend(model_id)
+    all_reports: Dict[str, Dict[str, ExperimentReport]] = {}
 
-    report_a = ExperimentReport(experiment_name="Exp2A — Inline Constrained Plan")
-    report_b = ExperimentReport(experiment_name="Exp2B — Separate Plan + Agent")
+    for model_id in models:
+        print(f"\n{'─' * 60}")
+        print(f"  Model: {model_id}")
+        print(f"{'─' * 60}")
 
-    results_a: List[AgentResult] = []
-    ptokens_a: List[int] = []
-    gtokens_a: List[int] = []
-    results_b: List[AgentResult] = []
-    ptokens_b: List[int] = []
-    gtokens_b: List[int] = []
+        backend = LLMBackend(model_id)
 
-    for i, task in enumerate(tasks):
-        question = task["question"]
-        gt = task.get("trajectory_ground_truth", {})
+        report_a = ExperimentReport(experiment_name=f"Exp2A — {model_id}")
+        report_b = ExperimentReport(experiment_name=f"Exp2B — {model_id}")
 
-        print(f"\n  [{i+1}/{len(tasks)}] {question[:80]}")
+        results_a: List[AgentResult] = []
+        ptokens_a: List[int] = []
+        gtokens_a: List[int] = []
+        results_b: List[AgentResult] = []
+        ptokens_b: List[int] = []
+        gtokens_b: List[int] = []
 
-        # ---- Approach A: Inline constrained plan ----
-        print("    A (inline constrained plan)...", end=" ", flush=True)
+        for i, task in enumerate(tasks):
+            question = task["question"]
+            gt = task.get("trajectory_ground_truth", {})
 
-        agent_config = AgentConfig(
-            max_turns=MAX_TURNS,
-            temperature=TEMPERATURE,
-            use_constrained_decoder=True,
-            verbose=False,
+            print(f"\n  [{i+1}/{len(tasks)}] {question[:80]}")
+
+            # ---- Approach A: Inline constrained plan ----
+            print("    A (inline constrained plan)...", end=" ", flush=True)
+
+            agent_config = AgentConfig(
+                max_turns=MAX_TURNS, temperature=TEMPERATURE,
+                use_constrained_decoder=True, verbose=False,
+            )
+            agent = Agent(backend, tools_registry, agent_config)
+
+            messages = [
+                {"role": "system", "content": agent._system_prompt},
+                {"role": "user", "content": question},
+            ]
+            tool_defs = tools_registry.get_definitions()
+            prompt = backend.build_prompt(messages, tool_defs)
+            prompt_tokens = len(backend.tokenizer.encode(prompt))
+
+            t0 = time.time()
+            result_a = agent.run(question)
+            elapsed_a = time.time() - t0
+
+            gen_tokens_a = sum(
+                len(backend.tokenizer.encode(s.generated_text))
+                for s in result_a.steps
+            )
+            completion_a = evaluate_completion(result_a.steps, gt)
+
+            tr_a = TaskResult(
+                task_index=i, question=question,
+                approach="inline_constrained", model_id=model_id,
+                success=result_a.success, completion=completion_a,
+                prompt_tokens=prompt_tokens, generated_tokens=gen_tokens_a,
+                total_tokens=prompt_tokens + gen_tokens_a,
+                num_steps=len(result_a.steps), total_time=elapsed_a,
+                error=result_a.error,
+            )
+            report_a.results.append(tr_a)
+
+            print(f"tokens={tr_a.total_tokens} | score={completion_a['score']:.2f} | "
+                  f"{completion_a['required_called']}/{completion_a['required_total']} req")
+
+            # ---- Approach B: Separate plan + agent ----
+            print("    B (separate plan + agent)...", end=" ", flush=True)
+
+            plan_result = run_planning_subtask(backend, tools_registry, question)
+
+            executor_config = AgentConfig(
+                max_turns=MAX_TURNS, temperature=TEMPERATURE,
+                use_constrained_decoder=True, verbose=False,
+                system_prompt=EXECUTOR_SYSTEM_PROMPT,
+            )
+            executor = Agent(backend, tools_registry, executor_config)
+
+            exec_messages = [
+                {"role": "system", "content": EXECUTOR_SYSTEM_PROMPT},
+                {"role": "user", "content": question},
+            ]
+            exec_prompt = backend.build_prompt(exec_messages, tool_defs)
+            exec_prompt_tokens = len(backend.tokenizer.encode(exec_prompt))
+
+            t0 = time.time()
+            result_b = executor.run(question, pre_seeded_plan=plan_result)
+            elapsed_b = time.time() - t0
+
+            gen_tokens_b = sum(
+                len(backend.tokenizer.encode(s.generated_text))
+                for s in result_b.steps
+            )
+
+            total_tokens_b = (
+                plan_result["total_tokens"] +
+                exec_prompt_tokens + gen_tokens_b
+            )
+            generated_tokens_b = plan_result["generated_tokens"] + gen_tokens_b
+
+            completion_b = evaluate_completion(result_b.steps, gt)
+
+            tr_b = TaskResult(
+                task_index=i, question=question,
+                approach="separate_plan", model_id=model_id,
+                success=result_b.success, completion=completion_b,
+                prompt_tokens=plan_result["prompt_tokens"] + exec_prompt_tokens,
+                generated_tokens=generated_tokens_b,
+                total_tokens=total_tokens_b,
+                num_steps=len(result_b.steps), total_time=elapsed_b,
+                error=result_b.error,
+            )
+            report_b.results.append(tr_b)
+
+            print(f"tokens={tr_b.total_tokens} (plan={plan_result['total_tokens']} + "
+                  f"exec={exec_prompt_tokens + gen_tokens_b}) | "
+                  f"score={completion_b['score']:.2f} | "
+                  f"{completion_b['required_called']}/{completion_b['required_total']} req")
+
+            diff = tr_a.total_tokens - tr_b.total_tokens
+            sign = "less" if diff < 0 else "more"
+            print(f"      A vs B: A uses {abs(diff)} tokens {sign} than B")
+
+            results_a.append(result_a)
+            ptokens_a.append(prompt_tokens)
+            gtokens_a.append(gen_tokens_a)
+            results_b.append(result_b)
+            ptokens_b.append(tr_b.prompt_tokens)
+            gtokens_b.append(tr_b.generated_tokens)
+
+        # Per-model save
+        safe_name = model_id.replace("/", "_")
+        os.makedirs(EXP2_OUTPUT_DIR, exist_ok=True)
+
+        path_a = os.path.join(EXP2_OUTPUT_DIR, f"{safe_name}_a_inline.json")
+        path_b = os.path.join(EXP2_OUTPUT_DIR, f"{safe_name}_b_separate.json")
+
+        save_trajectories_batch(
+            results_a, path_a, model_id=model_id,
+            config_name="inline_constrained",
+            task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
+            prompt_tokens_list=ptokens_a,
+            generated_tokens_list=gtokens_a,
+            extra_meta={"experiment": "exp2_constrained_vs_separate"},
         )
-        agent = Agent(backend, tools_registry, agent_config)
-
-        messages = [
-            {"role": "system", "content": agent._system_prompt},
-            {"role": "user", "content": question},
-        ]
-        tool_defs = tools_registry.get_definitions()
-        prompt = backend.build_prompt(messages, tool_defs)
-        prompt_tokens = len(backend.tokenizer.encode(prompt))
-
-        t0 = time.time()
-        result_a = agent.run(question)
-        elapsed_a = time.time() - t0
-
-        gen_tokens_a = sum(
-            len(backend.tokenizer.encode(s.generated_text))
-            for s in result_a.steps
+        save_trajectories_batch(
+            results_b, path_b, model_id=model_id,
+            config_name="separate_plan",
+            task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
+            prompt_tokens_list=ptokens_b,
+            generated_tokens_list=gtokens_b,
+            extra_meta={"experiment": "exp2_constrained_vs_separate"},
         )
-        completion_a = evaluate_completion(result_a.steps, gt)
+        print(f"  Trajectories saved: {path_a}, {path_b}")
 
-        tr_a = TaskResult(
-            task_index=i,
-            question=question,
-            approach="inline_constrained",
-            model_id=model_id,
-            success=result_a.success,
-            completion=completion_a,
-            prompt_tokens=prompt_tokens,
-            generated_tokens=gen_tokens_a,
-            total_tokens=prompt_tokens + gen_tokens_a,
-            num_steps=len(result_a.steps),
-            total_time=elapsed_a,
-            error=result_a.error,
-        )
-        report_a.results.append(tr_a)
+        all_reports[model_id] = {"inline_constrained": report_a, "separate_plan": report_b}
+        _print_exp2_model_summary(model_id, report_a, report_b)
 
-        print(f"tokens={tr_a.total_tokens} | score={completion_a['score']:.2f} | "
-              f"{completion_a['required_called']}/{completion_a['required_total']} req")
-
-        # ---- Approach B: Separate plan + agent ----
-        print("    B (separate plan + agent)...", end=" ", flush=True)
-
-        # Phase 1: Planning sub-task
-        plan_result = run_planning_subtask(backend, tools_registry, question)
-
-        # Phase 2: Execution with pre-seeded plan
-        executor_config = AgentConfig(
-            max_turns=MAX_TURNS,
-            temperature=TEMPERATURE,
-            use_constrained_decoder=True,
-            verbose=False,
-            system_prompt=EXECUTOR_SYSTEM_PROMPT,
-        )
-        executor = Agent(backend, tools_registry, executor_config)
-
-        # Build prompt tokens for Phase 2
-        exec_messages = [
-            {"role": "system", "content": EXECUTOR_SYSTEM_PROMPT},
-            {"role": "user", "content": question},
-        ]
-        exec_prompt = backend.build_prompt(exec_messages, tool_defs)
-        exec_prompt_tokens = len(backend.tokenizer.encode(exec_prompt))
-
-        t0 = time.time()
-        result_b = executor.run(question, pre_seeded_plan=plan_result)
-        elapsed_b = time.time() - t0
-
-        gen_tokens_b = sum(
-            len(backend.tokenizer.encode(s.generated_text))
-            for s in result_b.steps
-        )
-
-        # Total tokens = Phase 1 (plan) + Phase 2 (execution)
-        total_tokens_b = (
-            plan_result["total_tokens"] +         # Phase 1: prompt + generated
-            exec_prompt_tokens + gen_tokens_b      # Phase 2: prompt + generated
-        )
-        generated_tokens_b = plan_result["generated_tokens"] + gen_tokens_b
-
-        completion_b = evaluate_completion(result_b.steps, gt)
-
-        tr_b = TaskResult(
-            task_index=i,
-            question=question,
-            approach="separate_plan",
-            model_id=model_id,
-            success=result_b.success,
-            completion=completion_b,
-            prompt_tokens=plan_result["prompt_tokens"] + exec_prompt_tokens,
-            generated_tokens=generated_tokens_b,
-            total_tokens=total_tokens_b,
-            num_steps=len(result_b.steps),
-            total_time=elapsed_b,
-            error=result_b.error,
-        )
-        report_b.results.append(tr_b)
-
-        print(f"tokens={tr_b.total_tokens} (plan={plan_result['total_tokens']} + "
-              f"exec={exec_prompt_tokens + gen_tokens_b}) | "
-              f"score={completion_b['score']:.2f} | "
-              f"{completion_b['required_called']}/{completion_b['required_total']} req")
-
-        # Quick comparison on this task
-        diff = tr_a.total_tokens - tr_b.total_tokens
-        sign = "less" if diff < 0 else "more"
-        print(f"      A vs B: A uses {abs(diff)} tokens {sign} than B")
-
-        results_a.append(result_a)
-        ptokens_a.append(prompt_tokens)
-        gtokens_a.append(gen_tokens_a)
-        results_b.append(result_b)
-        ptokens_b.append(tr_b.prompt_tokens)
-        gtokens_b.append(tr_b.generated_tokens)
-
-    # Save trajectories
-    save_trajectories_batch(
-        results_a, EXP2_TRAJECTORY_A,
-        model_id=model_id, config_name="inline_constrained",
-        task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
-        prompt_tokens_list=ptokens_a,
-        generated_tokens_list=gtokens_a,
-        extra_meta={"experiment": "exp2_constrained_vs_separate"},
-    )
-    print(f"  Trajectories A saved: {EXP2_TRAJECTORY_A}")
-
-    save_trajectories_batch(
-        results_b, EXP2_TRAJECTORY_B,
-        model_id=model_id, config_name="separate_plan",
-        task_ids=[f"task_{j:03d}" for j in range(len(tasks))],
-        prompt_tokens_list=ptokens_b,
-        generated_tokens_list=gtokens_b,
-        extra_meta={"experiment": "exp2_constrained_vs_separate"},
-    )
-    print(f"  Trajectories B saved: {EXP2_TRAJECTORY_B}")
-
-    return {"inline_constrained": report_a, "separate_plan": report_b}
+    return all_reports
 
 
 # ==========================================================================
@@ -553,11 +548,22 @@ def _load_tasks(
 
 
 def _print_model_summary(model_id: str, report: ExperimentReport) -> None:
-    """Print a per-model summary line."""
+    """Print a per-model summary line for Exp1."""
     print(f"\n  [{model_id}] avg_tokens={report.avg_tokens():.0f} | "
           f"avg_gen={report.avg_generated_tokens():.0f} | "
           f"completion={report.completion_rate():.1%} | "
           f"success={report.success_rate():.1%}")
+
+
+def _print_exp2_model_summary(
+    model_id: str, report_a: ExperimentReport, report_b: ExperimentReport,
+) -> None:
+    """Print a per-model summary for Exp2."""
+    print(f"\n  [{model_id}]")
+    print(f"    A (inline):   avg_tokens={report_a.avg_tokens():.0f} | "
+          f"completion={report_a.completion_rate():.1%}")
+    print(f"    B (separate): avg_tokens={report_b.avg_tokens():.0f} | "
+          f"completion={report_b.completion_rate():.1%}")
 
 
 # ==========================================================================
@@ -587,56 +593,29 @@ def print_exp1_report(reports: Dict[str, ExperimentReport]) -> None:
         print(f"\n  Most token-efficient: {best[0]} ({best[1].avg_tokens():.0f} avg tokens)")
 
 
-def print_exp2_report(reports: Dict[str, ExperimentReport]) -> None:
-    """Print final report for Experiment 2."""
+def print_exp2_report(all_reports: Dict[str, Dict[str, ExperimentReport]]) -> None:
+    """Print final report for Experiment 2 (per-model)."""
     print("\n" + "=" * 70)
     print("  EXPERIMENT 2 — FINAL REPORT")
     print("=" * 70)
 
-    ra = reports["inline_constrained"]
-    rb = reports["separate_plan"]
+    for model_id, reports in all_reports.items():
+        ra = reports["inline_constrained"]
+        rb = reports["separate_plan"]
 
-    print(f"\n{'Metric':<35s} {'A-Inline':>15s} {'B-Separate':>15s} {'Delta':>15s}")
-    print("-" * 82)
+        print(f"\n  [{model_id}]")
+        print(f"  {'Metric':<35s} {'A-Inline':>12s} {'B-Separate':>12s} {'Delta':>10s}")
+        print(f"  {'-'*35} {'-'*12} {'-'*12} {'-'*10}")
+        print(f"  {'Avg Total Tokens':<35s} {ra.avg_tokens():>12.0f} {rb.avg_tokens():>12.0f} "
+              f"{ra.avg_tokens() - rb.avg_tokens():>+10.0f}")
+        print(f"  {'Completion Rate':<35s} {ra.completion_rate():>12.1%} "
+              f"{rb.completion_rate():>12.1%} "
+              f"{ra.completion_rate() - rb.completion_rate():>+10.1%}")
 
-    print(f"{'Avg Total Tokens':<35s} {ra.avg_tokens():>15.0f} {rb.avg_tokens():>15.0f} "
-          f"{ra.avg_tokens() - rb.avg_tokens():>+15.0f}")
-
-    print(f"{'Avg Generated Tokens':<35s} {ra.avg_generated_tokens():>15.0f} "
-          f"{rb.avg_generated_tokens():>15.0f} "
-          f"{ra.avg_generated_tokens() - rb.avg_generated_tokens():>+15.0f}")
-
-    print(f"{'Completion Rate':<35s} {ra.completion_rate():>15.1%} "
-          f"{rb.completion_rate():>15.1%} "
-          f"{ra.completion_rate() - rb.completion_rate():>+15.1%}")
-
-    print(f"{'Success Rate':<35s} {ra.success_rate():>15.1%} "
-          f"{rb.success_rate():>15.1%} "
-          f"{ra.success_rate() - rb.success_rate():>+15.1%}")
-
-    print("-" * 82)
-
-    # Win/loss/tie by total tokens
-    wins_a = 0
-    wins_b = 0
-    ties = 0
-    for ta, tb in zip(ra.results, rb.results):
-        if ta.total_tokens < tb.total_tokens:
-            wins_a += 1
-        elif tb.total_tokens < ta.total_tokens:
-            wins_b += 1
-        else:
-            ties += 1
-
-    print(f"\n  Token efficiency: A wins {wins_a}, B wins {wins_b}, ties {ties} "
-          f"(out of {len(ra.results)} tasks)")
-
-    if wins_a > wins_b:
-        print(f"  Inline constrained plan uses fewer tokens on more tasks.")
-    elif wins_b > wins_a:
-        print(f"  Separate plan + agent uses fewer tokens on more tasks.")
-    else:
-        print(f"  Both approaches are tied on token efficiency.")
+        wins_a = sum(1 for ta, tb in zip(ra.results, rb.results) if ta.total_tokens < tb.total_tokens)
+        wins_b = sum(1 for ta, tb in zip(ra.results, rb.results) if tb.total_tokens < ta.total_tokens)
+        print(f"  Token efficiency: A wins {wins_a}, B wins {wins_b} "
+              f"(out of {len(ra.results)} tasks)")
 
 
 # ==========================================================================
@@ -676,9 +655,9 @@ def main() -> None:
 
     # --- Experiment 2 ---
     if args.exp in ("2", "all"):
-        model = args.model or EXP2_MODEL
+        models = [args.model] if args.model else (QUICK_MODELS if args.quick else EXP2_MODELS)
         max_t = args.max_tasks or EXP2_MAX_TASKS
-        reports = run_experiment_2(model, max_tasks=max_t)
+        reports = run_experiment_2(models, max_tasks=max_t)
         print_exp2_report(reports)
 
 

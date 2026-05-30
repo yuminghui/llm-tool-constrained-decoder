@@ -23,19 +23,42 @@ TRAJECTORY_DIR = os.path.join(PROJECT_ROOT, "experiments", "trajectories")
 EXP3_TRAJECTORY_DIR = TRAJECTORY_DIR  # backward-compat alias
 
 # ---------------------------------------------------------------------------
-# Models — small language models (SLMs) suitable for local inference
+# Models — small language models (≤ 2B) for local inference
 # ---------------------------------------------------------------------------
 
-# All models available for testing
+# fmt: off
 ALL_MODELS = [
-    "Qwen/Qwen2.5-0.5B-Instruct",
-    "Qwen/Qwen2.5-1.5B-Instruct",
-    "Qwen/Qwen2.5-3B-Instruct",
-]
+    # ---- Qwen (Alibaba) ----
+    "Qwen/Qwen2.5-0.5B-Instruct",              # 0.5B  — Apache 2.0
+    "Qwen/Qwen2.5-1.5B-Instruct",              # 1.5B  — Apache 2.0
 
-# Quick-test subset (use for fast iteration)
+    # ---- Google Gemma ----
+    "google/gemma-2-2b-it",                    # 2.0B  — Gemma license, needs HF auth
+    # "google/gemma-3-1b-it",                  # 1.0B  — uncomment when released on HF
+
+    # ---- Meta Llama ----
+    "meta-llama/Llama-3.2-1B-Instruct",        # 1.0B  — Llama Community License, needs HF auth
+
+    # ---- Microsoft Phi ----
+    "microsoft/phi-1_5",                       # 1.3B  — MIT
+
+    # ---- HuggingFace SmolLM2 ----
+    "HuggingFaceTB/SmolLM2-135M-Instruct",     # 0.14B — Apache 2.0
+    "HuggingFaceTB/SmolLM2-360M-Instruct",     # 0.36B — Apache 2.0
+    "HuggingFaceTB/SmolLM2-1.7B-Instruct",     # 1.7B  — Apache 2.0
+
+    # ---- DeepSeek (distilled) ----
+    "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",  # 1.5B — MIT
+
+    # ---- Stability AI ----
+    "stabilityai/stablelm-2-1.6b-chat",        # 1.6B  — CC BY-NC-SA-4.0
+]
+# fmt: on
+
+# Quick-test subset (fastest models for rapid iteration)
 QUICK_MODELS = [
     "Qwen/Qwen2.5-0.5B-Instruct",
+    "HuggingFaceTB/SmolLM2-360M-Instruct",
 ]
 
 # ---------------------------------------------------------------------------
@@ -52,37 +75,28 @@ EXP1_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp1_cross_model")
 # Experiment 2 — constrained plan vs separate plan
 # ---------------------------------------------------------------------------
 
-EXP2_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"  # single model for A/B comparison
+EXP2_MODELS = [ALL_MODELS[0]]     # models to compare (use [ALL_MODELS[0]] for single)
 EXP2_TASK_INDICES: Optional[List[int]] = None
 EXP2_MAX_TASKS: int = 0           # 0 = unlimited
-EXP2_TRAJECTORY_A = os.path.join(TRAJECTORY_DIR, "exp2_inline_constrained.json")
-EXP2_TRAJECTORY_B = os.path.join(TRAJECTORY_DIR, "exp2_separate_plan.json")
+EXP2_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp2")
 
 # ---------------------------------------------------------------------------
 # Experiment 3 — plan-first vs no-plan (LLM-as-Judge)
 # ---------------------------------------------------------------------------
 
-EXP3_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+EXP3_MODELS = [ALL_MODELS[0]]
 EXP3_TASK_INDICES: Optional[List[int]] = None
 EXP3_MAX_TASKS: int = 0           # 0 = unlimited
-
-EXP3_TRAJECTORY_WITH_PLAN = os.path.join(TRAJECTORY_DIR, "plan_yes.json")
-EXP3_TRAJECTORY_WITHOUT_PLAN = os.path.join(TRAJECTORY_DIR, "plan_no.json")
+EXP3_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp3")
 
 # ---------------------------------------------------------------------------
 # Experiment 4 — ablation: constraint decoder for plan step
 # ---------------------------------------------------------------------------
 
-EXP4_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
+EXP4_MODELS = [ALL_MODELS[0]]
 EXP4_TASK_INDICES: Optional[List[int]] = None
 EXP4_MAX_TASKS: int = 0           # 0 = unlimited
-
-EXP4_TRAJECTORY_WITH_CONSTRAINT = os.path.join(
-    TRAJECTORY_DIR, "ablation_with_constraint.json",
-)
-EXP4_TRAJECTORY_WITHOUT_CONSTRAINT = os.path.join(
-    TRAJECTORY_DIR, "ablation_without_constraint.json",
-)
+EXP4_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp4")
 
 # ---------------------------------------------------------------------------
 # Agent hyperparameters (shared across experiments)
