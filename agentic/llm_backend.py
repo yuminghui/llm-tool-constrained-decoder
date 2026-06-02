@@ -151,6 +151,50 @@ def _derive_wrappers(template: str) -> Tuple[str, str]:
     return template[:json_start], template[json_end + 1:]
 
 
+def _build_quantization_kwargs(
+    quantization: Optional[str],
+    device: str,
+) -> Dict[str, Any]:
+    """Build bitsandbytes quantization kwargs for ``from_pretrained``.
+
+    Args:
+        quantization: ``"4bit"``, ``"8bit"``, or ``None``.
+        device: Torch device string.
+
+    Returns:
+        Dict of kwargs to pass to ``from_pretrained``.
+    """
+    if quantization is None:
+        # No quantization — use bfloat16/float32
+        return {"torch_dtype": torch.bfloat16 if device == "cuda" else torch.float32}
+
+    if device != "cuda":
+        print("[LLMBackend] WARNING: bitsandbytes quantization requires CUDA. "
+              "Falling back to float32.")
+        return {"torch_dtype": torch.float32}
+
+    try:
+        import bitsandbytes as bnb
+    except ImportError:
+        print("[LLMBackend] WARNING: bitsandbytes not installed. "
+              "Install with: pip install bitsandbytes. Falling back to float32.")
+        return {"torch_dtype": torch.float32}
+
+    if quantization == "4bit":
+        return {
+            "load_in_4bit": True,
+            "bnb_4bit_compute_dtype": torch.bfloat16,
+            "bnb_4bit_use_double_quant": True,
+            "bnb_4bit_quant_type": "nf4",
+        }
+    elif quantization == "8bit":
+        return {"load_in_8bit": True}
+    else:
+        print(f"[LLMBackend] WARNING: unknown quantization {quantization!r}. "
+              "Falling back to float32.")
+        return {"torch_dtype": torch.float32}
+
+
 class LLMBackend:
     """Wraps a HuggingFace causal LM with optional constrained decoding.
 
@@ -165,8 +209,18 @@ class LLMBackend:
         model_id: str,
         tool_call_template: Optional[str] = None,
         device: Optional[str] = None,
+        quantize: bool = False,
+        quantization_mode: str = "4bit",
     ):
+        """Args:
+            model_id: HuggingFace model ID or path.
+            tool_call_template: Override the auto-detected template.
+            device: Torch device (auto-detected if None).
+            quantize: Enable bitsandbytes quantization (4bit by default).
+            quantization_mode: ``"4bit"`` or ``"8bit"``.  Ignored if quantize=False.
+        """
         self.model_id = model_id
+        self.quantize = quantize
 
         # Load tokenizer first — needed for template auto-detection
         print(f"[LLMBackend] Loading model: {model_id}")
@@ -198,13 +252,20 @@ class LLMBackend:
                     use_cuda = False
             device = "cuda" if use_cuda else "cpu"
         self.device = device
-        print(f"[LLMBackend] Device: {self.device}")
+
+        quant_str = f" (quant={quantization_mode})" if quantize else ""
+        print(f"[LLMBackend] Device: {self.device}{quant_str}")
+
+        # Build quantization kwargs
+        quant_kwargs = _build_quantization_kwargs(
+            quantization_mode if quantize else None, self.device,
+        )
 
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id,
             trust_remote_code=True,
-            torch_dtype=torch.bfloat16 if self.device == "cuda" else torch.float32,
             device_map="auto" if self.device == "cuda" else None,
+            **quant_kwargs,
         )
         if self.device == "cpu":
             self.model = self.model.to(self.device)

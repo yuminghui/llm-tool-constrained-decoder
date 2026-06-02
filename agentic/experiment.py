@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agentic.tools import ToolRegistry, load_tools_from_json
 from agentic.llm_backend import LLMBackend
+from experiments.config import QUANTIZATION
 from agentic.agent import Agent, AgentConfig, AgentResult
 
 
@@ -229,7 +230,7 @@ class ExperimentRunner:
     def _get_backend(self, model_id: str) -> LLMBackend:
         """Lazy-load and cache model backends."""
         if model_id not in self._backends:
-            self._backends[model_id] = LLMBackend(model_id)
+            self._backends[model_id] = LLMBackend(model_id, quantization=QUANTIZATION)
         return self._backends[model_id]
 
     def _compute_metrics(

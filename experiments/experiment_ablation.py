@@ -42,6 +42,9 @@ from experiments.config import (
     EXP4_TASK_INDICES,
     EXP4_MAX_TASKS,
     EXP4_OUTPUT_DIR,
+    QUANTIZATION_MODE,
+    model_id as cfg_model_id,
+    model_quantize,
     TEMPERATURE,
     MAX_TURNS,
     FREE_MAX_NEW_TOKENS,
@@ -215,12 +218,15 @@ def run_ablation_experiment(
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
     all_paths: Dict[str, Dict[str, str]] = {}
 
-    for model_id in models:
+    for entry in models:
+        model_id = cfg_model_id(entry)
+        quantize = model_quantize(entry)
+
         print(f"\n{'─' * 60}")
         print(f"  Model: {model_id}")
         print(f"{'─' * 60}")
 
-        backend = LLMBackend(model_id)
+        backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
 
         results_with: List[AgentResult] = []
         ptokens_with: List[int] = []
@@ -412,7 +418,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    models = [args.model] if args.model else EXP4_MODELS
+    models = [(args.model, False)] if args.model else EXP4_MODELS
     max_t = args.max_tasks or EXP4_MAX_TASKS
     if args.quick and max_t == 0:
         max_t = 5

@@ -54,6 +54,10 @@ from experiments.config import (
     EXP2_MODELS,
     EXP2_MAX_TASKS,
     EXP2_OUTPUT_DIR,
+    QUANTIZATION_MODE,
+    model_id as cfg_model_id,
+    model_quantize,
+    model_ids,
     TEMPERATURE,
     MAX_TURNS,
     PLAN_MAX_NEW_TOKENS,
@@ -255,12 +259,15 @@ def run_experiment_1(
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
     reports: Dict[str, ExperimentReport] = {}
 
-    for model_id in models:
+    for entry in models:
+        model_id = cfg_model_id(entry)
+        quantize = model_quantize(entry)
+
         print(f"\n{'─' * 60}")
         print(f"  Model: {model_id}")
         print(f"{'─' * 60}")
 
-        backend = LLMBackend(model_id)
+        backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
         agent_config = AgentConfig(
             max_turns=MAX_TURNS,
             temperature=TEMPERATURE,
@@ -367,12 +374,15 @@ def run_experiment_2(
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
     all_reports: Dict[str, Dict[str, ExperimentReport]] = {}
 
-    for model_id in models:
+    for entry in models:
+        model_id = cfg_model_id(entry)
+        quantize = model_quantize(entry)
+
         print(f"\n{'─' * 60}")
         print(f"  Model: {model_id}")
         print(f"{'─' * 60}")
 
-        backend = LLMBackend(model_id)
+        backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
 
         report_a = ExperimentReport(experiment_name=f"Exp2A — {model_id}")
         report_b = ExperimentReport(experiment_name=f"Exp2B — {model_id}")
@@ -655,7 +665,7 @@ def main() -> None:
 
     # --- Experiment 2 ---
     if args.exp in ("2", "all"):
-        models = [args.model] if args.model else (QUICK_MODELS if args.quick else EXP2_MODELS)
+        models = [(args.model, False)] if args.model else (QUICK_MODELS if args.quick else EXP2_MODELS)
         max_t = args.max_tasks or EXP2_MAX_TASKS
         reports = run_experiment_2(models, max_tasks=max_t)
         print_exp2_report(reports)

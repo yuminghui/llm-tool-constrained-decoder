@@ -24,48 +24,79 @@ EXP3_TRAJECTORY_DIR = TRAJECTORY_DIR  # backward-compat alias
 
 # ---------------------------------------------------------------------------
 # Models — small language models (≤ 2B) for local inference
+#
+# Each entry is ``(model_id, quantize)`` where *quantize* is a bool:
+#   True  → load with ``QUANTIZATION_MODE`` (4bit by default)
+#   False → load with bfloat16/fp32
 # ---------------------------------------------------------------------------
 
+# Quantization mode when quantize=True  ("4bit" | "8bit")
+QUANTIZATION_MODE: str = "4bit"
+
 # fmt: off
-ALL_MODELS = [
-    # ---- Qwen (Alibaba) ----
-    "Qwen/Qwen2.5-0.5B-Instruct",              # 0.5B  — Apache 2.0
-    "Qwen/Qwen2.5-1.5B-Instruct",              # 1.5B  — Apache 2.0
+ALL_MODELS: list = [
+    # ---- Qwen3 (Alibaba, April 2025) ----
+    ("Qwen/Qwen3-0.6B",                        False), # model_id, if_bit_config
+    ("Qwen/Qwen3-1.7B",                        False),
+
+    # ---- Qwen3.5 (Alibaba, Feb 2026) ----
+    ("Qwen/Qwen3.5-0.8B",                      False),
+    ("Qwen/Qwen3.5-2B",                        False),
 
     # ---- Google Gemma ----
-    "google/gemma-2-2b-it",                    # 2.0B  — Gemma license, needs HF auth
-    # "google/gemma-3-1b-it",                  # 1.0B  — uncomment when released on HF
+    ("google/gemma-3-1b-it",                   False),
+    ("google/gemma-4-E2B-it",                  True),   # 2B MoE — 4bit needed
 
     # ---- Meta Llama ----
-    "meta-llama/Llama-3.2-1B-Instruct",        # 1.0B  — Llama Community License, needs HF auth
+    ("meta-llama/Llama-3.2-1B-Instruct",       False),
 
     # ---- Microsoft Phi ----
-    "microsoft/phi-1_5",                       # 1.3B  — MIT
+    ("microsoft/phi-1_5",                      False),
 
     # ---- HuggingFace SmolLM2 ----
-    "HuggingFaceTB/SmolLM2-135M-Instruct",     # 0.14B — Apache 2.0
-    "HuggingFaceTB/SmolLM2-360M-Instruct",     # 0.36B — Apache 2.0
-    "HuggingFaceTB/SmolLM2-1.7B-Instruct",     # 1.7B  — Apache 2.0
+    ("HuggingFaceTB/SmolLM2-135M-Instruct",    False),
+    ("HuggingFaceTB/SmolLM2-360M-Instruct",    False),
+    ("HuggingFaceTB/SmolLM2-1.7B-Instruct",    False),
 
     # ---- DeepSeek (distilled) ----
-    "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",  # 1.5B — MIT
+    ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", False),
 
     # ---- Stability AI ----
-    "stabilityai/stablelm-2-1.6b-chat",        # 1.6B  — CC BY-NC-SA-4.0
+    ("stabilityai/stablelm-2-1.6b-chat",       False),
 ]
 # fmt: on
 
-# Quick-test subset (fastest models for rapid iteration)
-QUICK_MODELS = [
-    "Qwen/Qwen2.5-0.5B-Instruct",
-    "HuggingFaceTB/SmolLM2-360M-Instruct",
+# Quick-test subset
+QUICK_MODELS: list = [
+    ("Qwen/Qwen3-0.6B",                        False),
+    ("HuggingFaceTB/SmolLM2-360M-Instruct",    False),
 ]
+
+# ---- Helpers ----
+
+def model_id(entry) -> str:
+    """Extract model ID from a model-list entry (str or tuple)."""
+    if isinstance(entry, tuple):
+        return entry[0]
+    return entry
+
+
+def model_quantize(entry) -> bool:
+    """Extract quantization flag from a model-list entry."""
+    if isinstance(entry, tuple):
+        return entry[1]
+    return False
+
+
+def model_ids(entries: list) -> list:
+    """Extract model IDs from a list of entries."""
+    return [model_id(e) for e in entries]
 
 # ---------------------------------------------------------------------------
 # Experiment 1 — cross-model token comparison
 # ---------------------------------------------------------------------------
 
-EXP1_MODELS = ALL_MODELS          # models to compare
+EXP1_MODELS: list = ALL_MODELS       # models to compare
 EXP1_TASK_INDICES: Optional[List[int]] = None   # None = all tasks; or [0, 1, 2, ...]
 EXP1_MAX_TASKS: int = 10          # cap number of tasks per model (0 = unlimited)
 # Output dir for per-model trajectory files
@@ -97,6 +128,15 @@ EXP4_MODELS = [ALL_MODELS[0]]
 EXP4_TASK_INDICES: Optional[List[int]] = None
 EXP4_MAX_TASKS: int = 0           # 0 = unlimited
 EXP4_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp4")
+
+# ---------------------------------------------------------------------------
+# Model loading
+# ---------------------------------------------------------------------------
+
+# bitsandbytes quantization: None | "4bit" | "8bit"
+# "4bit" recommended for 12GB- GPU; "8bit" for >16GB
+# None = bfloat16/fp32 auto
+QUANTIZATION: Optional[str] = None
 
 # ---------------------------------------------------------------------------
 # Agent hyperparameters (shared across experiments)
