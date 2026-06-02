@@ -283,6 +283,81 @@ def save_trajectories_batch(
 
 
 # ---------------------------------------------------------------------------
+# Shared experiment utilities
+# ---------------------------------------------------------------------------
+
+def load_benchmark_tasks(
+    json_path: str,
+    task_indices: Optional[List[int]] = None,
+    max_tasks: int = 0,
+) -> List[Dict[str, Any]]:
+    """Load benchmark tasks from a JSON file (evaluate.json format)."""
+    import json
+    with open(json_path, "r", encoding="utf-8") as f:
+        all_tasks = json.load(f)
+    if task_indices is not None:
+        all_tasks = [all_tasks[i] for i in task_indices if i < len(all_tasks)]
+    if max_tasks and max_tasks > 0:
+        all_tasks = all_tasks[:max_tasks]
+    return all_tasks
+
+
+def evaluate_completion(
+    agent_steps: list,
+    ground_truth: Dict[str, Any],
+    required_weight: float = 1.0,
+    optional_weight: float = 0.5,
+    task_done_weight: float = 0.2,
+    threshold: float = 0.8,
+) -> Dict[str, Any]:
+    """Score an agent trajectory against ground-truth expected steps."""
+    called_tools = [s.tool_name for s in agent_steps if s.tool_name]
+    gt_steps = ground_truth.get("steps", [])
+    required_actions = [s["action"] for s in gt_steps if s.get("required")]
+    optional_actions = [s["action"] for s in gt_steps if not s.get("required")]
+
+    required_called = sum(1 for a in required_actions if a in called_tools)
+    optional_called = sum(1 for a in optional_actions if a in called_tools)
+
+    req_score = (required_called / len(required_actions)) if required_actions else 1.0
+    opt_bonus = (optional_called / len(optional_actions) * optional_weight) if optional_actions else 0.0
+    task_done_bonus = task_done_weight if "task_done" in called_tools else 0.0
+    total_score = min(req_score + opt_bonus + task_done_bonus, 1.0)
+
+    return {
+        "required_called": required_called,
+        "required_total": len(required_actions),
+        "optional_called": optional_called,
+        "optional_total": len(optional_actions),
+        "task_done_called": "task_done" in called_tools,
+        "score": round(total_score, 3),
+        "completed": total_score >= threshold,
+    }
+
+
+def categorize_error(agent_result) -> str:
+    """Classify why an agent run ended.
+
+    Returns one of:
+      ``"success"`` | ``"max_turns"`` | ``"exception"`` |
+      ``"tool_parse_error"`` | ``"tool_error"`` | ``"unknown"``
+    """
+    if agent_result.success:
+        return "success"
+    err = (agent_result.error or "").lower()
+    if "max turns" in err:
+        return "max_turns"
+    if any(kw in err for kw in ("exception", "traceback", "attributeerror",
+                                  "typeerror", "valueerror", "keyerror")):
+        return "exception"
+    if "parse" in err or "json" in err:
+        return "tool_parse_error"
+    if "error" in err:
+        return "tool_error"
+    return "unknown"
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 

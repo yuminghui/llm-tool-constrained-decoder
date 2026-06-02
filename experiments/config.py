@@ -20,7 +20,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOOLS_JSON_PATH = os.path.join(PROJECT_ROOT, "tools.json")
 EVALUATE_JSON_PATH = os.path.join(PROJECT_ROOT, "experiments", "evaluate.json")
 TRAJECTORY_DIR = os.path.join(PROJECT_ROOT, "experiments", "trajectories")
-EXP3_TRAJECTORY_DIR = TRAJECTORY_DIR  # backward-compat alias
+# (EXP3_TRAJECTORY_DIR removed — use TRAJECTORY_DIR directly)
 
 # ---------------------------------------------------------------------------
 # Models — small language models (≤ 2B) for local inference
@@ -93,50 +93,44 @@ def model_ids(entries: list) -> list:
     return [model_id(e) for e in entries]
 
 # ---------------------------------------------------------------------------
-# Experiment 1 — cross-model token comparison
+# Experiment A — baseline (blank control)
+#   Bare agent, no constraint decoder, no plan. Pure free generation.
 # ---------------------------------------------------------------------------
 
-EXP1_MODELS: list = ALL_MODELS       # models to compare
-EXP1_TASK_INDICES: Optional[List[int]] = None   # None = all tasks; or [0, 1, 2, ...]
-EXP1_MAX_TASKS: int = 10          # cap number of tasks per model (0 = unlimited)
-# Output dir for per-model trajectory files
-EXP1_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp1_cross_model")
+EXP_A_MODELS: list = ALL_MODELS
+EXP_A_TASK_INDICES: Optional[List[int]] = None
+EXP_A_MAX_TASKS: int = 0
+EXP_A_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_a_baseline")
 
 # ---------------------------------------------------------------------------
-# Experiment 2 — constrained plan vs separate plan
+# Experiment B — separate plan + agent
+#   Plan subtask (constrained) → execution agent (constrained).
 # ---------------------------------------------------------------------------
 
-EXP2_MODELS = [ALL_MODELS[0]]     # models to compare (use [ALL_MODELS[0]] for single)
-EXP2_TASK_INDICES: Optional[List[int]] = None
-EXP2_MAX_TASKS: int = 0           # 0 = unlimited
-EXP2_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp2")
+EXP_B_MODELS = [ALL_MODELS[0]]
+EXP_B_TASK_INDICES: Optional[List[int]] = None
+EXP_B_MAX_TASKS: int = 0
+EXP_B_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_b_separate_plan")
 
 # ---------------------------------------------------------------------------
-# Experiment 3 — plan-first vs no-plan (LLM-as-Judge)
+# Experiment C — constrained plan only
+#   Constraint decoder for plan (step 0) only; subsequent steps free.
 # ---------------------------------------------------------------------------
 
-EXP3_MODELS = [ALL_MODELS[0]]
-EXP3_TASK_INDICES: Optional[List[int]] = None
-EXP3_MAX_TASKS: int = 0           # 0 = unlimited
-EXP3_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp3")
+EXP_C_MODELS = [ALL_MODELS[0]]
+EXP_C_TASK_INDICES: Optional[List[int]] = None
+EXP_C_MAX_TASKS: int = 0
+EXP_C_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_c_constrained_plan")
 
 # ---------------------------------------------------------------------------
-# Experiment 4 — ablation: constraint decoder for plan step
+# Experiment D — full pipeline (constrained plan + all tools)
+#   Constraint decoder for plan AND all subsequent tool calls.
 # ---------------------------------------------------------------------------
 
-EXP4_MODELS = [ALL_MODELS[0]]
-EXP4_TASK_INDICES: Optional[List[int]] = None
-EXP4_MAX_TASKS: int = 0           # 0 = unlimited
-EXP4_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp4")
-
-# ---------------------------------------------------------------------------
-# Experiment 5 — prompt-only plan enforcement
-# ---------------------------------------------------------------------------
-
-EXP5_MODELS: list = ALL_MODELS          # cross-model comparison
-EXP5_TASK_INDICES: Optional[List[int]] = None
-EXP5_MAX_TASKS: int = 0                 # 0 = unlimited
-EXP5_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp5")
+EXP_D_MODELS = [ALL_MODELS[0]]
+EXP_D_TASK_INDICES: Optional[List[int]] = None
+EXP_D_MAX_TASKS: int = 0
+EXP_D_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_d_full_pipeline")
 
 # ---------------------------------------------------------------------------
 # Model loading
