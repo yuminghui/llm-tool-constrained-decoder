@@ -8,31 +8,44 @@
 experiments/
 ├── README.md                        # 本文件
 ├── __init__.py
-├── config.py                        # 所有实验的集中配置（模型、超参、路径）
+├── config.py                        # 集中配置（模型、量化、超参、路径）
 ├── evaluate.json                    # Benchmark 任务集（~60 个遥感+变化检测任务）
 ├── trajectory_utils.py              # 轨迹保存/追加工具函数
-├── experiment_context_tokens.py     # 实验1+2：token 消耗对比
-├── experiment_plan.py               # 实验3：plan-first vs no-plan
-├── experiment_ablation.py           # 实验4：消融实验（约束解码器对 plan 的影响）
-└── trajectories/                    # 实验输出的轨迹 JSON 文件
-    ├── plan_yes.json
-    ├── plan_no.json
-    ├── ablation_with_constraint.json
-    └── ablation_without_constraint.json
+├── experiment_context_tokens.py     # 实验1+2
+├── experiment_plan.py               # 实验3
+├── experiment_ablation.py           # 实验4
+├── experiment_prompt_plan.py        # 实验5
+└── trajectories/                    # 实验输出
+    ├── exp1_cross_model/            # 实验1 按模型分文件
+    ├── exp2/                        # 实验2 按模型分文件
+    ├── exp3/                        # 实验3 按模型分文件
+    ├── exp4/                        # 实验4 按模型分文件
+    └── exp5/                        # 实验5 按模型分文件
 ```
 
 ## 配置说明 (`config.py`)
 
 所有实验的超参数集中管理：
 
-| 配置项 | 默认值 | 说明 |
-|--------|--------|------|
-| `ALL_MODELS` | Qwen2.5-0.5B/1.5B/3B | 可用的 SLM 模型列表 |
-| `TEMPERATURE` | 0.7 | 采样温度 |
-| `MAX_TURNS` | 10 | 单次 agent 最大交互轮数 |
-| `PLAN_MAX_NEW_TOKENS` | 256 | 约束解码 plan 生成的最大 token |
-| `FREE_MAX_NEW_TOKENS` | 512 | 自由生成的最大 token |
-| `COMPLETION_THRESHOLD` | 0.8 | 任务完成判定阈值 |
+| 配置项 | 说明 |
+|--------|------|
+| `ALL_MODELS` | 所有可用 SLM（≤2B），格式 `(model_id, quantize_bool)` |
+| `QUANTIZATION_MODE` | 量化模式：`"4bit"` / `"8bit"` |
+| `TEMPERATURE` | 采样温度（0.7） |
+| `MAX_TURNS` | 单次 agent 最大交互轮数（10） |
+| `PLAN_MAX_NEW_TOKENS` | 约束解码 plan 的最大 token（256） |
+| `FREE_MAX_NEW_TOKENS` | 自由生成的最大 token（512） |
+| `COMPLETION_THRESHOLD` | 任务完成判定阈值（0.8） |
+
+模型列表以 `(model_id, quantize)` 元组配置，按模型粒度控制是否启用量化：
+
+```python
+ALL_MODELS = [
+    ("Qwen/Qwen3-0.6B",          False),
+    ("google/gemma-4-E2B-it",    True),   # 2B MoE, 需 4bit
+    ...
+]
+```
 
 修改 `config.py` 即可调整所有实验的行为，无需改动实验代码。
 
@@ -45,17 +58,9 @@ experiments/
 
 **目的**: 对比不同 SLM 在相同 benchmark 上完成任务时的 token 消耗量。
 
-**方法**: 对 `evaluate.json` 中的每个任务，用每个候选模型跑一遍 plan-then-act agent（约束解码器启用），记录 prompt tokens + generated tokens。
+**方法**: 对 `evaluate.json` 中的每个任务，用每个候选模型跑 plan-then-act agent（约束解码器启用），记录 prompt + generated tokens。
 
-**输出**:
-
-```
-Model                                     Avg Tokens  Avg Gen  Completion   Success
---------------------------------------------------------------------------------
-Qwen/Qwen2.5-0.5B-Instruct                    1234      567       85.0%     90.0%
-Qwen/Qwen2.5-1.5B-Instruct                    1100      450       90.0%     95.0%
-Qwen/Qwen2.5-3B-Instruct                      1300      600       88.0%     92.0%
-```
+**输出**: `trajectories/exp1_cross_model/{model_name}.json`
 
 ---
 
@@ -66,19 +71,12 @@ Qwen/Qwen2.5-3B-Instruct                      1300      600       88.0%     92.0
 
 **目的**: 对比两种 plan-then-act 策略的 token 消耗和完成率：
 
-- **Approach A（内联规划）**: 在同一个 agent session 中，step 0 用约束解码器强制生成 plan，然后继续执行
-- **Approach B（分离规划）**: 先独立运行一个 plan-only 子任务生成规划，再把规划注入到新的 agent session 中执行
+- **A（内联规划）**: 同一个 session 中 step 0 约束解码器生成 plan → 继续执行
+- **B（分离规划）**: 先独立运行 plan-only 子任务 → 再把 plan 注入新 session 执行
 
-**关键指标**: 总 token = A 的全程 token vs B 的（plan 子任务 token + execution agent token）
+**关键指标**: 总 token = A 全程 vs B（plan 子任务 + execution agent）
 
-**输出**:
-
-```
-Metric                           A-Inline      B-Separate          Delta
-----------------------------------------------------------------------------------
-Avg Total Tokens                      1234            1456           -222
-Completion Rate                      85.0%           82.0%          +3.0%
-```
+**输出**: `trajectories/exp2/{model}_a_inline.json` + `{model}_b_separate.json`
 
 ---
 
@@ -87,21 +85,14 @@ Completion Rate                      85.0%           82.0%          +3.0%
 **文件**: `experiment_plan.py`  
 **运行**: `python -m experiments.experiment_plan`
 
-**目的**: 测试"先规划再行动"是否对 SLM Agent 的任务完成质量有影响。
-
-**方法**: 同一模型、同一批任务，跑两种模式：
+**目的**: 测试"先规划再行动"是否对任务完成质量有影响。
 
 | 模式 | 说明 |
 |------|------|
-| **P+ (with plan)** | 约束解码器强制 step 0 调用 `plan`，再按计划逐步执行 |
-| **P- (without plan)** | 不规划，模型看了任务后直接调用工具 |
+| **P+ (with plan)** | 约束解码器强制 step 0 调用 `plan`，按计划逐步执行 |
+| **P- (without plan)** | 不规划，模型直接调用工具 |
 
-**输出文件**:
-
-- `trajectories/plan_yes.json` — P+ 模式的所有任务执行轨迹
-- `trajectories/plan_no.json` — P- 模式的所有任务执行轨迹
-
-轨迹格式与 `evaluate.json` 兼容，后续用 LLM-as-Judge 对比评测。
+**输出**: `trajectories/exp3/{model}_plan_yes.json` + `{model}_plan_no.json`
 
 ---
 
@@ -110,59 +101,113 @@ Completion Rate                      85.0%           82.0%          +3.0%
 **文件**: `experiment_ablation.py`  
 **运行**: `python -m experiments.experiment_ablation`
 
-**目的**: 消融实验 — 在严格控制其他变量不变的条件下，**唯一变量**是第一步
-`plan` 工具是否使用约束解码器，测试该变量对 Agent 性能的影响。
-
-**控制变量**（两组完全相同）:
+**目的**: 在严格控制变量的条件下，唯一变量是第一步 `plan` 是否使用约束解码器。
 
 | 控制变量 | 值 |
 |----------|-----|
-| 模型 | `EXP4_MODEL`（同一模型） |
-| System prompt | 同一段文本（均鼓励先 plan 再行动） |
-| Temperature | 相同 |
-| 任务集 | 相同的 `evaluate.json` 子集 |
-| 工具集 | 相同的 `tools.json` |
+| 模型 | `EXP4_MODELS` 中的模型 |
+| System prompt | 同一段（均鼓励先 plan 再行动） |
+| 温度 / 任务集 / 工具集 | 完全相同 |
 
 **唯一变量**:
 
-|  | Mode A（实验组） | Mode B（对照组） |
+|  | A（约束解码器 on） | B（全自由生成） |
 |------|------|------|
-| **Plan 步骤** | 约束解码器强制 `plan` | 自由生成（模型自行决定） |
+| **Plan 步骤** | 约束解码器强制 | 自由生成（模型自决） |
 | **后续步骤** | 自由生成 | 自由生成 |
 
-**输出文件**:
-
-- `trajectories/ablation_with_constraint.json` — A 组轨迹
-- `trajectories/ablation_without_constraint.json` — B 组轨迹
-
-**分析要点**: 对比 A 组和 B 组的轨迹，可以回答：
-1. 约束解码器是否保证了 plan 一定被调用？（A 组 plan 调用率应为 100%）
-2. 强制 plan 是否导致后续步骤更有序/更少错误？
-3. 任务完成率是否有差异？
+**输出**: `trajectories/exp4/{model}_with_constraint.json` + `{model}_without_constraint.json`
 
 ---
 
-## 工具函数 (`trajectory_utils.py`)
+## 实验 5 — 提示词能否替代约束解码器 (LLM-as-Judge)
 
-| 函数 | 用途 |
+**文件**: `experiment_prompt_plan.py`  
+**运行**: `python -m experiments.experiment_prompt_plan`
+
+**目的**: 测试仅靠提示词（"MUST call plan first"）能否让模型真的先用 plan。
+全部自由生成，无约束解码器介入。
+
+**核心指标**:
+
+| 指标 | 含义 |
 |------|------|
-| `save_trajectory(result, path, ...)` | 单个 agent 结果 → 新 JSON 文件（覆盖写） |
-| `append_trajectory(result, path, ...)` | 单个 agent 结果 → 追加到已有 JSON 数组 |
-| `save_trajectories_batch(results, path, ...)` | 批量结果 → 新 JSON 文件 |
-| `agent_result_to_record(result, ...)` | AgentResult → evaluate.json 兼容的 dict |
+| `plan_call_rate` | 调用 `plan` 的比例（任意位置） |
+| `plan_first_rate` | `plan` 作为第一个工具调用的比例 |
+| `completion_rate` | 标准任务完成率 |
 
-轨迹记录的 `trajectory.steps[].action` 字段与 `evaluate.json` 中 `trajectory_ground_truth.steps[].action` 格式一致，可直接用于对比评测。
+**输出**: `trajectories/exp5/{model_name}.json`
+
+**对比价值**: 与 Exp3（约束解码器强制 plan）、Exp4（消融实验）形成三角对照：
+- Exp3: plan 100% 强制 → 上限
+- Exp4: plan 约束 vs 自由 → 隔离约束解码器的效果
+- Exp5: 提示词 only → 模型"自觉性"测试
+
+---
+
+## 实验全景
+
+```
+              ┌─────────────────────────────────────┐
+              │         Plan 是否被调用？             │
+              ├──────────┬──────────┬───────────────┤
+              │ 强制调用  │ 提示词引导 │   不提 plan   │
+    ┌─────────┼──────────┼──────────┼───────────────┤
+    │约束解码器│ Exp1     │          │               │
+    │   on    │ Exp2A    │   Exp4A  │               │
+    │         │ Exp3 P+  │          │               │
+    ├─────────┼──────────┼──────────┼───────────────┤
+    │约束解码器│          │          │               │
+    │  off    │    —     │   Exp5   │  Exp3 P-      │
+    │         │          │   Exp4B  │               │
+    └─────────┴──────────┴──────────┴───────────────┘
+```
+
+---
+
+## 输出文件格式
+
+每个轨迹 JSON 文件包含：
+
+```json
+[
+  {
+    "question": "任务描述...",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "config": "with_plan",
+    "prompt_tokens": 200,
+    "generated_tokens": 300,
+    "total_tokens": 500,
+    "success": true,
+    "trajectory": {
+      "steps": [
+        {"action": "plan", "is_constrained": true, "args": {...}},
+        {"action": "gf_pms_preprocess_cli", "is_constrained": false, "args": {...}}
+      ]
+    }
+  },
+  {
+    "type": "_summary",
+    "total_tasks": 10,
+    "total_tokens_all": 5000,
+    "avg_tokens_per_task": 500.0,
+    ...
+  }
+]
+```
+
+轨迹记录 `trajectory.steps[].action` 与 `evaluate.json` 中 `trajectory_ground_truth.steps[].action` 格式一致，可直接对比评测。
 
 ---
 
 ## 快速运行
 
 ```bash
-# 实验1：快速测试（单模型、少量任务）
+# 实验1：跨模型 token 对比
 python -m experiments.experiment_context_tokens --exp 1 --quick --max-tasks 3
 
-# 实验2：完整运行
-python -m experiments.experiment_context_tokens --exp 2
+# 实验2：内联 vs 分离规划
+python -m experiments.experiment_context_tokens --exp 2 --max-tasks 5
 
 # 实验1+2 全部
 python -m experiments.experiment_context_tokens --exp all
@@ -170,9 +215,12 @@ python -m experiments.experiment_context_tokens --exp all
 # 实验3：plan vs no-plan
 python -m experiments.experiment_plan --quick --max-tasks 5
 
-# 实验3：指定模型
-python -m experiments.experiment_plan --model Qwen/Qwen2.5-1.5B-Instruct
-
-# 实验4：消融实验（约束解码器对 plan 的影响）
+# 实验4：消融实验
 python -m experiments.experiment_ablation --quick --max-tasks 5
+
+# 实验5：提示词能否替代约束解码器
+python -m experiments.experiment_prompt_plan --quick --max-tasks 5
+
+# 指定单模型
+python -m experiments.experiment_plan --model Qwen/Qwen3-1.7B
 ```

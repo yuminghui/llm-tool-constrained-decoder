@@ -130,6 +130,15 @@ EXP4_MAX_TASKS: int = 0           # 0 = unlimited
 EXP4_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp4")
 
 # ---------------------------------------------------------------------------
+# Experiment 5 — prompt-only plan enforcement
+# ---------------------------------------------------------------------------
+
+EXP5_MODELS: list = ALL_MODELS          # cross-model comparison
+EXP5_TASK_INDICES: Optional[List[int]] = None
+EXP5_MAX_TASKS: int = 0                 # 0 = unlimited
+EXP5_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp5")
+
+# ---------------------------------------------------------------------------
 # Model loading
 # ---------------------------------------------------------------------------
 
