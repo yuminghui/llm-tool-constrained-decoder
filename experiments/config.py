@@ -48,10 +48,10 @@ ALL_MODELS: list = [
     ("google/gemma-4-E2B-it",                  True),   # 2B MoE — 4bit needed
 
     # ---- Meta Llama ----
-    ("meta-llama/Llama-3.2-1B-Instruct",       False),
+    # ("meta-llama/Llama-3.2-1B-Instruct",       False),
 
     # ---- Microsoft Phi ----
-    ("microsoft/phi-1_5",                      False),
+    # ("microsoft/phi-1_5",                      False),
 
     # ---- HuggingFace SmolLM2 ----
     ("HuggingFaceTB/SmolLM2-135M-Instruct",    False),
@@ -62,7 +62,7 @@ ALL_MODELS: list = [
     ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", False),
 
     # ---- Stability AI ----
-    ("stabilityai/stablelm-2-1.6b-chat",       False),
+    # ("stabilityai/stablelm-2-1.6b-chat",       False),
 ]
 # fmt: on
 

@@ -8,7 +8,7 @@ token index construction, and the logits processor.
 import json
 import sys
 import os
-
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 sys.path.insert(0, os.path.dirname(__file__))
 
 from constrained_decoding.char_fsm import (
