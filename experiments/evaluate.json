@@ -2126,5 +2126,3713 @@
                 }
             ]
         }
+    },
+    {
+        "question": "给我跑个最简单的高分处理就行，输入 /var/opt/my_app_1/input，输出到 /var/opt/my_app_1/output_simple",
+        "expected": "根据工具执行结果分析，已将「最简单的处理」映射为 case=1 仅粗校正，处理完成，输出到 /var/opt/my_app_1/output_simple",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我把影像校准一下，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_calibrated",
+        "expected": "根据工具执行结果分析，已将「校准」理解为 RPC 粗校正 case=1，处理完成，输出到 /var/opt/my_app_1/output_calibrated",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "做个基础校正就行了，后面都不用，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_basic",
+        "expected": "根据工具执行结果分析，已将「基础校正」映射为 case=1 仅 RPC 粗校正，输出到 /var/opt/my_app_1/output_basic",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要做大气校正，其他的不用做，输入 /var/opt/my_app_1/input，输出到 /var/opt/my_app_1/output_atmos_direct",
+        "expected": "根据工具执行结果分析，选择 case=2 执行到大气校正阶段（含粗校正、辐射定标），输出到 /var/opt/my_app_1/output_atmos_direct",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "辐射定标和大气校正两步都要做好，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_rad_atmos",
+        "expected": "根据工具执行结果分析，选择 case=2 执行粗校正+辐射定标+大气校正，输出到 /var/opt/my_app_1/output_rad_atmos",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我做到大气那一步就行了，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_to_atmos_step",
+        "expected": "根据工具执行结果分析，选择 case=2 执行到大气校正步骤，输出到 /var/opt/my_app_1/output_to_atmos_step",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "需要融合后的彩色影像，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_color_fused",
+        "expected": "根据工具执行结果分析，选择 case=3 执行到融合阶段，输出融合后的影像到 /var/opt/my_app_1/output_color_fused",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我做到融合就不往下做了，精校正不用跑，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_stop_at_fusion",
+        "expected": "根据工具执行结果分析，选择 case=3 执行到融合步骤即停止，不执行后续精校正，输出到 /var/opt/my_app_1/output_stop_at_fusion",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "全流程跑一遍，别落下任何步骤，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_full_all",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程，从粗校正到精校正全部执行，输出到 /var/opt/my_app_1/output_full_all",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "从原始数据一路处理到最终结果，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_end_to_end",
+        "expected": "根据工具执行结果分析，选择 case=4 端到端完整流程，输出到 /var/opt/my_app_1/output_end_to_end",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "用第二种处理方案，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_second_plan",
+        "expected": "根据工具执行结果分析，已将「第二种方案」映射为 case=2 到大气校正，处理完成，输出到 /var/opt/my_app_1/output_second_plan",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "跑第四个模板，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_fourth_template",
+        "expected": "根据工具执行结果分析，已将「第四个模板」映射为 case=4 完整流程，处理完成，输出到 /var/opt/my_app_1/output_fourth_template",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "跳过辐射定标，直接做粗校正就行，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_skip_rad",
+        "expected": "根据工具执行结果分析，选择 case=1 仅执行 RPC 粗校正，不执行辐射定标等后续步骤，输出到 /var/opt/my_app_1/output_skip_rad",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我只做step1和step2，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_step12",
+        "expected": "根据工具执行结果分析，选择 case=1 执行 step1 RPC粗校正 + step2 辐射定标，输出到 /var/opt/my_app_1/output_step12",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "step1到step4都给我跑了，step5不用，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_step1to4",
+        "expected": "根据工具执行结果分析，选择 case=3 执行 step1~step4 到融合，跳过 step5 精校正，输出到 /var/opt/my_app_1/output_step1to4",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我内存不多，帮我想办法省着点跑完整流程，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_full_save_mem",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程，并根据「内存不多」设置 mem=low 低内存策略，输出到 /var/opt/my_app_1/output_full_save_mem",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "机器配置很高，全部拉满跑完整流程，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_full_max",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程 + mem=high 高性能策略，输出到 /var/opt/my_app_1/output_full_max",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "内存吃紧得很，只做粗校正，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_coarse_lowmem",
+        "expected": "根据工具执行结果分析，选择 case=1 仅粗校正 + mem=low 低内存策略，输出到 /var/opt/my_app_1/output_coarse_lowmem",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "内存快满了，帮我想办法省到极致跑到融合，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_fusion_ultra_save",
+        "expected": "根据工具执行结果分析，选择 case=3 到融合 + mem=ultra_low 极低内存策略，输出到 /var/opt/my_app_1/output_fusion_ultra_save",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "内存够用，正常跑大气校正就行，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_atmos_normal",
+        "expected": "根据工具执行结果分析，选择 case=2 到大气校正，使用默认 mem=balanced 平衡策略，输出到 /var/opt/my_app_1/output_atmos_normal",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "服务器有256G内存，火力全开跑完整预处理，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_full_power",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程 + mem=high 高性能策略，输出到 /var/opt/my_app_1/output_full_power",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "机器有点卡，轻量跑一下辐射定标和大气校正，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_light_atmos",
+        "expected": "根据工具执行结果分析，选择 case=2 到大气校正 + mem=low 低内存策略，输出到 /var/opt/my_app_1/output_light_atmos",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我用最快速度跑完粗校正，内存不是问题，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_fast_coarse",
+        "expected": "根据工具执行结果分析，选择 case=1 仅粗校正 + mem=high 高性能策略以最快速度完成，输出到 /var/opt/my_app_1/output_fast_coarse",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "内存紧张，但需要高精度配准结果，帮我想办法跑完整流程，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_precise_lowmem",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程 + mem=low 低内存策略，在省内存的同时保证精校正配准质量，输出到 /var/opt/my_app_1/output_precise_lowmem",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "case=2, mem=high, 输入 /var/opt/my_app_1/input, 输出 /var/opt/my_app_1/output_mixed_params",
+        "expected": "根据工具执行结果分析，按显式参数 case=2 mem=high 执行大气校正流程，输出到 /var/opt/my_app_1/output_mixed_params",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我把卫星影像处理好，输入在 /var/opt/my_app_1/input",
+        "expected": "模型应先追问用户需要处理到哪个阶段（粗校正/大气校正/融合/精校正）以及输出路径，不应在目标不明确时直接执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "处理一下这批高分数据，/var/opt/my_app_1/input",
+        "expected": "模型应先追问用户具体的处理目标和输出路径，不应在用户仅提供输入路径时擅自决定处理阶段",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我做遥感影像预处理，输入 /var/opt/my_app_1/input，输出到 /var/opt/my_app_1/output",
+        "expected": "模型应先追问用户需要哪个处理阶段（case=1/2/3/4），虽然输入输出路径已明确，但处理深度未指定，不应默认选择某个 case 直接执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "只需要输出目录是 /var/opt/my_app_1/output_only，帮我处理",
+        "expected": "模型应先追问输入路径和处理阶段，不应在仅有输出路径时尝试执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我用 case=0 跑一下 app1，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_case0",
+        "expected": "工具返回错误：不支持的 case 参数（case=0 不在有效范围 1-4 内），模型不应自行修改 case 值",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我用 mem=max 跑完整流程，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_mem_max",
+        "expected": "工具返回错误：不支持的 mem 参数（mem=max 不在有效选项内），模型不应编造新的内存策略",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我用 case=-1 跑 app1，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_neg_case",
+        "expected": "工具返回错误：不支持的 case 参数（case=-1 为无效负值），模型不应自行修正参数",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "case=4 mem=ultra_high 帮我跑，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_ultra_high",
+        "expected": "工具返回错误：mem=ultra_high 不是有效选项，模型不应自行替换为 high 执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "高分影像预处理有哪些步骤？每个步骤干什么的？",
+        "expected": "模型应说明 gf_pms_preprocess_cli 工具的五步处理流水线：step1 RPC粗校正、step2 辐射定标、step3 6S大气校正、step4 融合(brovey/nndiffuse)、step5 精校正(SIFT/SuperPoint+LightGlue)，以及四个 case 模板对应的步骤组合",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "app1 工具怎么用？有哪些参数？",
+        "expected": "模型应说明 gf_pms_preprocess_cli 的参数：input_path（输入路径）、output_path（输出路径）、case（模板1-4）、mem（内存策略 balanced/low/ultra_low/high），并简要说明各 case 对应的处理阶段",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "case=1,2,3,4 分别对应什么处理？哪个最快？哪个最慢？",
+        "expected": "模型应说明四个 case 的执行步骤和性能特点：case=1 仅粗校正最快，case=2 到大气校正较快，case=3 到融合较慢（融合计算量大），case=4 到精校正最慢（精校正性能要求高、内存开销大）",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "app1 的 mem 参数有哪些选项？分别适合什么场景？",
+        "expected": "模型应说明 mem 的四个选项：balanced（平衡，默认）、low（低内存，速度稍慢）、ultra_low（极低内存，速度最慢最省内存）、high（高性能，内存消耗大但速度快），并给出选择建议",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "去年夏天的上海植被长得怎么样",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 检索上海去年夏季影像数据，优先选择 NDVI 植被指数计算完成，输出植被长势分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "今年春天北京的水体面积大不大",
+        "expected": "根据工具执行结果分析，已检索北京今年春季影像数据，优先选择 NDWI 水体指数计算完成，输出水体面积分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "前年的南京影像帮我分析植被覆盖",
+        "expected": "根据工具执行结果分析，已检索南京前年影像数据，选择 NDVI 植被指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "最近三个月深圳有什么变化，帮我看看建筑方面",
+        "expected": "根据工具执行结果分析，已检索深圳近三个月影像数据，选择 building_bi 建成区指数计算完成，输出建筑分布变化分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2025年全年杭州的植被指数走势帮我看下",
+        "expected": "根据工具执行结果分析，已检索杭州 2025 年影像数据并完成 NDVI 计算；同时说明「走势」判断需基于多期指数结果进行二次统计分析，app2 仅产出各期指数图与统计文件",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "这半年武汉的水体面积有没有减少",
+        "expected": "根据工具执行结果分析，已检索武汉近半年影像数据并完成 NDWI 计算；同时说明面积变化趋势需二次统计分析，app2 仅产出各期水体指数图",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "上个月成都拍的图，帮我看植被",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 检索成都上月影像数据，选择 NDVI 植被指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "最近一周西安有什么新图，帮我分析植被",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 按时间降序检索西安最新影像数据，选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2026年6月1号广州有没有新数据，有的话帮我算植被指数",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 检索广州 2026年6月1日影像数据，如有匹配数据则选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "最近这批北京的图是几月份的？帮我用最新的算 ndvi",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 按时间降序检索北京最新影像数据，选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "这片地绿不绿，帮我看下上海最近的图",
+        "expected": "根据工具执行结果分析，已将「绿不绿」语义映射为植被覆盖度评估，检索上海近期影像并选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看看北京这图里植被多不多",
+        "expected": "根据工具执行结果分析，已将「植被多不多」映射为植被覆盖度分析，检索北京近期影像并选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "南京水面面积大不大，最近的数据",
+        "expected": "根据工具执行结果分析，已将「水面面积」映射为水体监测，检索南京近期影像并选择 NDWI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "天津这块地裸露严不严重",
+        "expected": "根据工具执行结果分析，已将「裸露严不严重」映射为土壤裸露评估，检索天津近期影像并选择 GSI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "广州房子盖得多不多，帮我看建成区",
+        "expected": "根据工具执行结果分析，已将「房子盖得多不多」映射为建筑分布分析，检索广州近期影像并选择 building_bi 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "成都的水干不干净，帮我看水质",
+        "expected": "根据工具执行结果分析，已将「水干不干净」映射为水体浊度评估，检索成都近期影像并选择 NDWI + NDTI 联合计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "杭州植物长得茂盛吗",
+        "expected": "根据工具执行结果分析，已将「植物茂盛」映射为植被长势评估，检索杭州近期影像并选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "武汉到处都是黄土地，帮我评估下",
+        "expected": "根据工具执行结果分析，已将「黄土地」语义映射为土壤裸地监测，检索武汉近期影像并选择 GSI 或 BI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "深圳哪些地方在施工盖楼",
+        "expected": "根据工具执行结果分析，已将「施工盖楼」映射为建筑/建成区监测，检索深圳近期影像并选择 building_bi 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "苏州河道变化大不大",
+        "expected": "根据工具执行结果分析，已将「河道变化」映射为水体分布监测，检索苏州近期影像并选择 NDWI 计算完成；同时说明变化趋势需多期数据二次分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "西安的绿化带分布帮我看看",
+        "expected": "根据工具执行结果分析，已将「绿化带」映射为植被覆盖监测，检索西安近期影像并选择 NDVI 计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "重庆有没有蓝藻爆发风险",
+        "expected": "根据工具执行结果分析，已将「蓝藻爆发」映射为藻类监测，检索重庆近期影像并选择 SABI 藻类指数计算完成，输出水华风险评估",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看植被，最近的数据",
+        "expected": "模型应先追问用户需要分析哪个城市，以及具体关注植被的哪个方面（长势/覆盖度/叶绿素等），不应在城市和具体目标不明确时直接执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看上海",
+        "expected": "模型应先追问用户需要分析上海的什么（植被/水体/土壤/建筑），以及时间范围，不应在分析目标不明确时直接选择某个指数执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "计算遥感指数",
+        "expected": "模型应先追问用户：需要分析哪个城市、什么时间范围、关注什么方面（植被/水体/土壤/建筑等），不应在信息严重不足时猜测执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "分析一下遥感影像",
+        "expected": "模型应先追问用户具体的分析目标（植被监测/水体分析/土壤评估/建筑提取等）、数据所在城市和时间范围，不应在需求完全模糊时自行决定计算方案",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "最近有什么变化",
+        "expected": "模型应先追问用户关注哪个城市、哪种类型的变化（植被/水体/建筑/土壤等），以及时间范围，不应在信息严重不足时猜测执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我评估生态环境，最近上海的图",
+        "expected": "根据工具执行结果分析，已将「生态环境评估」分解为多指标综合分析，检索上海近期影像并联合计算 NDVI（植被）+ NDWI（水体）+ GSI（土壤）完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我想看杭州植被健康状况，不止一种指数",
+        "expected": "根据工具执行结果分析，已将「植被健康」分解为多指数评估，检索杭州近期影像并联合计算 NDVI + EVI + LAI 完成，覆盖绿度、增强植被和叶面积多个维度",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "农业估产需要哪些指数？帮我在成都跑一下",
+        "expected": "根据工具执行结果分析，已将「农业估产」映射为 NDVI + LAI + SAVI 联合计算，检索成都近期影像并完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "干旱监测帮我做一下，看西安的数据",
+        "expected": "根据工具执行结果分析，已将「干旱监测」映射为 GSI（土壤裸地）+ NDWI（水体面积）联合评估，检索西安近期影像并完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我算 evi 和 savi 还有 ndvi，武汉最近的图",
+        "expected": "根据工具执行结果分析，检索武汉近期影像并联合计算 EVI、SAVI、NDVI 三个植被指数完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "把水体相关的指数全部跑一遍，用武汉的图",
+        "expected": "根据工具执行结果分析，检索武汉近期影像并联合计算 NDWI + NDTI 全部水体相关指数完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "深圳的图用8个线程并行跑 ndvi",
+        "expected": "根据工具执行结果分析，已检索深圳近期影像并以 workers=8 并行计算 NDVI 完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "单线程慢慢算北京的 ndwi，不着急",
+        "expected": "根据工具执行结果分析，已检索北京近期影像并以单线程（workers=1 或默认）计算 NDWI 完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "越快越好，帮我把广州的 ndvi 跑出来",
+        "expected": "根据工具执行结果分析，已检索广州近期影像并以较高 workers 并行计算 NDVI，尽快完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "配置低，用2个线程算上海 ndvi 就行了",
+        "expected": "根据工具执行结果分析，已检索上海近期影像并以 workers=2 计算 NDVI 完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要看拉萨的植被",
+        "expected": "模型应通过 search_tif_data 检索确认拉萨无匹配数据后，说明当前 data 目录无拉萨样本，并列出支持的 12 个可用城市供用户选择",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "乌鲁木齐的水体帮我分析",
+        "expected": "模型应通过 search_tif_data 检索确认乌鲁木齐无匹配数据后，说明当前 data 目录无乌鲁木齐样本，并列出可用城市",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "哈尔滨的建筑分布看看",
+        "expected": "模型应通过 search_tif_data 检索确认哈尔滨无匹配数据后，说明当前 data 目录无哈尔滨样本，并列出可用城市",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "昆明的植被指数帮我算",
+        "expected": "模型应通过 search_tif_data 检索确认昆明无匹配数据后，说明当前 data 目录无昆明样本，并列出可用城市",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "把所有植被指数全部算一遍，用杭州最近的图",
+        "expected": "根据工具执行结果分析，检索杭州近期影像并将全部 17 项植被指数（ndvi, savi, evi, gndvi, arvi, msavi, lai, sr, osavi, rdvi, cvi, cigreen, grvi, gli, vari, cig, sipi）一次性联合计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "列出所有指数然后帮我选最合适的植被指数分析上海",
+        "expected": "根据工具执行结果分析，先通过 list_remote_sensing_index 列出全部指数，再检索上海近期影像并选择 NDVI 作为最通用的植被指数完成计算",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "先告诉我能算什么，再帮我看深圳植被",
+        "expected": "根据工具执行结果分析，先通过 list_remote_sensing_index 展示全部能力，再检索深圳近期影像并选择 NDVI 完成植被分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "app2 除了算指数还能干什么？",
+        "expected": "模型应说明 remote_sensing_calculate_cli 工具的核心能力：支持多种遥感指数的单次/批量计算、并行加速（workers 参数）、自定义输入输出路径，以及配套的 list_remote_sensing_index 指数查询和 search_tif_data 数据检索功能",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我想知道 app2 支持哪些城市的数据",
+        "expected": "模型应说明当前 data 目录支持的城市列表（上海、北京、南京、天津、广州、成都、杭州、武汉、深圳、苏州、西安、重庆共 12 个），并说明可以通过 search_tif_data 按城市和时间检索数据",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "app2 能处理多大范围的影像数据？",
+        "expected": "模型应说明 remote_sensing_calculate_cli 基于固定 4 波段（blue/green/red/nir）的 tif 影像进行计算，支持单文件和目录批量输入，具体处理能力取决于机器配置",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "list_remote_sensing_index 和直接计算有什么区别？",
+        "expected": "模型应说明 list_remote_sensing_index 是纯查询工具，用于列出所有可计算的遥感指数及对应 index 参数，不执行实际计算；remote_sensing_calculate_cli 是执行工具，用于实际计算指定指数并输出结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我对比这两张遥感影像，看看有什么变化，第一张是 /var/opt/my_app_4/data/LEVIR-CD/A/2.png，第二张是 /var/opt/my_app_4/data/LEVIR-CD/B/2.png，输出到 /var/opt/my_app_4/output_compare_2.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成，两时相影像对比结果输出到 /var/opt/my_app_4/output_compare_2.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "这两张图有哪里不一样？时相1：/var/opt/my_app_4/data/LEVIR-CD/A/3.png，时相2：/var/opt/my_app_4/data/LEVIR-CD/B/3.png，结果放 /var/opt/my_app_4/output_diff_3.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成，已标注两时相差异区域，输出到 /var/opt/my_app_4/output_diff_3.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我对比这两个时相的影像，A图 /var/opt/my_app_4/data/LEVIR-CD/A/5.png，B图 /var/opt/my_app_4/data/LEVIR-CD/B/5.png，输出 /var/opt/my_app_4/output_temporal.png",
+        "expected": "根据工具执行结果分析，选择单图对单图变化检测模式，传入 img2 参数，两时相对比完成，输出到 /var/opt/my_app_4/output_temporal.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "把 LEVIR-CD 数据集里所有图对都做变化检测，数据在 /var/opt/my_app_4/data/LEVIR-CD，结果放 /var/opt/my_app_4/output_all_pairs",
+        "expected": "根据工具执行结果分析，选择 A/B 文件夹批量变化检测模式，传入包含 A/ 和 B/ 子目录的根目录，自动匹配同名影像对批量处理，输出到 /var/opt/my_app_4/output_all_pairs",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我这有A和B两个文件夹的影像，帮我批量跑变化检测，路径 /var/opt/my_app_4/data/LEVIR-CD，输出 /var/opt/my_app_4/output_batch2",
+        "expected": "根据工具执行结果分析，选择 A/B 文件夹批量变化检测模式，LEVIR-CD 目录下 A/ 和 B/ 子目录中所有同名影像对批量处理完成，输出到 /var/opt/my_app_4/output_batch2",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "A图在 /var/opt/my_app_4/data/LEVIR-CD/A/7.png，B图你帮我在 /var/opt/my_app_4/data/LEVIR-CD/B/ 里找对应的，输出 /var/opt/my_app_4/output_auto_match.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成，根据 A 图文件名自动匹配 B/ 目录下同名文件 7.png 作为第二时相，输出到 /var/opt/my_app_4/output_auto_match.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "建筑变化检测，帮我看 /var/opt/my_app_4/data/LEVIR-CD/A/9.png 和 /var/opt/my_app_4/data/LEVIR-CD/B/9.png，输出 /var/opt/my_app_4/output_building_change.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成（dcva_cd 工具不区分地物类型，输出通用变化掩膜），结果输出到 /var/opt/my_app_4/output_building_change.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我找出新增的建筑物，LEVIR-CD 数据在 /var/opt/my_app_4/data/LEVIR-CD，输出 /var/opt/my_app_4/output_new_buildings",
+        "expected": "根据工具执行结果分析，选择 A/B 文件夹批量变化检测完成，并说明 dcva_cd 输出通用变化掩膜图，需后续分析才能区分新增/拆除等具体变化类型",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "对比这张图和那张图，帮我看变化",
+        "expected": "模型应先追问两张影像的具体路径（第一时相路径和第二时相路径）以及输出路径，不应在完全没有路径信息时猜测执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "做一下遥感变化检测",
+        "expected": "模型应先追问输入数据形式（单图对单图还是 A/B 文件夹批量）、影像路径和输出路径，不应在需求完全模糊时直接执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "看看哪里变了，我有两期影像",
+        "expected": "模型应先追问两期影像的具体路径以及输出路径，确认是单图对比还是批量对比",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "前后对比一下这两张遥感图，第一张 /var/opt/my_app_4/data/LEVIR-CD/A/10.png，第二张 /var/opt/my_app_4/data/LEVIR-CD/B/10.png",
+        "expected": "模型应先追问输出路径，虽然两张影像路径已明确，但缺少输出路径，不应在输出未指定时直接执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "只有第二时相的图 /var/opt/my_app_4/data/LEVIR-CD/B/8.png，帮我跑变化检测",
+        "expected": "模型应先追问第一时相影像路径（input_path），变化检测需要两期影像对比，仅有一期无法执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "输入路径是 /var/opt/my_app_4/data/LEVIR-CD，但里面没有 A 和 B 子目录，帮我跑变化检测，输出到 /var/opt/my_app_4/output_no_subdir",
+        "expected": "工具返回错误：输入路径不符合变化检测要求（目录模式下需包含 A/ 和 B/ 两个子目录），模型不应自行修改输入结构",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "输入一个单文件但我想跑批量变化检测，/var/opt/my_app_4/data/LEVIR-CD/A/1.png，输出 /var/opt/my_app_4/output_confused",
+        "expected": "模型应识别出用户的输入模式与需求矛盾：输入是单文件只能做单图对单图模式，批量模式需要包含 A/ 和 B/ 子目录的文件夹；应追问用户澄清意图或引导选择正确模式",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "土地利用变化检测，/var/opt/my_app_4/data/LEVIR-CD/A/1.png /var/opt/my_app_4/output_landuse.png --img2 /var/opt/my_app_4/data/LEVIR-CD/B/1.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成，并说明 dcva_cd 输出通用二元变化掩膜，不区分土地利用类型，需后续分类分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "这两个文件不是同一区域的影像能比吗？/var/opt/my_app_4/data/LEVIR-CD/A/1.png 和 /var/opt/my_app_4/data/LEVIR-CD/B/5.png，输出 /var/opt/my_app_4/output_mismatch.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成（dcva_cd 不校验影像内容匹配性，用户需确保两时相影像为同一区域），结果输出到 /var/opt/my_app_4/output_mismatch.png",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "变化检测结果图是什么格式的？能导出什么？",
+        "expected": "模型应说明 dcva_cd 工具输出变化掩膜图（PNG 格式），二值图标注变化/未变化区域；单图模式输出单张结果图，批量模式输出到指定目录",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "dcva_cd 变化检测的原理是什么？用什么模型？",
+        "expected": "模型应说明 dcva_cd 基于 DCVA-CD 深度学习变化检测方法，使用双时相遥感影像对比分析，输出变化区域掩膜；模型使用默认配置，用户无需关心内部 backbone/tile_size 等参数细节",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "变化检测需要什么格式的输入影像？有要求吗？",
+        "expected": "模型应说明 dcva_cd 支持 PNG 格式影像输入，单图模式需两张同尺寸影像，批量模式需 A/ 和 B/ 目录下同名 PNG 文件对；两时相影像应为同一区域不同时间拍摄的配准后影像",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "用第三个方案，内存紧张的，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_plan3_lowmem",
+        "expected": "根据工具执行结果分析，已将「第三个方案」映射为 case=3 到融合，将「内存紧张」映射为 mem=low，处理完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "用方案一，但我要最快的速度，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_plan1_fast",
+        "expected": "根据工具执行结果分析，选择 case=1 仅粗校正 + mem=high 高性能策略，输出到 /var/opt/my_app_1/output_plan1_fast",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "内存只剩下2G了，还能跑融合吗？输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_critical_lowmem",
+        "expected": "根据工具执行结果分析，选择 case=3 到融合 + mem=ultra_low 极低内存策略以应对内存紧张情况，输出到 /var/opt/my_app_1/output_critical_lowmem",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "正常配置跑第四个模板，内存默认就好，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_case4_default",
+        "expected": "根据工具执行结果分析，选择 case=4 完整流程，使用默认 mem=balanced 策略，输出到 /var/opt/my_app_1/output_case4_default",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我做到融合那一步，用最快模式，输入 /var/opt/my_app_1/input，输出 /var/opt/my_app_1/output_fusion_fast",
+        "expected": "根据工具执行结果分析，选择 case=3 到融合 + mem=high 高性能策略，输出到 /var/opt/my_app_1/output_fusion_fast",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "上海2026年春天的植被指数变化",
+        "expected": "根据工具执行结果分析，已检索上海 2026 年春季影像数据，选择 NDVI 计算完成；同时说明指数变化趋势需多期对比分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "北京最近有没有水体污染迹象",
+        "expected": "根据工具执行结果分析，已将「水体污染」映射为 NDTI 浊度指数，检索北京近期影像并选择 NDWI + NDTI 联合计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "天津沿海地区的土壤盐渍化帮我看看",
+        "expected": "根据工具执行结果分析，已将「土壤盐渍化」映射为 SI/SCI 土壤指数，检索天津近期影像并选择相关土壤指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "广州和深圳近一年的植被对比",
+        "expected": "根据工具执行结果分析，已分别检索广州和深圳近一年影像数据，选择 NDVI 完成两城市植被指数计算，并说明定量对比需二次分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "苏州和杭州的水体分布对比，用2026年数据",
+        "expected": "根据工具执行结果分析，已分别检索苏州和杭州 2026 年影像数据，选择 NDWI 完成两城市水体指数计算",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "成都有没有发生过火灾的痕迹，用近期的图",
+        "expected": "根据工具执行结果分析，已将「火灾痕迹」映射为 BAI 烧毁面积指数，检索成都近期影像并计算完成，同时说明该指数为基础烧毁指数而非最终火灾评估",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我计算 ndvi 和水体指数，用北京的图但我不确定输出路径",
+        "expected": "模型应先追问输出路径，虽然城市和指数已明确，但缺少必要参数不应执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "workers=0 帮我算上海的 ndvi",
+        "expected": "工具返回错误：workers 参数无效（应大于0），模型不应自行修正参数值",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "用100个线程并行算北京的 ndvi",
+        "expected": "工具返回错误或警告：workers=100 超出合理范围，模型应按实际可用资源建议合理的 workers 值",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "能不能同时算 ndvi 和计算变化检测？",
+        "expected": "模型应说明 ndvi 指数计算（remote_sensing_calculate_cli）和变化检测（dcva_cd）是两个独立工具，各有不同的输入要求，不能混合调用；需分别说明各自的用法",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我算一个不消耗内存的指数",
+        "expected": "模型应说明所有指数计算都需要一定内存资源，不存在零内存消耗方案；可建议选择最省资源的单指数计算方案",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "同时输入 /var/opt/data 下的 tif 和 /var/opt/my_app_2/data/test.tif 一起算 ndvi",
+        "expected": "根据工具执行结果分析，检索两个路径下的 tif 文件并联合计算 NDVI 完成；说明 remote_sensing_calculate_cli 支持混合路径输入",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "这些地方以前是什么样子？帮我对比 LEVIR-CD 的两期影像，数据在 /var/opt/my_app_4/data/LEVIR-CD，输出到 /var/opt/my_app_4/output_historical",
+        "expected": "根据工具执行结果分析，选择 A/B 文件夹批量变化检测模式，输出历史变化掩膜到 /var/opt/my_app_4/output_historical",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我想知道这片区域这几年发生了多大变化，时相1 /var/opt/my_app_4/data/LEVIR-CD/A/6.png，时相2 /var/opt/my_app_4/data/LEVIR-CD/B/6.png，输出 /var/opt/my_app_4/output_change_extent.png",
+        "expected": "根据工具执行结果分析，单图对单图变化检测完成，输出变化掩膜到 /var/opt/my_app_4/output_change_extent.png，并说明变化面积需通过像素统计二次计算",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "A时相 /var/opt/my_app_4/data/LEVIR-CD/A，B时相 /var/opt/my_app_4/data/LEVIR-CD/B，输出 /var/opt/my_app_4/output_batch_custom，帮我做批量检测",
+        "expected": "根据工具执行结果分析，识别出 A 和 B 为两个独立目录，选择 A/B 文件夹批量变化检测模式，传入 LEVIR-CD 根目录完成批量处理，输出到 /var/opt/my_app_4/output_batch_custom",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看 LEVIR-CD 数据集里面 test_1.png 的变化，在 /var/opt/my_app_4/data/LEVIR-CD/A/test_1.png 和 /var/opt/my_app_4/data/LEVIR-CD/B/test_1.png",
+        "expected": "模型应先追问输出路径，两张影像路径已明确但缺少输出路径，不应在参数不全时执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "快速检测一下这两张图有没有变化，/var/opt/my_app_4/data/LEVIR-CD/A/4.png vs /var/opt/my_app_4/data/LEVIR-CD/B/4.png，结果放哪都行",
+        "expected": "模型应先追问或指定一个默认输出路径，不应在没有输出路径时直接执行；确定路径后选择单图对单图变化检测模式",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "能不能检测出变化的类型？比如是新建还是拆除，用 /var/opt/my_app_4/data/LEVIR-CD 数据集，输出 /var/opt/my_app_4/output_typed",
+        "expected": "根据工具执行结果分析，选择 A/B 文件夹批量变化检测完成；同时说明 dcva_cd 输出通用二元变化掩膜（变化/未变化），不区分变化类型（新建/拆除），需后续语义分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
     }
 ]
