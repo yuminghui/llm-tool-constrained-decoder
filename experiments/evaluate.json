@@ -8,11 +8,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -25,11 +40,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -42,11 +72,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -59,11 +104,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -76,11 +136,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -93,11 +168,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -110,11 +200,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -127,11 +232,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -144,11 +264,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -161,11 +296,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -178,11 +328,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -195,11 +360,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -212,11 +392,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -229,11 +424,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -246,8 +456,14 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "wait_user_instruction", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
             ]
         }
     },
@@ -260,9 +476,18 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -275,11 +500,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -292,11 +532,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -309,12 +564,30 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "search_tif_data", "required": false},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "gf_pms_preprocess_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": false
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "gf_pms_preprocess_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -327,9 +600,18 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -342,10 +624,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -358,10 +652,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -374,10 +680,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "list_remote_sensing_index", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -390,10 +708,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -406,10 +736,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -422,10 +764,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -438,10 +792,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -454,10 +820,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -470,10 +848,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -486,11 +876,26 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -503,10 +908,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -519,10 +936,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -535,10 +964,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -551,10 +992,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -567,10 +1020,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -583,9 +1048,18 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "list_remote_sensing_index", "required": false},
-                {"action": "wait_user_instruction", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
             ]
         }
     },
@@ -598,10 +1072,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "remote_sensing_calculate_cli", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -614,9 +1100,18 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -629,10 +1124,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "list_remote_sensing_index", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -645,10 +1152,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "dcva_cd", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -661,10 +1180,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "dcva_cd", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -677,9 +1208,18 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -692,8 +1232,14 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "wait_user_instruction", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
             ]
         }
     },
@@ -706,10 +1252,22 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "dcva_cd", "required": true},
-                {"action": "task_summary", "required": true},
-                {"action": "task_done", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "dcva_cd",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     },
@@ -722,8 +1280,850 @@
             "required_score": 1.0,
             "optional_score": 0.5,
             "steps": [
-                {"action": "plan", "required": false},
-                {"action": "wait_user_instruction", "required": true}
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "wait_user_instruction",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看近期上海的植被长势",
+        "expected": "根据工具执行结果分析，已通过 search_tif_data 检索上海近期影像数据，优先选择 NDVI 植被指数计算完成，输出植被长势分析结果并说明植被语义对应植被指数",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "最近北京的水体分布怎么样，给我快速结果",
+        "expected": "根据工具执行结果分析，已检索北京近期影像数据，优先选择 NDWI 水体指数计算完成，输出水体分布分析结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我评估南京近一年的土壤裸露情况",
+        "expected": "根据工具执行结果分析，已检索南京近一年影像数据，优先选择 GSI 或 BI 土壤指数计算完成，输出土壤裸露评估结果，不应误选水体或建筑指数",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看 2026 下半年天津这批影像的建成区分布",
+        "expected": "根据工具执行结果分析，已检索天津 2026 年下半年影像数据，优先选择 building_bi 建成区指数计算完成，输出建成区分布结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "广州最近有没有水华风险",
+        "expected": "根据工具执行结果分析，已检索广州近期影像数据，优先选择 SABI 藻类指数计算完成，输出水华风险评估结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看 2026 年成都这批图里可能的火烧迹地",
+        "expected": "根据工具执行结果分析，已检索成都 2026 年影像数据，优先选择 BAI 烧毁面积指数计算完成，并说明该指数为基础烧毁相关指数，非最终灾损评估",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我关心近期杭州植被叶绿素状态，算最合适的",
+        "expected": "根据工具执行结果分析，已检索杭州近期影像数据，优先选择 GNDVI 或 CIGreen 叶绿素相关植被指数计算完成，可附带 NDVI 作为常规参考，输出植被叶绿素状态分析结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我同时看近一年武汉的植被和水体",
+        "expected": "根据工具执行结果分析，已检索武汉近一年影像数据，联合计算 NDVI 和 NDWI 完成，可同时分析植被和水体分布情况",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "近半年深圳这批图我想同时看建筑和裸地",
+        "expected": "根据工具执行结果分析，已检索深圳近半年影像数据，联合计算 building_bi 和 GSI 完成，可同时分析建筑分布和裸地分布",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2026 年苏州这批图颜色变化明显，想看可见光植被指标",
+        "expected": "根据工具执行结果分析，已检索苏州 2026 年影像数据，优先选择 VARI 可见光植被指数计算完成，输出可见光波段植被分析结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "近期西安这批图你给个最稳妥的植被分析方案",
+        "expected": "根据工具执行结果分析，已检索西安近期影像数据，优先选择 NDVI 作为最稳妥的植被分析方案，计算完成并附带 SAVI/EVI 作为备选说明",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "重庆近期沿江水体情况帮我看下",
+        "expected": "根据工具执行结果分析，已检索重庆近期影像数据，优先选择 NDWI 水体指数计算完成，可补充 NDTI 作为浊度参考，输出沿江水体分析结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我准备分析 2026 年杭州植被，先告诉我 app2 一共支持哪些指数，按类别说",
+        "expected": "根据工具执行结果分析，已通过 list_remote_sensing_index 列出 app2 全部支持的指数，按植被监测(17项)、水体与浊度(2项)、土壤与裸地(8项)、藻类与水华(1项)、灾害与烧毁(1项)、建筑与人工地物(2项)六大类分类展示，不遗漏已支持指数",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我只关心 2026 年西安的植被类分析，能算哪些植被指数",
+        "expected": "根据工具执行结果分析，已列出植被类全部 17 项指数（ndvi、savi、evi、gndvi、arvi、msavi、lai、sr、osavi、rdvi、cvi、cigreen、grvi、gli、vari、cig、sipi），不混入水体、土壤、建筑等其他类别指数",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我只看近期武汉水体相关，能给我可算的指数列表吗",
+        "expected": "根据工具执行结果分析，已列出水体相关指数：NDWI（归一化水体指数）、NDTI（归一化浊度指数），不混入其他类别",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要看 2026 年深圳建成区，建筑相关都能算什么",
+        "expected": "根据工具执行结果分析，已列出建筑与人工地物相关指数：vgnir_bi（可见光-近红外建筑指数）、building_bi（建成区指数）",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "近期南京这批图帮我看下哪里更绿",
+        "expected": "根据工具执行结果分析，已将'更绿'语义映射为植被监测任务，检索南京近期影像数据并优先选择 NDVI 植被指数计算完成，输出植被覆盖度分析结果",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "近期武汉这批图帮我看下哪里水更多",
+        "expected": "根据工具执行结果分析，已将'水更多'语义映射为水体监测任务，检索武汉近期影像数据并优先选择 NDWI 水体指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2026 年天津土地是不是更黄了",
+        "expected": "根据工具执行结果分析，已将'更黄'语义映射为土壤裸地监测任务，检索天津 2026 年影像数据并优先选择 GSI 或 BI 土壤指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2026 年深圳哪些地方楼更密",
+        "expected": "根据工具执行结果分析，已将'楼更密'语义映射为建筑监测任务，检索深圳 2026 年影像数据并优先选择 building_bi 建成区指数计算完成",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要看最近两年杭州植被是不是在改善",
+        "expected": "根据工具执行结果分析，已检索杭州近两年影像数据并完成 NDVI 植被指数计算；同时明确说明'改善趋势'判断需基于多期指数结果进行二次统计分析，app2 工具仅产出指数图与统计文件，不直接给出趋势结论",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "西安最近植被咋样？",
+        "expected": "根据工具执行结果分析，已将'植被咋样'自动完成语义映射->指数选择->数据检索->调用执行->输出说明全流程，优先选择 NDVI 计算完成并输出西安近期植被状态分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "帮我看北京和上海近一年植被与水体",
+        "expected": "根据工具执行结果分析，已分别检索北京和上海近一年影像数据，联合计算 NDVI 和 NDWI 完成，支持多城市多目标遥感指数分析",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "2026 年西安数据路径是 /var/opt/data_not_exist，帮我看植被",
+        "expected": "工具返回错误：输入路径 /var/opt/data_not_exist 不存在，模型不应擅自替换为默认数据路径或样例目录执行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要看 2026 年长沙最近植被",
+        "expected": "模型应通过 search_tif_data 检索确认长沙无匹配数据后，说明当前 data 目录无长沙样本，并列出支持的 12 个可用城市（上海、北京、南京、天津、广州、成都、杭州、武汉、深圳、苏州、西安、重庆）供用户选择，不应编造数据或擅自替换城市",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我准备看 2026 年夏季杭州植被，先告诉我你能不能算，再决定要不要跑",
+        "expected": "模型应先通过 list_remote_sensing_index 完成能力说明（等价于 --list 语义），列出全部支持的指数类别和项，不直接执行计算任务，等待用户确认后再决定是否运行",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "list_remote_sensing_index",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
+            ]
+        }
+    },
+    {
+        "question": "我要看近期武汉植被+水体，给我一个最省事的方案",
+        "expected": "根据工具执行结果分析，给出最省事方案：检索武汉近期影像并联合计算 NDVI 和 NDWI，一步完成植被和水体分析，不引入与用户目标无关的额外参数或步骤",
+        "trajectory_evaluate": true,
+        "trajectory_ground_truth": {
+            "type": "trajectory",
+            "required_score": 1.0,
+            "optional_score": 0.5,
+            "steps": [
+                {
+                    "action": "plan",
+                    "required": false
+                },
+                {
+                    "action": "search_tif_data",
+                    "required": true
+                },
+                {
+                    "action": "remote_sensing_calculate_cli",
+                    "required": true
+                },
+                {
+                    "action": "task_summary",
+                    "required": true
+                },
+                {
+                    "action": "task_done",
+                    "required": true
+                }
             ]
         }
     }

@@ -14,11 +14,13 @@ experiments/
 ├── experiment_separate_plan.py      # Exp B：分离规划
 ├── experiment_constrained_plan.py   # Exp C：仅约束 plan
 ├── experiment_full_pipeline.py      # Exp D：约束全流程
+├── experiment_prompt_plan.py        # Exp E：提示词约束 plan
 └── trajectories/
     ├── exp_a_baseline/              # Exp A 输出
     ├── exp_b_separate_plan/         # Exp B 输出
     ├── exp_c_constrained_plan/      # Exp C 输出
-    └── exp_d_full_pipeline/         # Exp D 输出
+    ├── exp_d_full_pipeline/         # Exp D 输出
+    └── exp_e_prompt_plan/           # Exp E 输出
 ```
 
 ## 实验设计
@@ -29,6 +31,7 @@ experiments/
 | **B. 分离规划** | plan 子任务 + 执行全约束 | 独立子任务生成 | `experiment_separate_plan.py` |
 | **C. 仅约束 plan** | 仅 step 0（plan） | 约束解码器强制 | `experiment_constrained_plan.py` |
 | **D. 约束全流程** | plan + 所有后续工具 | 约束解码器强制 | `experiment_full_pipeline.py` |
+| **E. 提示词约束** | 无 | 提示词说"MUST call plan" | `experiment_prompt_plan.py` |
 
 ```
               ┌──────────────┬──────────────┬──────────────┐
@@ -83,6 +86,9 @@ python -m experiments.experiment_constrained_plan --quick --max-tasks 5
 
 # 实验 D：约束全流程
 python -m experiments.experiment_full_pipeline --quick --max-tasks 5
+
+# 实验 E：提示词约束 plan
+python -m experiments.experiment_prompt_plan --quick --max-tasks 5
 
 # 指定单模型
 python -m experiments.experiment_baseline --model Qwen/Qwen3-1.7B

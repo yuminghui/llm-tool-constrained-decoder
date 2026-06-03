@@ -133,6 +133,16 @@ EXP_D_MAX_TASKS: int = 0
 EXP_D_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_d_full_pipeline")
 
 # ---------------------------------------------------------------------------
+# Experiment E — prompt-only plan enforcement
+#   System prompt says "MUST call plan first". No constraint decoder.
+# ---------------------------------------------------------------------------
+
+EXP_E_MODELS: list = ALL_MODELS
+EXP_E_TASK_INDICES: Optional[List[int]] = None
+EXP_E_MAX_TASKS: int = 0
+EXP_E_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_e_prompt_plan")
+
+# ---------------------------------------------------------------------------
 # Model loading
 # ---------------------------------------------------------------------------
 
