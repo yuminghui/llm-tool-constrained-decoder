@@ -23,7 +23,7 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agentic.llm_backend import LLMBackend
-from agentic.tools import load_tools_from_json
+from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import AgentResult, AgentStep
 from experiments.trajectory_utils import (
     save_trajectories_batch, load_benchmark_tasks,

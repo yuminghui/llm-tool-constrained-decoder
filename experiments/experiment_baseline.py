@@ -28,7 +28,7 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agentic.llm_backend import LLMBackend
-from agentic.tools import load_tools_from_json
+from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import AgentResult, AgentStep
 from experiments.trajectory_utils import (
     save_trajectories_batch, load_benchmark_tasks,
@@ -125,6 +125,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
         model_id = _mid(entry); quantize = model_quantize(entry)
         print(f"\n{'─'*60}\n  Model: {model_id}\n{'─'*60}")
         backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
+        set_summary_backend(backend)
 
         results, pt_list, gt_list, task_ids = [], [], [], []
         plan_calls, plan_first, num_cstr, num_free, completed, num_ok = 0, 0, 0, 0, 0, 0

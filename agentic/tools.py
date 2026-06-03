@@ -59,16 +59,53 @@ logger = _get_logger(__name__, level=logging.DEBUG)
 
 
 # ---------------------------------------------------------------------------
-# Stub for external app2_summary
+# app2_summary — LLM-based remote sensing output summarization
 # ---------------------------------------------------------------------------
 
-def _app2_summary(model: str, query: str, json_content: str) -> Optional[str]:
-    """Stub for ``agent.subtask.app2_summary`` — summarizes app2 output via LLM.
+APP2_SUMMARY_PROMPT = """# 用户任务
+{query}
 
-    TODO: Replace with the real implementation from ``agent.subtask``.
-    Returns None so callers fall back to raw output.
+# 遥感指数分析工具计算出的 JSON 数据
+{json_content}
+
+# 你的任务
+你的任务是基于遥感指数分析工具计算出的 JSON 数据，对用户任务进行分析总结，并且只能返回分析总结后的结果。
+
+# 要求
+- 只需要返回分析总结的内容
+- 以Markdown格式
+- 请使用中文"""
+
+_summary_backend = None  # set by experiment via set_summary_backend()
+
+
+def set_summary_backend(backend) -> None:
+    """Set the LLM backend used by ``_app2_summary`` for remote sensing summaries.
+
+    Call once per model in the experiment loop.  If never called (or set to
+    None), ``_app2_summary`` returns None and callers fall back to raw output.
     """
-    return None
+    global _summary_backend
+    _summary_backend = backend
+
+
+def _app2_summary(model: str, query: str, json_content: str) -> Optional[str]:
+    """Summarize remote sensing index calculation output via LLM.
+
+    Uses the backend set by ``set_summary_backend()``.  Returns None if no
+    backend is available, so callers fall back to the raw tool output.
+    """
+    if _summary_backend is None:
+        return None
+    prompt = APP2_SUMMARY_PROMPT.format(query=query, json_content=json_content)
+    try:
+        raw = _summary_backend.generate_free(
+            prompt, max_new_tokens=512, temperature=0.3,
+        )
+        return raw.strip() if raw else None
+    except Exception:
+        logger.exception("_app2_summary failed")
+        return None
 
 
 # ===================================================================
