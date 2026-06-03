@@ -232,7 +232,7 @@ class ListSenseIndex(AgentTool):
 class RemoteSenseIndexCalculate(AgentTool):
     """Remote sensing index calculation via subprocess call."""
 
-    def __init__(self, conda_env: str = "my_env", query: str = "", model: str = "") -> None:
+    def __init__(self, conda_env: str = "geo_envtest", query: str = "", model: str = "") -> None:
         super().__init__()
         self.conda_env = conda_env
         self.query = query
@@ -331,7 +331,7 @@ class BashLs(AgentTool):
 class GFPMSPreprocess(AgentTool):
     """Gaofen satellite image preprocessing pipeline."""
 
-    def __init__(self, conda_env: str = "my_env") -> None:
+    def __init__(self, conda_env: str = "geo_envtest") -> None:
         super().__init__()
         self.conda_env = conda_env
 
@@ -418,7 +418,7 @@ class GetToolsList(AgentTool):
 class DcvaCD(AgentTool):
     """DCVA change detection tool."""
 
-    def __init__(self, conda_env: str = "my_env") -> None:
+    def __init__(self, conda_env: str = "app_4") -> None:
         super().__init__()
         self.conda_env = conda_env
 
@@ -894,9 +894,11 @@ def _instantiate_tool(
     """Instantiate a tool class with the appropriate constructor arguments."""
     # Tools that accept (conda_env, query, model)
     if name == "remote_sensing_calculate_cli":
-        return cls(conda_env=conda_env, query=query, model=model)
+        return cls(conda_env="geo_envtest", query=query, model=model)
     # Tools that accept (conda_env)
-    if name in ("gf_pms_preprocess_cli", "dcva_cd"):
-        return cls(conda_env=conda_env)
+    if name in "gf_pms_preprocess_cli":
+        return cls(conda_env="geo_envtest")
+    if name in "dcva_cd":
+        return cls(conda_env="app_4")
     # All others use the default constructor
     return cls()

@@ -178,6 +178,13 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
         all_metrics[model_id] = m
         _print_summary(m)
 
+        # Release GPU memory before next model
+        set_summary_backend(None)
+        del backend
+        import torch
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
     return all_metrics
 
 
