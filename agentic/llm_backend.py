@@ -294,12 +294,20 @@ class LLMBackend:
         tools: List[Dict[str, Any]],
         add_generation_prompt: bool = True,
     ) -> str:
-        """Apply the model's chat template to build a full prompt string."""
+        """Apply the model's chat template to build a full prompt string.
+
+        ``enable_thinking=False`` for tool-calling; without it
+        the model enters thinking mode and outputs ``<think>...</think>``
+        blocks instead of tool calls.
+        """
+        kwargs: Dict[str, Any] = {"enable_thinking": False}
+
         return self.tokenizer.apply_chat_template(
             messages,
             tools=tools,
             tokenize=False,
             add_generation_prompt=add_generation_prompt,
+            **kwargs,
         )
 
     # ------------------------------------------------------------------

@@ -39,8 +39,8 @@ from experiments.config import (
 
 SYSTEM_PROMPT = (
     "You are a helpful assistant with access to external tools. "
-    "Always call the 'plan' tool first to create a step-by-step plan "
-    "before taking any action. Execute tools one at a time. "
+    "Use the available tools to complete the user's task. "
+    "You MUST use the tools provided. Never ask clarifying questions, just call the most appropriate tool. "
     "When finished, use task_summary to summarize and task_done to finish. "
     "Respond in Chinese."
 )
