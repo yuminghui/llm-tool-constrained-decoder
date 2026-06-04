@@ -444,6 +444,57 @@ class LLMBackend:
         try:
             return json.loads(json_str)
         except json.JSONDecodeError:
+            pass
+
+        # ---- Gemma 4 custom format (Gemma models only) ----
+        if self.model_id.startswith("google/gemma"):
+            result = self._parse_gemma4(text)
+            if result is not None:
+                return result
+
+        return None
+
+    # ------------------------------------------------------------------
+    # Gemma 4 custom parser
+    # ------------------------------------------------------------------
+
+    def _parse_gemma4(self, text: str) -> Optional[Dict[str, Any]]:
+        """Parse Gemma 4 custom tool-call format.
+
+        Format::
+
+            <|tool_call>call:tool_name{key1:val1, ...}<tool_call|><|tool_response>
+
+        Where string values use ``<|\"|>`` as quote delimiters.
+        Example::
+
+            <|tool_call>call:bash_ls{pattern:<|\"|>.tif<|\"|>,show_detail:true}<tool_call|>
+        """
+        import re
+
+        body = text
+        body = re.sub(r'<\|tool_call>', '', body, count=1)
+        body = re.sub(r'<tool_call\|>', '', body)
+        body = re.sub(r'<\|tool_response>', '', body)
+        body = body.strip()
+
+        m = re.match(r'call:(\w+)\{(.*)\}$', body, re.DOTALL)
+        if not m:
+            return None
+
+        tool_name = m.group(1)
+        args_str = '{' + m.group(2) + '}'
+
+        # Replace Gemma 4 special quote token with actual quote
+        args_str = args_str.replace('<|"|>', '"')
+
+        # Quote unquoted keys:  word: → "word":
+        args_str = re.sub(r'(?<=[{,]) *(\w+) *:', r'"\1":', args_str)
+
+        try:
+            args = json.loads(args_str)
+            return {"name": tool_name, "arguments": args}
+        except json.JSONDecodeError:
             return None
 
     # ------------------------------------------------------------------

@@ -36,22 +36,12 @@ from experiments.config import (
     TEMPERATURE, MAX_TURNS, PLAN_MAX_NEW_TOKENS,
     REQUIRED_STEP_WEIGHT, OPTIONAL_STEP_WEIGHT, TASK_DONE_WEIGHT, COMPLETION_THRESHOLD,
 )
-
-PLANNER_PROMPT = (
-    "You are a task planner. Given a user's request, create a detailed step-by-step "
-    "plan using the 'plan' tool. Specify which tools to use for each step. "
-    "Do NOT execute any tools — only plan. Respond in Chinese."
-)
-EXECUTOR_PROMPT = (
-    "You are a task executor. A plan has already been created. "
-    "Execute the plan step by step. Do NOT call the 'plan' tool again. "
-    "When finished, use task_summary and task_done. Respond in Chinese."
-)
+from experiments.prompts import SYSTEM_PROMPT, USER_TASK_PROMPT
 
 
 def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
     td = tools_registry.get_definitions(); ps = tools_registry.get_schema("plan")
-    msg = [{"role":"system","content":PLANNER_PROMPT},{"role":"user","content":user_query}]
+    msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=user_query)}]
     prompt = backend.build_prompt(msg, td)
     dr = backend.generate_constrained(prompt=prompt, tool_name="plan", args_schema=ps,
                                        max_new_tokens=PLAN_MAX_NEW_TOKENS, temperature=TEMPERATURE)
@@ -100,7 +90,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
         total_prompt, total_gen, total_all, total_ok_tokens, total_steps = 0, 0, 0, 0, 0
         match_total, match_hits = 0, 0
         error_counts: Dict[str, int] = {}
-        econf = AgentConfig(max_turns=MAX_TURNS, temperature=TEMPERATURE, use_constrained_decoder=True, verbose=False, system_prompt=EXECUTOR_PROMPT)
+        econf = AgentConfig(max_turns=MAX_TURNS, temperature=TEMPERATURE, use_constrained_decoder=True, verbose=False, system_prompt=SYSTEM_PROMPT)
 
         for i, task in enumerate(tasks):
             q = task["question"]; gt_truth = task.get("trajectory_ground_truth", {})
@@ -111,12 +101,12 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
             plan_res = run_planning_subtask(backend, tools_registry, q)
 
             # Phase 2: execution
-            exec_msg = [{"role":"system","content":EXECUTOR_PROMPT},{"role":"user","content":q}]
+            exec_msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
             exec_pt = len(backend.tokenizer.encode(backend.build_prompt(exec_msg, tool_defs)))
 
             t0 = time.time()
             executor = Agent(backend, tools_registry, econf)
-            ar = executor.run(q, pre_seeded_plan=plan_res)
+            ar = executor.run(USER_TASK_PROMPT.format(query=q), pre_seeded_plan=plan_res)
             elapsed = time.time()-t0
 
             gen_tokens = sum(len(backend.tokenizer.encode(s.generated_text)) for s in ar.steps)
