@@ -83,7 +83,8 @@ def run_agent_baseline(backend, tools_registry, user_query: str) -> AgentResult:
                                    total_time=time.time()-start, total_tokens=total_tokens, success=True)
         else:
             steps.append(AgentStep(step_index=turn, tool_name=None, tool_args=None, tool_result=None,
-                                   generated_text=raw, is_constrained=False, elapsed=0))
+                                   generated_text=raw, is_constrained=False,
+                                   elapsed=time.time() - start))
             return AgentResult(user_query=user_query, steps=steps, final_answer=raw,
                                total_time=time.time()-start, total_tokens=total_tokens, success=True)
 

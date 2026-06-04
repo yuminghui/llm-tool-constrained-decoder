@@ -92,7 +92,7 @@ def agent_result_to_record(
         "prompt_tokens": prompt_tokens,
         "generated_tokens": generated_tokens,
         "total_tokens": total,
-        "final_answer": _truncate(agent_result.final_answer, 1000) if agent_result.final_answer else None,
+        "final_answer": _truncate(agent_result.final_answer, 1000) if agent_result.final_answer is not None else None,
         "trajectory_evaluate": True,
         "trajectory": {
             "type": "trajectory",
