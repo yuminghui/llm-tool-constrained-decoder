@@ -94,9 +94,10 @@ def _detect_template_from_tokenizer(tokenizer) -> Optional[str]:
     # Ordered list of (opening_tag, closing_tag) pairs to look for.
     # First match wins.
     KNOWN_WRAPPERS: List[Tuple[str, str]] = [
-        ("<tool_call|>", "<|tool_call>"),       # Gemma
-        ("<tool_call>", "</tool_call>"),         # Qwen, DeepSeek, Phi, Yi, InternLM, GLM
-        ("[TOOL_CALLS]", ""),                    # Mistral
+        ("<tool_call|>", "<|tool_call>"),        # Gemma 2/3
+        ("<|tool_call>", "<tool_call|>"),        # Gemma 4
+        ("<tool_call>", "</tool_call>"),          # Qwen, DeepSeek, Phi, Yi, InternLM, GLM
+        ("[TOOL_CALLS]", ""),                     # Mistral
     ]
 
     for opening, closing in KNOWN_WRAPPERS:
@@ -375,30 +376,50 @@ class LLMBackend:
     # Tool-call parsing
     # ------------------------------------------------------------------
 
+    # Fallback wrapper pairs tried when the template-derived ones don't work.
+    # Covers model variants that output reverse/malformed tags.
+    _FALLBACK_WRAPPERS: List[Tuple[str, str]] = [
+        ("<tool_call>", "</tool_call>"),
+        ("<tool_call|>", "<|tool_call>"),
+        ("<|tool_call>", "<tool_call|>"),
+        ("[TOOL_CALLS]", ""),
+    ]
+
     def parse_tool_call(self, text: str) -> Optional[Dict[str, Any]]:
         """Try to extract and parse a tool-call JSON object from *text*.
 
-        Strips the prefix/suffix derived from the tool-call template,
-        then attempts to find and parse a JSON object from the remainder.
+        Strips wrapper tags (from template + fallback variants), then
+        finds and parses the JSON object.
 
         Returns None if no valid tool call is found.
         """
         if not text:
             return None
 
-        body = text
+        # Build the list of (prefix, suffix) pairs to try.
+        # Template-derived pair first, then fallbacks.
+        pairs: List[Tuple[str, str]] = []
+        if self.tool_call_prefix or self.tool_call_suffix:
+            pairs.append((self.tool_call_prefix, self.tool_call_suffix))
+        for pf, sf in self._FALLBACK_WRAPPERS:
+            if (pf, sf) not in pairs:
+                pairs.append((pf, sf))
 
-        # Strip prefix (derived from template, e.g. "<tool_call|>" for Gemma)
-        if self.tool_call_prefix:
-            idx = body.find(self.tool_call_prefix)
-            if idx >= 0:
-                body = body[idx + len(self.tool_call_prefix):]
-
-        # Strip suffix (derived from template, e.g. "<|tool_call>" for Gemma)
-        if self.tool_call_suffix:
-            body_rstrip = body.rstrip()
-            if body_rstrip.endswith(self.tool_call_suffix):
-                body = body_rstrip[:-len(self.tool_call_suffix)]
+        body = ""
+        for prefix, suffix in pairs:
+            body = text
+            if prefix:
+                idx = body.find(prefix)
+                if idx >= 0:
+                    body = body[idx + len(prefix):]
+            if suffix:
+                body_rstrip = body.rstrip()
+                if body_rstrip.endswith(suffix):
+                    body = body_rstrip[:-len(suffix)]
+            body = body.strip()
+            if body and body[0] == "{":
+                break  # found a plausible JSON start — use this stripping
+            # else: try next pair
 
         body = body.strip()
 

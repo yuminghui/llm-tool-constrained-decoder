@@ -173,7 +173,7 @@
             },
             "required": ["input_path", "output_path", "case"]
         },
-        "enabled": false
+        "enabled": true
     },
     {
         "name": "get_tools_list",
@@ -240,7 +240,7 @@
             },
             "required": ["tip"]
         },
-            "enabled": false
+            "enabled": true
     },
     {
         "name": "dir_search",
