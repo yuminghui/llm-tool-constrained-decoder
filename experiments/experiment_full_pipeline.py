@@ -94,6 +94,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
             t0 = time.time()
             agent = Agent(backend, tools_registry, agent_conf)
             ar = agent.run(USER_TASK_PROMPT.format(query=q))
+            ar.user_query = q  # record original question, not the augmented prompt
             elapsed = time.time()-t0
 
             gen_tokens = sum(len(backend.tokenizer.encode(s.generated_text)) for s in ar.steps)
