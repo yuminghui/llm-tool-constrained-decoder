@@ -3,7 +3,7 @@ Experiment B — Separate Plan + Agent
 ======================================
 
 Phase 1: dedicated planning subtask with its own system prompt.
-         The LLM freely generates a ``plan`` tool call (no constraint decoder).
+         Constraint decoder forces a ``plan`` tool call.
 Phase 2: execution agent with pre-seeded plan (normal agent run).
 
 Metrics: tokens, completion, trajectory, plan usage, constrained/free calls,
@@ -35,7 +35,7 @@ from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
     EXP_B_MODELS, EXP_B_TASK_INDICES, EXP_B_MAX_TASKS, EXP_B_OUTPUT_DIR,
     QUANTIZATION_MODE, model_id as _mid, model_quantize,
-    TEMPERATURE, MAX_TURNS, FREE_MAX_NEW_TOKENS,
+    TEMPERATURE, MAX_TURNS, PLAN_MAX_NEW_TOKENS,
     REQUIRED_STEP_WEIGHT, OPTIONAL_STEP_WEIGHT, TASK_DONE_WEIGHT, COMPLETION_THRESHOLD,
 )
 from experiments.prompts import SYSTEM_PROMPT, USER_TASK_PROMPT
@@ -71,7 +71,8 @@ PLANNER_SYSTEM_PROMPT = (
     "# Example\n"
     "假设用户说\u201c处理影像到大气校正阶段\u201d，你应该输出类似：\n"
     "```\n"
-    "plan({\n"
+    "<tool_call>\n"
+    "{\"name\":\"plan\",\"arguments\":{\n"
     '  "title": "高分影像大气校正处理",\n'
     '  "steps": [\n'
     "    {\n"
@@ -95,54 +96,47 @@ PLANNER_SYSTEM_PROMPT = (
     '      "expected_tools": ["task_done"]\n'
     "    }\n"
     "  ]\n"
-    "})\n"
+    "}}\n"
+    "</tool_call>\n"
     "```\n"
     "\n"
     "# Important\n"
     "- 请用中文回复\n"
-    "- 只输出 plan 工具调用，不要输出任何其他文字或解释\n"
+    "- **必须**使用 `<tool_call>` 标签格式输出 plan 工具调用，"
+    "格式为 `<tool_call>{\"name\":\"plan\",\"arguments\":{...}}</tool_call>`\n"
+    "- 不要在 `<tool_call>` 标签之外输出任何文字、解释或代码块标记\n"
     "- plan 中的 expected_tools 将直接用于后续自动化执行，"
     "所以工具名和顺序必须准确"
 )
 
 
 def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
-    """Dedicated planning subtask — free generation with planner prompt."""
+    """Dedicated planning subtask — constrained decoder forces plan tool call."""
     td = tools_registry.get_definitions()
+    ps = tools_registry.get_schema("plan")
     msg = [
         {"role": "system", "content": PLANNER_SYSTEM_PROMPT},
         {"role": "user", "content": user_query},
     ]
     prompt = backend.build_prompt(msg, td)
-    raw = backend.generate_free(prompt, max_new_tokens=FREE_MAX_NEW_TOKENS, temperature=TEMPERATURE)
+    dr = backend.generate_constrained(
+        prompt=prompt, tool_name="plan", args_schema=ps,
+        max_new_tokens=PLAN_MAX_NEW_TOKENS, temperature=TEMPERATURE,
+    )
     pt = len(backend.tokenizer.encode(prompt))
-    gt = len(backend.tokenizer.encode(raw))
-
-    tc = backend.parse_tool_call(raw)
-    if tc and "name" in tc:
-        t_args = tc.get("arguments", {})
-        tr = tools_registry.execute("plan", t_args)
-        return {
-            "tool_name": "plan",
-            "tool_args": t_args,
-            "generated_text": raw,
-            "tool_result": tr,
-            "prompt_tokens": pt,
-            "generated_tokens": gt,
-            "total_tokens": pt + gt,
-            "is_constrained": False,
-        }
-    else:
-        return {
-            "tool_name": "plan",
-            "tool_args": {},
-            "generated_text": raw,
-            "tool_result": None,
-            "prompt_tokens": pt,
-            "generated_tokens": gt,
-            "total_tokens": pt + gt,
-            "is_constrained": False,
-        }
+    gt = len(dr.token_ids)
+    pa = dr.tool_call.get("arguments", {})
+    tr = tools_registry.execute("plan", pa) if "_parse_error" not in dr.tool_call else None
+    return {
+        "tool_name": "plan",
+        "tool_args": pa,
+        "generated_text": dr.text,
+        "tool_result": tr,
+        "prompt_tokens": pt,
+        "generated_tokens": gt,
+        "total_tokens": pt + gt,
+        "is_constrained": True,
+    }
 
 
 @dataclass
@@ -197,7 +191,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
                 "prompt_tokens": plan_res["prompt_tokens"],
                 "generated_tokens": plan_res["generated_tokens"],
                 "is_constrained": plan_res["is_constrained"],
-                "parsed_successfully": bool(plan_res.get("tool_args")),
+                "parsed_successfully": plan_res.get("tool_result") is not None,
                 "generated_text": plan_res["generated_text"],
             })
 
