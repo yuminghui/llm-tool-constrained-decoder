@@ -36,6 +36,7 @@ from experiments.config import (
     TEMPERATURE, MAX_TURNS, FREE_MAX_NEW_TOKENS,
     REQUIRED_STEP_WEIGHT, OPTIONAL_STEP_WEIGHT, TASK_DONE_WEIGHT, COMPLETION_THRESHOLD,
 )
+from experiments.prompts import USER_TASK_PROMPT
 
 SYSTEM_PROMPT = (
     "You are a helpful assistant with access to external tools. "
@@ -53,7 +54,7 @@ def run_agent_prompt_plan(backend, tools_registry, user_query: str) -> AgentResu
     total_tokens = 0
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": user_query},
+        {"role": "user", "content": USER_TASK_PROMPT.format(query=user_query)},
     ]
     tool_defs = tools_registry.get_definitions()
 
@@ -140,7 +141,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
             tid = f"task_{i:03d}"; task_ids.append(tid)
             print(f"  [{i+1}/{len(tasks)}] {q[:70]}...", end=" ", flush=True)
 
-            msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":q}]
+            msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
             prompt_tokens = len(backend.tokenizer.encode(backend.build_prompt(msg, tool_defs)))
 
             t0 = time.time(); ar = run_agent_prompt_plan(backend, tools_registry, q); elapsed = time.time()-t0

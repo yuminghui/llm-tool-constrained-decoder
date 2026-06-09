@@ -2,8 +2,9 @@
 Experiment B — Separate Plan + Agent
 ======================================
 
-Phase 1: planning-only subtask (constraint decoder forces ``plan``).
-Phase 2: execution agent with pre-seeded plan (constraint decoder for all tools).
+Phase 1: dedicated planning subtask with its own system prompt.
+         The LLM freely generates a ``plan`` tool call (no constraint decoder).
+Phase 2: execution agent with pre-seeded plan (normal agent run).
 
 Metrics: tokens, completion, trajectory, plan usage, constrained/free calls,
          error types, tool_call_match_rate (plan vs actual).
@@ -33,23 +34,112 @@ from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
     EXP_B_MODELS, EXP_B_TASK_INDICES, EXP_B_MAX_TASKS, EXP_B_OUTPUT_DIR,
     QUANTIZATION_MODE, model_id as _mid, model_quantize,
-    TEMPERATURE, MAX_TURNS, PLAN_MAX_NEW_TOKENS,
+    TEMPERATURE, MAX_TURNS, FREE_MAX_NEW_TOKENS,
     REQUIRED_STEP_WEIGHT, OPTIONAL_STEP_WEIGHT, TASK_DONE_WEIGHT, COMPLETION_THRESHOLD,
 )
 from experiments.prompts import SYSTEM_PROMPT, USER_TASK_PROMPT
 
+PLANNER_SYSTEM_PROMPT = (
+    "# Role\n"
+    "你是一个专业的任务规划器（Task Planner）。你的唯一职责是：根据用户的需求，"
+    "分析任务并制定一份详细、清晰、可操作的分步执行计划。\n"
+    "你**只负责规划**，绝对不执行任何工具，也不模拟工具的执行结果。\n"
+    "\n"
+    "# Plan Structure\n"
+    "你必须使用 `plan` 工具来输出规划。规划必须包含以下字段：\n"
+    "- **title**：用一句简短的话概括任务目标\n"
+    "- **steps**：一个步骤列表，每个步骤是一个对象，包含：\n"
+    "  - **step_number**（整数）：步骤序号，从 1 开始递增\n"
+    "  - **step_name**（字符串）：该步骤的简短名称，动词开头（如「检索数据」、「执行预处理」）\n"
+    "  - **description**（字符串）：该步骤的详细描述，说明要做什么、为什么做、期望得到什么结果\n"
+    "  - **expected_tools**（字符串数组）：该步骤预计要调用的工具名称列表。如果预计使用单个工具，"
+    "填 [\u201ctool_name\u201d]；如果预计使用多个工具（按顺序调用），"
+    "填 [\u201ctool_a\u201d, \u201ctool_b\u201d]\n"
+    "\n"
+    "# Plan Rules\n"
+    "1. 步骤要按执行顺序排列，上一步的输出是下一步的输入时，要在描述中说明依赖关系\n"
+    "2. 每个步骤的 expected_tools 必须是实际存在于工具列表中的工具名称，"
+    "不要编造不存在的工具\n"
+    "3. 最后两个步骤**必须**是：\n"
+    "   - 倒数第二步：使用 `task_summary` 总结所有已完成的工作，"
+    "包括做了什么、结果如何、是否满足用户需求\n"
+    "   - 最后一步：使用 `task_done` 结束任务\n"
+    "4. 不要在 expected_tools 中包含 `plan` 工具——规划阶段已经完成了\n"
+    "5. 步骤数量要合理：简单任务 2-4 步，复杂任务 5-8 步\n"
+    "\n"
+    "# Example\n"
+    "假设用户说\u201c处理影像到大气校正阶段\u201d，你应该输出类似：\n"
+    "```\n"
+    "plan({\n"
+    '  "title": "高分影像大气校正处理",\n'
+    '  "steps": [\n'
+    "    {\n"
+    '      "step_number": 1,\n'
+    '      "step_name": "执行大气校正预处理",\n'
+    '      "description": "调用预处理工具对输入影像进行大气校正处理，'
+    'case 参数选择对应大气校正的选项",\n'
+    '      "expected_tools": ["gf_pms_preprocess_cli"]\n'
+    "    },\n"
+    "    {\n"
+    '      "step_number": 2,\n'
+    '      "step_name": "总结工作",\n'
+    '      "description": "汇总处理结果，说明处理了哪些影像、'
+    '使用了什么参数、输出位置在哪",\n'
+    '      "expected_tools": ["task_summary"]\n'
+    "    },\n"
+    "    {\n"
+    '      "step_number": 3,\n'
+    '      "step_name": "结束任务",\n'
+    '      "description": "确认任务完成，调用 task_done 结束",\n'
+    '      "expected_tools": ["task_done"]\n'
+    "    }\n"
+    "  ]\n"
+    "})\n"
+    "```\n"
+    "\n"
+    "# Important\n"
+    "- 请用中文回复\n"
+    "- 只输出 plan 工具调用，不要输出任何其他文字或解释\n"
+    "- plan 中的 expected_tools 将直接用于后续自动化执行，"
+    "所以工具名和顺序必须准确"
+)
+
 
 def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
-    td = tools_registry.get_definitions(); ps = tools_registry.get_schema("plan")
-    msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=user_query)}]
+    """Dedicated planning subtask — free generation with planner prompt."""
+    td = tools_registry.get_definitions()
+    msg = [
+        {"role": "system", "content": PLANNER_SYSTEM_PROMPT},
+        {"role": "user", "content": user_query},
+    ]
     prompt = backend.build_prompt(msg, td)
-    dr = backend.generate_constrained(prompt=prompt, tool_name="plan", args_schema=ps,
-                                       max_new_tokens=PLAN_MAX_NEW_TOKENS, temperature=TEMPERATURE)
-    pt = len(backend.tokenizer.encode(prompt)); gt = len(dr.token_ids)
-    pa = dr.tool_call.get("arguments", {})
-    tr = tools_registry.execute("plan", pa) if "_parse_error" not in dr.tool_call else None
-    return {"tool_name":"plan","tool_args":pa,"generated_text":dr.text,"tool_result":tr,
-            "prompt_tokens":pt,"generated_tokens":gt,"total_tokens":pt+gt}
+    raw = backend.generate_free(prompt, max_new_tokens=FREE_MAX_NEW_TOKENS, temperature=TEMPERATURE)
+    pt = len(backend.tokenizer.encode(prompt))
+    gt = len(backend.tokenizer.encode(raw))
+
+    tc = backend.parse_tool_call(raw)
+    if tc and "name" in tc:
+        t_args = tc.get("arguments", {})
+        tr = tools_registry.execute("plan", t_args)
+        return {
+            "tool_name": "plan",
+            "tool_args": t_args,
+            "generated_text": raw,
+            "tool_result": tr,
+            "prompt_tokens": pt,
+            "generated_tokens": gt,
+            "total_tokens": pt + gt,
+        }
+    else:
+        return {
+            "tool_name": "plan",
+            "tool_args": {},
+            "generated_text": raw,
+            "tool_result": None,
+            "prompt_tokens": pt,
+            "generated_tokens": gt,
+            "total_tokens": pt + gt,
+        }
 
 
 @dataclass
