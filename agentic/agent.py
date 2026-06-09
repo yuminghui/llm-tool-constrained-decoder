@@ -156,7 +156,7 @@ class Agent:
                     tool_args=pre_seeded_plan.get("tool_args", {}),
                     tool_result=pre_seeded_plan.get("tool_result"),
                     generated_text=pre_seeded_plan.get("generated_text", ""),
-                    is_constrained=True,
+                    is_constrained=pre_seeded_plan.get("is_constrained", True),
                     elapsed=0.0,
                 )
                 result.steps.append(plan_step)

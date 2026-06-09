@@ -27,7 +27,8 @@ from agentic.llm_backend import LLMBackend
 from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import Agent, AgentConfig, AgentResult, AgentStep
 from experiments.trajectory_utils import (
-    save_trajectories_batch, load_benchmark_tasks,
+    agent_result_to_record, _build_summary,
+    load_benchmark_tasks,
     evaluate_completion, categorize_error,
 )
 from experiments.config import (
@@ -129,6 +130,7 @@ def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
             "prompt_tokens": pt,
             "generated_tokens": gt,
             "total_tokens": pt + gt,
+            "is_constrained": False,
         }
     else:
         return {
@@ -139,6 +141,7 @@ def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
             "prompt_tokens": pt,
             "generated_tokens": gt,
             "total_tokens": pt + gt,
+            "is_constrained": False,
         }
 
 
@@ -180,6 +183,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
         total_prompt, total_gen, total_all, total_ok_tokens, total_steps = 0, 0, 0, 0, 0
         match_total, match_hits = 0, 0
         error_counts: Dict[str, int] = {}
+        planning_info: list = []
         econf = AgentConfig(max_turns=MAX_TURNS, temperature=TEMPERATURE, use_constrained_decoder=True, verbose=False, system_prompt=SYSTEM_PROMPT)
 
         for i, task in enumerate(tasks):
@@ -189,6 +193,13 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
 
             # Phase 1: planning subtask
             plan_res = run_planning_subtask(backend, tools_registry, q)
+            planning_info.append({
+                "prompt_tokens": plan_res["prompt_tokens"],
+                "generated_tokens": plan_res["generated_tokens"],
+                "is_constrained": plan_res["is_constrained"],
+                "parsed_successfully": bool(plan_res.get("tool_args")),
+                "generated_text": plan_res["generated_text"],
+            })
 
             # Phase 2: execution
             exec_msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
@@ -235,9 +246,23 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
 
         safe = model_id.replace("/","_"); os.makedirs(EXP_B_OUTPUT_DIR, exist_ok=True)
         path = os.path.join(EXP_B_OUTPUT_DIR, f"{safe}.json")
-        save_trajectories_batch(results, path, model_id=model_id, config_name="separate_plan",
-            task_ids=task_ids, prompt_tokens_list=pt_list, generated_tokens_list=gt_list,
-            extra_meta={"experiment": "exp_b_separate_plan"})
+
+        # Build trajectory records manually to include per-task planning_subtask details
+        records = []
+        for i, r in enumerate(results):
+            record = agent_result_to_record(
+                r, model_id=model_id, config_name="separate_plan",
+                task_id=task_ids[i],
+                prompt_tokens=pt_list[i],
+                generated_tokens=gt_list[i],
+                extra_meta={"experiment": "exp_b_separate_plan"},
+            )
+            record["planning_subtask"] = planning_info[i]
+            records.append(record)
+        summary = _build_summary(records, model_id=model_id, config_name="separate_plan")
+        output = records + [summary]
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
         print(f"  Saved: {path}")
 
         m = ExpMetrics(model_id=model_id, num_tasks=len(tasks),
