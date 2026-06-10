@@ -143,6 +143,19 @@ EXP_E_MAX_TASKS: int = 0
 EXP_E_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_e_prompt_plan")
 
 # ---------------------------------------------------------------------------
+# Experiment F — prompt-enhanced constrained plan + free execution
+#   Dedicated plan prompt (PLANNER_SYSTEM_PROMPT) + constraint decoder for
+#   plan step only; subsequent steps are free generation.
+#   vs B: same plan prompt, but execution is free (not constrained).
+#   vs C: same free execution, but plan prompt is specialized (not generic).
+# ---------------------------------------------------------------------------
+
+EXP_F_MODELS = [ALL_MODELS[0]]
+EXP_F_TASK_INDICES: Optional[List[int]] = None
+EXP_F_MAX_TASKS: int = 0
+EXP_F_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_f_prompt_constrained_plan")
+
+# ---------------------------------------------------------------------------
 # Model loading
 # ---------------------------------------------------------------------------
 
