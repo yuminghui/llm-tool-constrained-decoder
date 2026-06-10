@@ -413,6 +413,13 @@ class Agent:
                     step.tool_result = self.tools.execute(t_name, t_args)
                     if self.config.verbose:
                         print(f"  Tool call: {t_name}({json.dumps(t_args, ensure_ascii=False)[:100]})")
+                    if t_name == "task_done":
+                        if self.config.verbose:
+                            print("  → Task done")
+                        result.final_answer = step.tool_result
+                        result.success = True
+                        result.steps.append(step)
+                        return result
                 else:
                     if self.config.verbose:
                         print(f"  Unknown tool '{t_name}' — treating as final answer")
