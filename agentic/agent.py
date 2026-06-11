@@ -302,6 +302,14 @@ class Agent:
                     print(f"  Constrained → {target_tool}")
                     args_preview = json.dumps(step.tool_args, ensure_ascii=False)
                     print(f"  Args: {args_preview[:120]}")
+
+                if target_tool == "wait_user_instruction":
+                    if self.config.verbose:
+                        print("  → Wait user instruction (stopping task)")
+                    result.final_answer = step.tool_result
+                    result.success = True
+                    result.error = "wait_user_instruction"
+                    return result
             else:
                 # All planned tools exhausted — free generation for final answer
                 if self.config.verbose:
@@ -418,6 +426,14 @@ class Agent:
                             print("  → Task done")
                         result.final_answer = step.tool_result
                         result.success = True
+                        result.steps.append(step)
+                        return result
+                    if t_name == "wait_user_instruction":
+                        if self.config.verbose:
+                            print("  → Wait user instruction (stopping task)")
+                        result.final_answer = step.tool_result
+                        result.success = True
+                        result.error = "wait_user_instruction"
                         result.steps.append(step)
                         return result
                 else:

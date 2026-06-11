@@ -83,6 +83,10 @@ def run_agent_prompt_plan(backend, tools_registry, user_query: str) -> AgentResu
             if t_name == "task_done":
                 return AgentResult(user_query=user_query, steps=steps, final_answer=step.tool_result,
                                    total_time=time.time()-start, total_tokens=total_tokens, success=True)
+            if t_name == "wait_user_instruction":
+                return AgentResult(user_query=user_query, steps=steps, final_answer=step.tool_result,
+                                   total_time=time.time()-start, total_tokens=total_tokens,
+                                   success=True, error="wait_user_instruction")
         else:
             steps.append(AgentStep(step_index=turn, tool_name=None, tool_args=None, tool_result=None,
                                    generated_text=raw, is_constrained=False,

@@ -339,9 +339,13 @@ def categorize_error(agent_result) -> str:
     """Classify why an agent run ended.
 
     Returns one of:
-      ``"success"`` | ``"max_turns"`` | ``"exception"`` |
-      ``"tool_parse_error"`` | ``"tool_error"`` | ``"unknown"``
+      ``"success"`` | ``"wait_user_instruction"`` | ``"max_turns"`` |
+      ``"exception"`` | ``"tool_parse_error"`` | ``"tool_error"`` |
+      ``"unknown"``
     """
+    err = (agent_result.error or "").lower()
+    if "wait_user_instruction" in err:
+        return "wait_user_instruction"
     if agent_result.success:
         return "success"
     err = (agent_result.error or "").lower()
