@@ -285,6 +285,40 @@ class LLMBackend:
             template=self.tool_call_template,
         )
 
+        # Generation counter for periodic GPU cache cleanup.
+        # HuggingFace's generate() caches KV tensors internally;
+        # PyTorch's CUDA allocator retains freed memory in its pool.
+        # After many generations (~100) this can accumulate 3-4 GB.
+        # We release cached memory back to the OS every N generations.
+        self._gen_count = 0
+        self._gpu_cleanup_interval = 50  # generations between cache clears
+
+    # ------------------------------------------------------------------
+    # GPU memory management
+    # ------------------------------------------------------------------
+
+    def _maybe_cleanup_gpu(self) -> None:
+        """Release cached GPU memory back to the OS every N generations.
+
+        PyTorch's CUDA allocator caches freed memory rather than returning
+        it to the OS immediately.  Over many ``model.generate()`` calls
+        this cache can grow by several GB.  Periodic ``empty_cache()``
+        releases it without affecting correct programs.
+        """
+        self._gen_count += 1
+        if self._gen_count % self._gpu_cleanup_interval != 0:
+            return
+        if self.device != "cuda":
+            return
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache()
+        # Log only at INFO level to avoid polluting per-task output
+        import logging
+        logging.getLogger(__name__).debug(
+            "GPU cache cleared after %d generations", self._gen_count
+        )
+
     # ------------------------------------------------------------------
     # Prompt building
     # ------------------------------------------------------------------
@@ -348,7 +382,9 @@ class LLMBackend:
                 break
             cleaned.append(tid)
 
-        return self.tokenizer.decode(cleaned, skip_special_tokens=False)
+        result = self.tokenizer.decode(cleaned, skip_special_tokens=False)
+        self._maybe_cleanup_gpu()
+        return result
 
     # ------------------------------------------------------------------
     # Constrained generation
@@ -363,7 +399,7 @@ class LLMBackend:
         temperature: float = 0.7,
     ) -> DecoderResult:
         """Generate a tool call constrained to *tool_name* with *args_schema*."""
-        return self.constrained_decoder.generate(
+        result = self.constrained_decoder.generate(
             prompt=prompt,
             tool_name=tool_name,
             args_schema=args_schema,
@@ -371,6 +407,8 @@ class LLMBackend:
             temperature=temperature,
             top_p=0.95,
         )
+        self._maybe_cleanup_gpu()
+        return result
 
     # ------------------------------------------------------------------
     # Tool-call parsing
