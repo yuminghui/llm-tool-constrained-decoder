@@ -161,7 +161,7 @@ class ExpMetrics:
 
 def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, ExpMetrics]:
     tasks = load_benchmark_tasks(EVALUATE_JSON_PATH, task_indices, max_tasks)
-    tools_registry = load_tools_from_json(TOOLS_JSON_PATH)
+    tools_registry = load_tools_from_json(TOOLS_JSON_PATH, benchmark_mode=True)
     all_metrics: Dict[str, ExpMetrics] = {}
     tool_defs = tools_registry.get_definitions()
 

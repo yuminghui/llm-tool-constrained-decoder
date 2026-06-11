@@ -167,7 +167,7 @@ class ExperimentRunner:
     def tool_registry(self) -> ToolRegistry:
         if self._tool_registry is None:
             if os.path.exists(self._tools_json_path):
-                self._tool_registry = load_tools_from_json(self._tools_json_path)
+                self._tool_registry = load_tools_from_json(self._tools_json_path, benchmark_mode=True)
             else:
                 raise FileNotFoundError(
                     f"tools.json not found at {self._tools_json_path}"

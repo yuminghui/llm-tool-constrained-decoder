@@ -480,6 +480,14 @@ class DcvaCD(AgentTool):
 
 
 class WaitUserInstruction(AgentTool):
+    """Wait for user input (interactive mode) or return marker (benchmark mode).
+
+    Set ``benchmark_mode = True`` to skip the blocking ``input()`` call
+    and return a sentinel string that experiment runners detect.
+    """
+
+    benchmark_mode: bool = False
+
     def get_name(self) -> str:
         return "wait_user_instruction"
 
@@ -488,6 +496,11 @@ class WaitUserInstruction(AgentTool):
         tip = args.get("tip")
         if not tip:
             return "`tip` is required parameter"
+        if WaitUserInstruction.benchmark_mode:
+            return (
+                f"[BENCHMARK MODE] User input not available in automated "
+                f"benchmark. Prompt: {tip}"
+            )
         result = input(tip + "\n> ")
         return result
 
@@ -832,6 +845,7 @@ def load_tools_from_json(
     conda_env: str = "my_env",
     query: str = "",
     model: str = "",
+    benchmark_mode: bool = False,
 ) -> ToolRegistry:
     """Load tools from *json_path*, instantiating only those with ``enabled: true``.
 
@@ -840,10 +854,14 @@ def load_tools_from_json(
         conda_env: Conda environment name for CLI tools.
         query: User query (passed to RemoteSenseIndexCalculate).
         model: Model name (passed to RemoteSenseIndexCalculate).
+        benchmark_mode: If True, ``WaitUserInstruction`` returns a non-blocking
+            sentinel instead of calling ``input()``.  Use for automated benchmarks.
 
     Returns:
         A fully initialized ``ToolRegistry`` with all enabled tools registered.
     """
+    WaitUserInstruction.benchmark_mode = benchmark_mode
+
     with open(json_path, "r", encoding="utf-8") as f:
         tool_defs = json.load(f)
 
