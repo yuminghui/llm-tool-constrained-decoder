@@ -335,6 +335,14 @@ def evaluate_completion(
     }
 
 
+def check_existing_result(output_dir: str, model_id: str) -> bool:
+    """Return True if a trajectory file for *model_id* already exists in *output_dir*."""
+    import os
+    safe = model_id.replace("/", "_")
+    path = os.path.join(output_dir, f"{safe}.json")
+    return os.path.isfile(path)
+
+
 def categorize_error(agent_result) -> str:
     """Classify why an agent run ended.
 

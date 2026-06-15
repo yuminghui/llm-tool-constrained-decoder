@@ -32,7 +32,7 @@ from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import AgentResult, AgentStep
 from experiments.trajectory_utils import (
     save_trajectories_batch, load_benchmark_tasks,
-    evaluate_completion, categorize_error,
+    evaluate_completion, categorize_error, check_existing_result,
 )
 from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
@@ -113,7 +113,7 @@ class ExpMetrics:
     def success_rate(self): return self.num_success / max(self.num_tasks, 1)
 
 
-def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, ExpMetrics]:
+def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: bool = False) -> Dict[str, ExpMetrics]:
     tasks = load_benchmark_tasks(EVALUATE_JSON_PATH, task_indices, max_tasks)
     tools_registry = load_tools_from_json(TOOLS_JSON_PATH, benchmark_mode=True)
     all_metrics: Dict[str, ExpMetrics] = {}
@@ -123,6 +123,9 @@ def run_experiment(models: list, task_indices=None, max_tasks=0) -> Dict[str, Ex
 
     for entry in models:
         model_id = _mid(entry); quantize = model_quantize(entry)
+        if skip_existing and check_existing_result(EXP_A_OUTPUT_DIR, model_id):
+            print(f"\n  [{model_id}] Results exist — skip")
+            continue
         print(f"\n{'─'*60}\n  Model: {model_id}\n{'─'*60}")
         backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
         set_summary_backend(backend)
@@ -220,7 +223,8 @@ def main():
     models = [(args.model, args.quantize)] if args.model else EXP_A_MODELS
     max_t = args.max_tasks or EXP_A_MAX_TASKS
     if args.quick and max_t == 0: max_t = 5
-    metrics = run_experiment(models, max_tasks=max_t)
+    skip_existing = args.model is None and args.max_tasks == 0 and not args.quick
+    metrics = run_experiment(models, max_tasks=max_t, skip_existing=skip_existing)
     print_report(metrics)
 
 
