@@ -226,8 +226,10 @@ def main():
     p = argparse.ArgumentParser(description="Experiment F — Prompt-Enhanced Constrained Plan")
     p.add_argument("--quick", action="store_true"); p.add_argument("--max-tasks", type=int, default=0)
     p.add_argument("--model", type=str, default=None)
+    p.add_argument("--quantize", action="store_true", default=False,
+                   help="Enable 4bit quantization for --model")
     args = p.parse_args()
-    models = [(args.model, False)] if args.model else EXP_F_MODELS
+    models = [(args.model, args.quantize)] if args.model else EXP_F_MODELS
     max_t = args.max_tasks or EXP_F_MAX_TASKS
     if args.quick and max_t == 0: max_t = 5
     metrics = run_experiment(models, max_tasks=max_t)
