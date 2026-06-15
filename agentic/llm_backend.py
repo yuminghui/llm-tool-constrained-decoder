@@ -166,8 +166,11 @@ def _build_quantization_kwargs(
         Dict of kwargs to pass to ``from_pretrained``.
     """
     if quantization is None:
-        # No quantization — use bfloat16/float32
-        return {"torch_dtype": torch.bfloat16 if device == "cuda" else torch.float32}
+        # No quantization — use the dtype from the model's config.json.
+        # Explicit torch_dtype (e.g. torch.bfloat16) can conflict with
+        # device_map="auto" / accelerate, leaving some tensors on meta device
+        # (observed with Gemma 4's pad_embedding).
+        return {"torch_dtype": "auto"}
 
     if device != "cuda":
         print("[LLMBackend] WARNING: bitsandbytes quantization requires CUDA. "
