@@ -156,7 +156,8 @@ def _build_quantization_kwargs(
     quantization: Optional[str],
     device: str,
 ) -> Dict[str, Any]:
-    """Build bitsandbytes quantization kwargs for ``from_pretrained``.
+    """Build kwargs for ``from_pretrained``, using ``BitsAndBytesConfig``
+    when quantization is enabled.
 
     Args:
         quantization: ``"4bit"``, ``"8bit"``, or ``None``.
@@ -166,10 +167,6 @@ def _build_quantization_kwargs(
         Dict of kwargs to pass to ``from_pretrained``.
     """
     if quantization is None:
-        # No quantization — use the dtype from the model's config.json.
-        # Explicit torch_dtype (e.g. torch.bfloat16) can conflict with
-        # device_map="auto" / accelerate, leaving some tensors on meta device
-        # (observed with Gemma 4's pad_embedding).
         return {"torch_dtype": "auto"}
 
     if device != "cuda":
@@ -178,25 +175,29 @@ def _build_quantization_kwargs(
         return {"torch_dtype": torch.float32}
 
     try:
-        import bitsandbytes as bnb
+        import bitsandbytes as bnb  # noqa: F401 — verify availability
     except ImportError:
         print("[LLMBackend] WARNING: bitsandbytes not installed. "
               "Install with: pip install bitsandbytes. Falling back to float32.")
         return {"torch_dtype": torch.float32}
 
+    from transformers import BitsAndBytesConfig
+
     if quantization == "4bit":
-        return {
-            "load_in_4bit": True,
-            "bnb_4bit_compute_dtype": torch.bfloat16,
-            "bnb_4bit_use_double_quant": True,
-            "bnb_4bit_quant_type": "nf4",
-        }
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        )
     elif quantization == "8bit":
-        return {"load_in_8bit": True}
+        bnb_config = BitsAndBytesConfig(load_in_8bit=True)
     else:
         print(f"[LLMBackend] WARNING: unknown quantization {quantization!r}. "
               "Falling back to float32.")
         return {"torch_dtype": torch.float32}
+
+    return {"quantization_config": bnb_config, "torch_dtype": "auto"}
 
 
 class LLMBackend:
@@ -273,12 +274,32 @@ class LLMBackend:
         #     for both quantized (4bit) and unquantized loading.
         _device_map = "cuda:0" if self.device == "cuda" else None
 
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_id,
-            trust_remote_code=True,
-            device_map=_device_map,
-            **quant_kwargs,
-        )
+        if quantize:
+            try:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_id,
+                    trust_remote_code=True,
+                    device_map=_device_map,
+                    **quant_kwargs,
+                )
+            except (TypeError, RuntimeError, ImportError) as e:
+                print(f"[LLMBackend] Quantization failed ({e})")
+                print("[LLMBackend] Falling back to non-quantized loading...")
+                self.quantize = False
+                quant_kwargs = _build_quantization_kwargs(None, self.device)
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_id,
+                    trust_remote_code=True,
+                    device_map=_device_map,
+                    **quant_kwargs,
+                )
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_id,
+                trust_remote_code=True,
+                device_map=_device_map,
+                **quant_kwargs,
+            )
         if self.device == "cpu":
             self.model = self.model.to(self.device)
 
