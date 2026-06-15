@@ -265,10 +265,18 @@ class LLMBackend:
             quantization_mode if quantize else None, self.device,
         )
 
+        # Use direct device assignment instead of "auto".
+        #   - device_map="auto" goes through accelerate's meta-device init step,
+        #     which can leave some tensors stranded on meta (observed with
+        #     Gemma 4's pad_embedding).
+        #   - All models in this project are ≤2B SLMs — single GPU is sufficient
+        #     for both quantized (4bit) and unquantized loading.
+        _device_map = "cuda:0" if self.device == "cuda" else None
+
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id,
             trust_remote_code=True,
-            device_map="auto" if self.device == "cuda" else None,
+            device_map=_device_map,
             **quant_kwargs,
         )
         if self.device == "cpu":
