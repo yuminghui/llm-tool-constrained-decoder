@@ -493,6 +493,11 @@ class LLMBackend:
 
         body = body.strip()
 
+        # Try Qwen3.5 XML-style format before JSON
+        xml_result = self._parse_qwen35_xml(text)
+        if xml_result is not None:
+            return xml_result
+
         # Find the outermost JSON object
         start = body.find("{")
         if start == -1:
@@ -566,6 +571,57 @@ class LLMBackend:
             return {"name": tool_name, "arguments": args}
         except json.JSONDecodeError:
             return None
+
+    # ------------------------------------------------------------------
+    # Qwen3.5 XML-style tool-call parser
+    # ------------------------------------------------------------------
+
+    def _parse_qwen35_xml(self, text: str) -> Optional[Dict[str, Any]]:
+        """Parse Qwen3.5 XML-style tool call format.
+
+        Format::
+
+            <tool_call>
+            <function=tool_name>
+            <parameter=param1>
+            value1
+            </parameter>
+            <parameter=param2>
+            value2
+            </parameter>
+            </function>
+            </tool_call>
+        """
+        import re
+
+        # Extract content inside <tool_call> ... </tool_call>
+        m = re.search(r'<tool_call>\s*(.*?)\s*</tool_call>', text, re.DOTALL)
+        if not m:
+            return None
+
+        inner = m.group(1).strip()
+
+        # Must have <function=NAME> ... </function>
+        fn_match = re.match(r'<function=(\w+)>(.*)</function>', inner, re.DOTALL)
+        if not fn_match:
+            return None
+
+        tool_name = fn_match.group(1)
+        fn_body = fn_match.group(2).strip()
+
+        args: Dict[str, Any] = {}
+        for pm in re.finditer(
+            r'<parameter=(\w+)>\s*(.*?)\s*</parameter>',
+            fn_body, re.DOTALL,
+        ):
+            param_name = pm.group(1)
+            param_value = pm.group(2).strip()
+            args[param_name] = param_value
+
+        if not args:
+            return None
+
+        return {"name": tool_name, "arguments": args}
 
     # ------------------------------------------------------------------
     # Tool-call message formatting
