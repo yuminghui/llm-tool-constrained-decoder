@@ -17,6 +17,9 @@ experiments/
 ├── experiment_full_pipeline.py            # Exp D：约束全流程
 ├── experiment_prompt_plan.py              # Exp E：提示词约束 plan
 ├── experiment_prompt_constrained_plan.py  # Exp F：专用规划提示词 + 约束 plan + 自由执行
+├── evaluate/
+│   ├── __init__.py
+│   └── llm_judge.py                       # LLM-as-Judge 评估脚本
 └── trajectories/
     ├── exp_a_baseline/                    # Exp A 输出
     ├── exp_b_separate_plan/               # Exp B 输出
@@ -36,6 +39,20 @@ experiments/
 | **D. 约束全流程** | `SYSTEM_PROMPT`（通用提示词） | 约束解码 | 约束全部工具 | `experiment_full_pipeline.py` |
 | **E. 提示词约束** | `SYSTEM_PROMPT_E`（"MUST call plan"） | 自由生成 | 自由生成 | `experiment_prompt_plan.py` |
 | **F. 提示词增强约束 plan** | `PLANNER_SYSTEM_PROMPT`（专用规划提示词） | 约束解码 | 自由生成 | `experiment_prompt_constrained_plan.py` |
+
+### 各实验说明
+
+- **A (空白对照)**：纯自由生成 agent，系统提示词不提及 `plan`，不启用约束解码。作为所有实验的参照基准，衡量模型在无任何引导下的自发行为。
+
+- **B (分离规划+全流程约束)**：两阶段架构。阶段 1 用专用规划提示词 + 约束解码在独立上下文中生成详细 plan；阶段 2 执行 agent 按 plan 的 `expected_tools` 逐步约束执行所有工具调用。测试"独立上下文 + 专用提示词 + 全约束执行"组合效果。
+
+- **C (流程内规划+仅约束 plan)**：单阶段 agent，第一步用约束解码强制 `plan`（通用提示词，不提及 plan），后续全部自由生成。测试"在通用提示词下仅强制第一步规划，能否改善后续自主行为"。
+
+- **D (流程内规划+全流程约束)**：单阶段 agent，约束解码强制 plan 和所有后续工具调用，与 C 使用相同通用提示词。测试"全程硬约束 vs 仅强制第一步"的差异。
+
+- **E (流程内规划+无约束)**：无约束解码，纯靠提示词说"MUST call plan first"诱导模型自愿调用 plan。与 A 对比测试提示词能否替代解码器强制，与 C 对比测试"提示词诱导 vs 解码器强制"的 plan 调用率和质量。
+
+- **F (分离规划+仅约束plan)**：两阶段架构，与 B 共用专用规划提示词，但执行阶段不约束工具调用（自由生成）。与 C 对比测试 plan 提示词质量的影响，与 B 对比测试执行约束的必要性。
 
 ### 实验对照矩阵
 
@@ -66,6 +83,61 @@ Plan 提示词:   │                  │
 | C vs F | plan 提示词（通用 vs 专用） | 测试提示词质量对 plan 及下游任务的影响 |
 | B vs D | plan 提示词（专用 vs 通用）+ 上下文隔离 | 同上，但在全约束条件下 |
 | B vs F | 执行策略（约束 vs 自由） | 在专用 plan 提示词下，测试执行约束的必要性 |
+
+## LLM-as-Judge 评估 (`evaluate/llm_judge.py`)
+
+使用外部 LLM（OpenAI 兼容 API）对实验轨迹进行四维评分（0--5 整数），产出分维度分数、总分及中文理由。
+
+### 评分维度
+
+| 维度 | 说明 |
+|------|------|
+| `step_completeness` | 步骤完整性：required/optional 步骤覆盖程度 |
+| `result_accuracy` | 结果准确性：final answer / task_summary 与预期答案的匹配度 |
+| `flow_reasonableness` | 流程合理性：步骤顺序是否正确、有无冗余/重复调用 |
+| `robustness` | 鲁棒性：错误处理和恢复能力 |
+
+**overall = round(mean of 4 dimensions)**，整数 0--5。
+
+### 输出格式
+
+```json
+{
+  "experiment": "exp_a_baseline",
+  "model_id": "Qwen/Qwen3-0.6B",
+  "avg_scores": {
+    "step_completeness": 3.45,
+    "result_accuracy": 3.12,
+    "flow_reasonableness": 3.67,
+    "robustness": 4.01,
+    "overall": 3.56
+  },
+  "tasks": [
+    {"task_id": "task_000", "overall": 4, "reasoning": "所有必须步骤均已完成...", ...}
+  ]
+}
+```
+
+### 使用
+
+```bash
+export OPENAI_API_KEY=sk-...
+
+# 评估单个轨迹文件
+python -m experiments.evaluate.llm_judge \
+  -i experiments/trajectories/exp_a_baseline/Qwen_Qwen3-0.6B.json
+
+# 评估整个目录
+python -m experiments.evaluate.llm_judge \
+  -i experiments/trajectories/exp_a_baseline/
+
+# 自定义模型和端点
+python -m experiments.evaluate.llm_judge \
+  -i experiments/trajectories/exp_a_baseline/ \
+  -o results/judge_scores/ \
+  --model gpt-4.1-mini \
+  --base-url https://your-proxy/v1
+```
 
 ## 每个实验产出的指标
 
