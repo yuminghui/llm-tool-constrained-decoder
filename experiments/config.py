@@ -107,7 +107,7 @@ EXP_A_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_a_baseline")
 #   Plan subtask (constrained) → execution agent (constrained).
 # ---------------------------------------------------------------------------
 
-EXP_B_MODELS = [ALL_MODELS[0]]
+EXP_B_MODELS = ALL_MODELS
 EXP_B_TASK_INDICES: Optional[List[int]] = None
 EXP_B_MAX_TASKS: int = 0
 EXP_B_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_b_separate_plan")
@@ -117,7 +117,7 @@ EXP_B_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_b_separate_plan")
 #   Constraint decoder for plan (step 0) only; subsequent steps free.
 # ---------------------------------------------------------------------------
 
-EXP_C_MODELS = [ALL_MODELS[0]]
+EXP_C_MODELS = ALL_MODELS
 EXP_C_TASK_INDICES: Optional[List[int]] = None
 EXP_C_MAX_TASKS: int = 0
 EXP_C_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_c_constrained_plan")
@@ -127,7 +127,7 @@ EXP_C_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_c_constrained_plan")
 #   Constraint decoder for plan AND all subsequent tool calls.
 # ---------------------------------------------------------------------------
 
-EXP_D_MODELS = [ALL_MODELS[0]]
+EXP_D_MODELS = ALL_MODELS
 EXP_D_TASK_INDICES: Optional[List[int]] = None
 EXP_D_MAX_TASKS: int = 0
 EXP_D_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_d_full_pipeline")
@@ -150,7 +150,7 @@ EXP_E_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_e_prompt_plan")
 #   vs C: same free execution, but plan prompt is specialized (not generic).
 # ---------------------------------------------------------------------------
 
-EXP_F_MODELS = [ALL_MODELS[0]]
+EXP_F_MODELS = ALL_MODELS
 EXP_F_TASK_INDICES: Optional[List[int]] = None
 EXP_F_MAX_TASKS: int = 0
 EXP_F_OUTPUT_DIR = os.path.join(TRAJECTORY_DIR, "exp_f_prompt_constrained_plan")
