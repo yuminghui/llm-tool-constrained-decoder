@@ -49,6 +49,7 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         prompt_length: int,
         eos_token_id: int,
         pad_token_id: Optional[int] = None,
+        all_dfa_states: Optional[list] = None,
         allowed_start_chars: Optional[Set[str]] = None,
     ):
         """
@@ -58,6 +59,7 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
             prompt_length: Length of the prompt in tokens (used to detect new tokens).
             eos_token_id: Tokenizer's EOS token id.
             pad_token_id: Tokenizer's PAD token id (masked unconditionally).
+            all_dfa_states: All DFA states (for pre-computing per-state valid masks).
             allowed_start_chars: Optional pre-computed first-character set for optimization.
         """
         self.dfa_start = dfa_start
@@ -80,6 +82,66 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         # Cache miss stats for debugging
         self._cache_hits = 0
         self._cache_misses = 0
+
+        # Pre-compute per-state valid-token masks (major speedup).
+        # Instead of iterating the full vocabulary at every decoding step,
+        # we build boolean masks once and apply them with a single
+        # tensor operation per step.
+        self._state_masks: Dict[int, torch.Tensor] = {}
+        if all_dfa_states is not None:
+            self._build_state_masks(all_dfa_states, token_index)
+
+    # ------------------------------------------------------------------
+    # Mask pre-computation
+    # ------------------------------------------------------------------
+
+    def _build_state_masks(
+        self, all_dfa_states: list, token_index: TokenIndex
+    ) -> None:
+        """Pre-compute valid-token boolean masks for every DFA state.
+
+        Walks each DFA state against the vocabulary once.  The resulting
+        masks are applied in O(1) at each generation step, replacing the
+        O(vocab_size) per-step loop.
+        """
+        from .char_fsm import CATCHALL
+
+        for dfa_state in all_dfa_states:
+            allowed_first = set(dfa_state.transitions.keys())
+            has_catchall = CATCHALL in allowed_first
+
+            # Collect valid token IDs for this state
+            valid_ids: set = set()
+
+            for first_ch, entries in token_index.first_char_to_tokens.items():
+                if first_ch not in allowed_first and not has_catchall:
+                    continue
+                for entry in entries:
+                    # Walk the DFA with this token's string
+                    state = dfa_state
+                    ok = True
+                    for ch in entry.token_str:
+                        nxt = state.next_state(ch)
+                        if nxt is None:
+                            ok = False
+                            break
+                        state = nxt
+                    if ok and state.can_reach_accept:
+                        valid_ids.add(entry.token_id)
+
+            # Build a boolean tensor (CPU, converted to GPU on use)
+            mask = torch.zeros(
+                len(token_index.id_to_entry), dtype=torch.bool
+            )
+            for tid in valid_ids:
+                if tid < len(mask):
+                    mask[tid] = True
+
+            self._state_masks[dfa_state.id] = mask
+            logger.debug(
+                "State %d mask: %d / %d tokens valid",
+                dfa_state.id, len(valid_ids), len(token_index.id_to_entry),
+            )
 
     # ------------------------------------------------------------------
     # LogitsProcessor interface
@@ -107,36 +169,37 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
             return scores
 
         # --- Step 3: mask invalid tokens ---
-        # Allowed first characters from current DFA state
-        allowed_first = set(self.current_dfa_state.transitions.keys())
-
         vocab_size = scores.shape[1]
+        state_id = self.current_dfa_state.id
 
-        for token_id in range(vocab_size):
-            entry = self.token_index.id_to_entry.get(token_id)
-
-            # Unknown or empty tokens are always masked
-            if entry is None or not entry.token_str:
-                scores[0, token_id] = -float('inf')
-                continue
-
-            # Quick reject: first character not in allowed set
-            # (CATCHALL in allowed_first means any first char is potentially ok)
+        # Use pre-computed mask when available (fast path)
+        if state_id in self._state_masks:
+            mask = self._state_masks[state_id]
+            # Trim or pad mask to match vocab_size
+            if len(mask) >= vocab_size:
+                mask = mask[:vocab_size]
+            else:
+                pad = torch.zeros(vocab_size - len(mask), dtype=torch.bool)
+                mask = torch.cat([mask, pad])
+            scores[0, ~mask.to(scores.device)] = -float('inf')
+        else:
+            # Slow path — fallback (rarely hit once masks are built)
+            allowed_first = set(self.current_dfa_state.transitions.keys())
             from .char_fsm import CATCHALL
-            if entry.first_char not in allowed_first and CATCHALL not in allowed_first:
-                scores[0, token_id] = -float('inf')
-                continue
-
-            # Full DFA walk
-            if not self._is_token_valid(entry.token_str):
-                scores[0, token_id] = -float('inf')
+            for token_id in range(vocab_size):
+                entry = self.token_index.id_to_entry.get(token_id)
+                if entry is None or not entry.token_str:
+                    scores[0, token_id] = -float('inf')
+                    continue
+                if entry.first_char not in allowed_first and CATCHALL not in allowed_first:
+                    scores[0, token_id] = -float('inf')
+                    continue
+                if not self._is_token_valid(entry.token_str):
+                    scores[0, token_id] = -float('inf')
 
         # --- Step 4: special token handling ---
-        # EOS: only allow after accept (handled in step 2)
         if self.eos_token_id < vocab_size:
             scores[0, self.eos_token_id] = -float('inf')
-
-        # PAD: always mask
         if self.pad_token_id is not None and self.pad_token_id < vocab_size:
             scores[0, self.pad_token_id] = -float('inf')
 

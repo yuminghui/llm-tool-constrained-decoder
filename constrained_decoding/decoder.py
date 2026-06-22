@@ -173,6 +173,7 @@ class ToolConstrainedDecoder:
             prompt_length=prompt_length,
             eos_token_id=eos_token_id,
             pad_token_id=pad_token_id,
+            all_dfa_states=_all_dfa_states,
         )
 
         # --- 5. Generate ---
