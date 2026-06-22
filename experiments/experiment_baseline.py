@@ -31,8 +31,10 @@ from agentic.llm_backend import LLMBackend
 from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import AgentResult, AgentStep
 from experiments.trajectory_utils import (
-    save_trajectories_batch, load_benchmark_tasks,
-    evaluate_completion, categorize_error, check_existing_result,
+    load_benchmark_tasks,
+    evaluate_completion, categorize_error,
+    load_completed_task_ids, save_task_incremental,
+    _result_is_complete,
 )
 from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
@@ -123,10 +125,15 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
     for entry in models:
         model_id = _mid(entry); quantize = model_quantize(entry)
-        if skip_existing and check_existing_result(EXP_A_OUTPUT_DIR, model_id):
-            print(f"\n  [{model_id}] Results exist — skip")
+
+        # ---- checkpoint / resume -------------------------------------------
+        completed_ids = load_completed_task_ids(EXP_A_OUTPUT_DIR, model_id) if skip_existing else set()
+        all_ids = {f"task_{i:03d}" for i in range(len(tasks))}
+        if skip_existing and _result_is_complete(EXP_A_OUTPUT_DIR, model_id, len(tasks)):
+            print(f"\n  [{model_id}] All {len(tasks)} tasks complete — skip")
             continue
-        print(f"\n{'─'*60}\n  Model: {model_id}\n{'─'*60}")
+        resumed = len(completed_ids) > 0
+        print(f"\n{'─'*60}\n  Model: {model_id}{' (resuming)' if resumed else ''}\n{'─'*60}")
         backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
         set_summary_backend(backend)
 
@@ -137,7 +144,12 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
         for i, task in enumerate(tasks):
             q = task["question"]; gt = task.get("trajectory_ground_truth", {})
-            tid = f"task_{i:03d}"; task_ids.append(tid)
+            tid = f"task_{i:03d}"
+
+            if tid in completed_ids:
+                print(f"  [{i+1}/{len(tasks)}] (cached) {q[:70]}...")
+                continue
+
             print(f"  [{i+1}/{len(tasks)}] {q[:70]}...", end=" ", flush=True)
 
             msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
@@ -165,19 +177,22 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
             pt = "P" if plan_first else ("p" if plan_calls else "-")
             print(f"{pt} {comp['score']:.2f} {err_type} | {total_tok}t {len(ar.steps)}s {elapsed:.1f}s")
 
-        safe = model_id.replace("/","_"); os.makedirs(EXP_A_OUTPUT_DIR, exist_ok=True)
-        path = os.path.join(EXP_A_OUTPUT_DIR, f"{safe}.json")
-        save_trajectories_batch(results, path, model_id=model_id, config_name="baseline",
-            task_ids=task_ids, prompt_tokens_list=pt_list, generated_tokens_list=gt_list,
-            extra_meta={"experiment": "exp_a_baseline"})
-        print(f"  Saved: {path}")
+            # ---- incremental save ------------------------------------------
+            save_task_incremental(ar, EXP_A_OUTPUT_DIR, model_id, config_name="baseline",
+                task_id=tid, prompt_tokens=prompt_tokens, generated_tokens=gen_tokens,
+                extra_meta={"experiment": "exp_a_baseline"})
+            completed_ids.add(tid)  # mark done for this session too
 
-        m = ExpMetrics(model_id=model_id, num_tasks=len(tasks),
+        task_ids = sorted(completed_ids | {f"task_{i:03d}" for i in range(len(tasks))})
+        task_ids = [t for t in task_ids if t in {f"task_{j:03d}" for j in range(len(tasks))}]
+
+        n_tasks = len(tasks)
+        m = ExpMetrics(model_id=model_id, num_tasks=n_tasks,
             total_prompt_tokens=total_prompt, total_generated_tokens=total_gen, total_tokens_all=total_all,
             total_success_tokens=total_ok_tokens, num_success=num_ok,
             plan_calls=plan_calls, plan_first=plan_first, num_constrained=num_cstr, num_free=num_free,
             completed=completed, error_counts=error_counts,
-            avg_tokens=total_all/max(len(tasks),1), avg_steps=total_steps/max(len(tasks),1))
+            avg_tokens=total_all/max(n_tasks,1), avg_steps=total_steps/max(n_tasks,1))
         all_metrics[model_id] = m
         _print_summary(m)
 

@@ -27,9 +27,10 @@ from agentic.llm_backend import LLMBackend
 from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import Agent, AgentConfig, AgentResult, AgentStep
 from experiments.trajectory_utils import (
-    agent_result_to_record, _build_summary,
     load_benchmark_tasks,
-    evaluate_completion, categorize_error, check_existing_result,
+    evaluate_completion, categorize_error,
+    load_completed_task_ids, save_task_incremental,
+    _result_is_complete,
 )
 from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
@@ -169,10 +170,14 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
     for entry in models:
         model_id = _mid(entry); quantize = model_quantize(entry)
-        if skip_existing and check_existing_result(EXP_B_OUTPUT_DIR, model_id):
-            print(f"\n  [{model_id}] Results exist — skip")
+
+        # ---- checkpoint / resume -------------------------------------------
+        completed_ids = load_completed_task_ids(EXP_B_OUTPUT_DIR, model_id) if skip_existing else set()
+        if skip_existing and _result_is_complete(EXP_B_OUTPUT_DIR, model_id, len(tasks)):
+            print(f"\n  [{model_id}] All {len(tasks)} tasks complete — skip")
             continue
-        print(f"\n{'─'*60}\n  Model: {model_id}\n{'─'*60}")
+        resumed = len(completed_ids) > 0
+        print(f"\n{'─'*60}\n  Model: {model_id}{' (resuming)' if resumed else ''}\n{'─'*60}")
         backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
 
         results, pt_list, gt_list, task_ids = [], [], [], []
@@ -180,23 +185,27 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
         total_prompt, total_gen, total_all, total_ok_tokens, total_steps = 0, 0, 0, 0, 0
         match_total, match_hits = 0, 0
         error_counts: Dict[str, int] = {}
-        planning_info: list = []
         econf = AgentConfig(max_turns=MAX_TURNS, temperature=TEMPERATURE, use_constrained_decoder=True, verbose=False, system_prompt=SYSTEM_PROMPT)
 
         for i, task in enumerate(tasks):
             q = task["question"]; gt_truth = task.get("trajectory_ground_truth", {})
-            tid = f"task_{i:03d}"; task_ids.append(tid)
+            tid = f"task_{i:03d}"
+
+            if tid in completed_ids:
+                print(f"  [{i+1}/{len(tasks)}] (cached) {q[:70]}...")
+                continue
+
             print(f"  [{i+1}/{len(tasks)}] {q[:70]}...", end=" ", flush=True)
 
             # Phase 1: planning subtask
             plan_res = run_planning_subtask(backend, tools_registry, q)
-            planning_info.append({
+            planning_record = {
                 "prompt_tokens": plan_res["prompt_tokens"],
                 "generated_tokens": plan_res["generated_tokens"],
                 "is_constrained": plan_res["is_constrained"],
                 "parsed_successfully": plan_res.get("tool_result") is not None,
                 "generated_text": plan_res["generated_text"],
-            })
+            }
 
             # Phase 2: execution
             exec_msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
@@ -241,26 +250,12 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
             print(f"{comp['score']:.2f} {err_type} | {total_tok}t ({plan_res['total_tokens']}+{exec_pt+gen_tokens}) | {len(ar.steps)}s {elapsed:.1f}s")
 
-        safe = model_id.replace("/","_"); os.makedirs(EXP_B_OUTPUT_DIR, exist_ok=True)
-        path = os.path.join(EXP_B_OUTPUT_DIR, f"{safe}.json")
-
-        # Build trajectory records manually to include per-task planning_subtask details
-        records = []
-        for i, r in enumerate(results):
-            record = agent_result_to_record(
-                r, model_id=model_id, config_name="separate_plan",
-                task_id=task_ids[i],
-                prompt_tokens=pt_list[i],
-                generated_tokens=gt_list[i],
+            # ---- incremental save (includes planning_subtask) --------------
+            save_task_incremental(ar, EXP_B_OUTPUT_DIR, model_id, config_name="separate_plan",
+                task_id=tid, prompt_tokens=prompt_tokens, generated_tokens=gen_tokens,
                 extra_meta={"experiment": "exp_b_separate_plan"},
-            )
-            record["planning_subtask"] = planning_info[i]
-            records.append(record)
-        summary = _build_summary(records, model_id=model_id, config_name="separate_plan")
-        output = records + [summary]
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(output, f, ensure_ascii=False, indent=2)
-        print(f"  Saved: {path}")
+                extra_record_fields={"planning_subtask": planning_record})
+            completed_ids.add(tid)
 
         m = ExpMetrics(model_id=model_id, num_tasks=len(tasks),
             total_prompt_tokens=total_prompt, total_generated_tokens=total_gen, total_tokens_all=total_all,

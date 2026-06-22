@@ -335,12 +335,95 @@ def evaluate_completion(
     }
 
 
+def _result_path(output_dir: str, model_id: str) -> str:
+    """Return the trajectory file path for *model_id* in *output_dir*."""
+    safe = model_id.replace("/", "_")
+    return os.path.join(output_dir, f"{safe}.json")
+
+
 def check_existing_result(output_dir: str, model_id: str) -> bool:
     """Return True if a trajectory file for *model_id* already exists in *output_dir*."""
-    import os
-    safe = model_id.replace("/", "_")
-    path = os.path.join(output_dir, f"{safe}.json")
-    return os.path.isfile(path)
+    return os.path.isfile(_result_path(output_dir, model_id))
+
+
+def load_completed_task_ids(output_dir: str, model_id: str) -> set:
+    """Return the set of ``task_id`` values already saved in the result file."""
+    path = _result_path(output_dir, model_id)
+    if not os.path.isfile(path):
+        return set()
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, list):
+            return set()
+        return {
+            r.get("task_id", "")
+            for r in data
+            if r.get("type") != "_summary" and r.get("task_id")
+        }
+    except Exception:
+        return set()
+
+
+def _result_is_complete(output_dir: str, model_id: str, expected_count: int) -> bool:
+    """Return True if the saved result has *expected_count* task records."""
+    completed = load_completed_task_ids(output_dir, model_id)
+    return len(completed) >= expected_count
+
+
+def save_task_incremental(
+    agent_result,
+    output_dir: str,
+    model_id: str,
+    config_name: str = "",
+    task_id: str = "",
+    prompt_tokens: int = 0,
+    generated_tokens: int = 0,
+    extra_meta: Optional[Dict[str, Any]] = None,
+    extra_record_fields: Optional[Dict[str, Any]] = None,
+) -> str:
+    """Save a single task result, appending to the result file.
+
+    Creates the file if it does not exist.  If a record with the same
+    *task_id* already exists it is replaced.  A ``_summary`` entry is
+    rebuilt at the end.
+
+    Returns the absolute path of the saved file.
+    """
+    path = _result_path(output_dir, model_id)
+    record = agent_result_to_record(
+        agent_result, model_id=model_id, config_name=config_name,
+        task_id=task_id, prompt_tokens=prompt_tokens,
+        generated_tokens=generated_tokens, extra_meta=extra_meta,
+    )
+    if extra_record_fields:
+        record.update(extra_record_fields)
+
+    # Read existing file (if any)
+    existing: List[Dict[str, Any]] = []
+    if os.path.isfile(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if not isinstance(existing, list):
+                existing = []
+        except (json.JSONDecodeError, Exception):
+            existing = []
+
+    # Remove old summary and old entry for the same task_id
+    records = [r for r in existing if r.get("type") != "_summary"]
+    records = [r for r in records if r.get("task_id") != task_id]
+    records.append(record)
+    records.sort(key=lambda r: r.get("task_id", ""))
+
+    summary = _build_summary(records, model_id=model_id, config_name=config_name)
+    output = records + [summary]
+
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+
+    return os.path.abspath(path)
 
 
 def categorize_error(agent_result) -> str:

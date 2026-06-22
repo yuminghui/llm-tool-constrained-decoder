@@ -26,8 +26,10 @@ from agentic.llm_backend import LLMBackend
 from agentic.tools import load_tools_from_json, set_summary_backend
 from agentic.agent import AgentResult, AgentStep
 from experiments.trajectory_utils import (
-    save_trajectories_batch, load_benchmark_tasks,
-    evaluate_completion, categorize_error, check_existing_result,
+    load_benchmark_tasks,
+    evaluate_completion, categorize_error,
+    load_completed_task_ids, save_task_incremental,
+    _result_is_complete,
 )
 from experiments.config import (
     TOOLS_JSON_PATH, EVALUATE_JSON_PATH,
@@ -131,10 +133,14 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
     for entry in models:
         model_id = _mid(entry); quantize = model_quantize(entry)
-        if skip_existing and check_existing_result(EXP_E_OUTPUT_DIR, model_id):
-            print(f"\n  [{model_id}] Results exist — skip")
+
+        # ---- checkpoint / resume -------------------------------------------
+        completed_ids = load_completed_task_ids(EXP_E_OUTPUT_DIR, model_id) if skip_existing else set()
+        if skip_existing and _result_is_complete(EXP_E_OUTPUT_DIR, model_id, len(tasks)):
+            print(f"\n  [{model_id}] All {len(tasks)} tasks complete — skip")
             continue
-        print(f"\n{'─'*60}\n  Model: {model_id}\n{'─'*60}")
+        resumed = len(completed_ids) > 0
+        print(f"\n{'─'*60}\n  Model: {model_id}{' (resuming)' if resumed else ''}\n{'─'*60}")
         backend = LLMBackend(model_id, quantize=quantize, quantization_mode=QUANTIZATION_MODE)
 
         results, pt_list, gt_list, task_ids = [], [], [], []
@@ -145,7 +151,12 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
 
         for i, task in enumerate(tasks):
             q = task["question"]; gt_truth = task.get("trajectory_ground_truth", {})
-            tid = f"task_{i:03d}"; task_ids.append(tid)
+            tid = f"task_{i:03d}"
+
+            if tid in completed_ids:
+                print(f"  [{i+1}/{len(tasks)}] (cached) {q[:70]}...")
+                continue
+
             print(f"  [{i+1}/{len(tasks)}] {q[:70]}...", end=" ", flush=True)
 
             msg = [{"role":"system","content":SYSTEM_PROMPT},{"role":"user","content":USER_TASK_PROMPT.format(query=q)}]
@@ -185,12 +196,11 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
             pt = "P" if plan_first else ("p" if "plan" in tool_names else "-")
             print(f"{pt} {comp['score']:.2f} {err_type} | {total_tok}t {len(ar.steps)}s {elapsed:.1f}s")
 
-        safe = model_id.replace("/","_"); os.makedirs(EXP_E_OUTPUT_DIR, exist_ok=True)
-        path = os.path.join(EXP_E_OUTPUT_DIR, f"{safe}.json")
-        save_trajectories_batch(results, path, model_id=model_id, config_name="prompt_plan",
-            task_ids=task_ids, prompt_tokens_list=pt_list, generated_tokens_list=gt_list,
-            extra_meta={"experiment": "exp_e_prompt_plan"})
-        print(f"  Saved: {path}")
+            # ---- incremental save ------------------------------------------
+            save_task_incremental(ar, EXP_E_OUTPUT_DIR, model_id, config_name="prompt_plan",
+                task_id=tid, prompt_tokens=prompt_tokens, generated_tokens=gen_tokens,
+                extra_meta={"experiment": "exp_e_prompt_plan"})
+            completed_ids.add(tid)
 
         m = ExpMetrics(model_id=model_id, num_tasks=len(tasks),
             total_prompt_tokens=total_prompt, total_generated_tokens=total_gen, total_tokens_all=total_all,
