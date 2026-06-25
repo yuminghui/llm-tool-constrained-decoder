@@ -84,10 +84,15 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         self._cache_misses = 0
 
         # Pre-compute per-state valid-token masks (major speedup).
-        # Instead of iterating the full vocabulary at every decoding step,
-        # we build boolean masks once and apply them with a single
-        # tensor operation per step.
         self._state_masks: Dict[int, torch.Tensor] = {}
+        # Progress masks: only tokens that actually change DFA state
+        # (used as escape hatch when the model gets stuck in a CATCHALL
+        # self-loop, e.g. inside a JSON string value).
+        self._progress_masks: Dict[int, torch.Tensor] = {}
+        # Stuck-detection: consecutive steps in the same DFA state
+        self._stuck_steps = 0
+        self._last_state_id = -1
+        self._max_stuck_steps = 80
         if all_dfa_states is not None:
             self._build_state_masks(all_dfa_states, token_index)
 
@@ -138,9 +143,40 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
                     mask[tid] = True
 
             self._state_masks[dfa_state.id] = mask
+
+            # Build progress mask: only tokens that meaningfully change
+            # the DFA state (not CATCHALL self-loops).  Used to escape
+            # when the model gets stuck.
+            progress_ids: set = set()
+            for first_ch, entries in token_index.first_char_to_tokens.items():
+                if first_ch not in allowed_first and not has_catchall:
+                    continue
+                for entry in entries:
+                    state = dfa_state
+                    ok = True
+                    changes = False
+                    for ch in entry.token_str:
+                        nxt = state.next_state(ch)
+                        if nxt is None:
+                            ok = False
+                            break
+                        if nxt.id != dfa_state.id:
+                            changes = True
+                        state = nxt
+                    if ok and changes and state.can_reach_accept:
+                        progress_ids.add(entry.token_id)
+            pmask = torch.zeros(
+                len(token_index.id_to_entry), dtype=torch.bool
+            )
+            for tid in progress_ids:
+                if tid < len(pmask):
+                    pmask[tid] = True
+            self._progress_masks[dfa_state.id] = pmask
+
             logger.debug(
-                "State %d mask: %d / %d tokens valid",
+                "State %d mask: %d / %d valid  progress: %d",
                 dfa_state.id, len(valid_ids), len(token_index.id_to_entry),
+                len(progress_ids),
             )
 
     # ------------------------------------------------------------------
@@ -172,10 +208,29 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         vocab_size = scores.shape[1]
         state_id = self.current_dfa_state.id
 
-        # Use pre-computed mask when available (fast path)
-        if state_id in self._state_masks:
+        # Stuck detection: when the DFA state hasn't changed for many
+        # consecutive steps the model is likely looping inside a CATCHALL
+        # self-loop (e.g. JSON string value).  Switch to the progress mask
+        # to force the model out of the trap.
+        if state_id == self._last_state_id:
+            self._stuck_steps += 1
+        else:
+            self._stuck_steps = 0
+        self._last_state_id = state_id
+        force_progress = (
+            self._stuck_steps >= self._max_stuck_steps
+            and state_id in self._progress_masks
+        )
+
+        # Choose mask: progress mask if stuck, otherwise state mask
+        if force_progress:
+            mask = self._progress_masks[state_id]
+        elif state_id in self._state_masks:
             mask = self._state_masks[state_id]
-            # Trim or pad mask to match vocab_size
+        else:
+            mask = None
+
+        if mask is not None:
             if len(mask) >= vocab_size:
                 mask = mask[:vocab_size]
             else:
