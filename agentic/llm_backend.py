@@ -369,13 +369,30 @@ class LLMBackend:
         """
         kwargs: Dict[str, Any] = {"enable_thinking": False}
 
-        return self.tokenizer.apply_chat_template(
-            messages,
-            tools=tools,
-            tokenize=False,
-            add_generation_prompt=add_generation_prompt,
-            **kwargs,
-        )
+        try:
+            return self.tokenizer.apply_chat_template(
+                messages,
+                tools=tools,
+                tokenize=False,
+                add_generation_prompt=add_generation_prompt,
+                **kwargs,
+            )
+        except Exception:
+            # Chat template does not support tools / tool roles
+            # (e.g. Gemma 3 1B).  Flatten to plain text and retry.
+            clean = []
+            for m in messages:
+                role = m.get("role", "")
+                if role == "tool":
+                    clean.append({"role": "user", "content": f"[Tool Result]\n{m.get('content', '')}"})
+                else:
+                    clean.append(m)
+            return self.tokenizer.apply_chat_template(
+                clean,
+                tokenize=False,
+                add_generation_prompt=add_generation_prompt,
+                **kwargs,
+            )
 
     # ------------------------------------------------------------------
     # Free generation (no constraint)
