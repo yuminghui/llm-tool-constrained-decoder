@@ -174,21 +174,13 @@ def _build_user_prompt(
 # ---------------------------------------------------------------------------
 
 def _call_judge_llm(
+    client,
     system: str,
     user: str,
     model: str,
-    api_key: str,
-    base_url: str = "",
     max_retries: int = 3,
 ) -> Optional[Dict[str, Any]]:
     """Call OpenAI-compatible API and return parsed JSON response, or None on failure."""
-    from openai import OpenAI
-
-    client_kwargs: Dict[str, Any] = {"api_key": api_key}
-    if base_url:
-        client_kwargs["base_url"] = base_url
-    client = OpenAI(**client_kwargs)
-
     for attempt in range(1, max_retries + 1):
         try:
             response = client.chat.completions.create(
@@ -255,14 +247,41 @@ class JudgeSummary:
     tasks: List[Dict[str, Any]] = field(default_factory=list)
 
 
+def _judge_output_path(trajectory_path: str, output_dir: str) -> str:
+    """Derive the judge-scores output path from a trajectory file."""
+    base = os.path.splitext(os.path.basename(trajectory_path))[0]
+    return os.path.join(output_dir, f"{base}_judge_scores.json")
+
+
+def _load_completed_judge_ids(output_path: str) -> set:
+    """Return the set of already-judged task IDs from a judge scores file."""
+    if not os.path.isfile(output_path):
+        return set()
+    try:
+        with open(output_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {t.get("task_id", "") for t in data.get("tasks", [])}
+    except Exception:
+        return set()
+
+
+def _save_judge_incremental(summary: JudgeSummary, output_path: str) -> None:
+    """Write (or update) judge scores file with current results."""
+    write_judge_output(summary, output_path)
+
+
 def evaluate_trajectory_file(
     trajectory_path: str,
     benchmark: Dict[str, Dict[str, Any]],
+    client,
     model: str,
-    api_key: str,
-    base_url: str = "",
+    output_dir: str = "",
 ) -> Optional[JudgeSummary]:
     """Evaluate a single trajectory JSON file against the benchmark.
+
+    Supports checkpoint/resume: if the judge-scores file already exists,
+    already-scored tasks are skipped and evaluation resumes from where
+    it left off.  Results are saved after every task.
 
     Returns a JudgeSummary, or None if the file cannot be read.
     """
@@ -278,28 +297,46 @@ def evaluate_trajectory_file(
         print(f"  [ERR] Expected JSON array in {trajectory_path}")
         return None
 
-    # Separate records from summary entry
     records = [r for r in data if r.get("type") != "_summary"]
-
     if not records:
         print(f"  [WARN] No trajectory records found in {trajectory_path}")
         return None
 
-    # Extract metadata from first record
     first = records[0]
     experiment = first.get("experiment", first.get("config", "unknown"))
     model_id = first.get("model_id", "unknown")
-
     total = len(records)
     print(f"  Records: {total}  Experiment: {experiment}  Model: {model_id}")
 
+    # ---- checkpoint / resume -------------------------------------------
+    judge_path = _judge_output_path(trajectory_path, output_dir)
+    completed_ids = _load_completed_judge_ids(judge_path)
+    if completed_ids and len(completed_ids) >= total:
+        print(f"  All {total} tasks already judged — skip")
+        return None
+    if completed_ids:
+        print(f"  Resuming: {len(completed_ids)}/{total} already judged")
+
     # --- Evaluate each task ---
+    # Load existing results to accumulate
+    existing_tasks: List[Dict[str, Any]] = []
+    try:
+        if os.path.isfile(judge_path):
+            with open(judge_path, "r", encoding="utf-8") as f:
+                existing_tasks = json.load(f).get("tasks", [])
+    except Exception:
+        pass
+
     results: List[TaskJudgeResult] = []
     skipped = 0
 
     for i, record in enumerate(records):
         question = record.get("question", "")
         tid = record.get("task_id", f"task_{i:03d}")
+
+        if tid in completed_ids:
+            print(f"  [{i+1}/{total}] {tid} (cached)")
+            continue
 
         # Match with benchmark entry
         bench_entry = benchmark.get(question)
@@ -333,11 +370,10 @@ def evaluate_trajectory_file(
 
         # Call judge
         print(f"  [{i+1}/{total}] {tid}  ", end="", flush=True)
-        parsed = _call_judge_llm(JUDGE_SYSTEM_PROMPT, user_prompt, model, api_key, base_url)
+        parsed = _call_judge_llm(client, JUDGE_SYSTEM_PROMPT, user_prompt, model)
 
         if parsed is None:
             print("FAILED — using fallback scores")
-            # Fallback: basic heuristic scoring based on success and step matching
             parsed = _fallback_score(record, bench_entry)
             parsed["reasoning"] = "[Fallback] API call failed; heuristic score."
 
@@ -356,7 +392,7 @@ def evaluate_trajectory_file(
 
         print(f"overall={overall}  S={sc} R={ra} F={fr} B={rb}  {reasoning[:80]}...")
 
-        results.append(TaskJudgeResult(
+        tr = TaskJudgeResult(
             task_id=tid,
             question=question[:120],
             step_completeness=sc,
@@ -365,35 +401,56 @@ def evaluate_trajectory_file(
             robustness=rb,
             overall=overall,
             reasoning=reasoning,
-        ))
+        )
+        results.append(tr)
+        completed_ids.add(tid)
+
+        # ---- incremental save ------------------------------------------
+        all_tasks = existing_tasks + [asdict(r) for r in results]
+        # Deduplicate by task_id
+        seen = set(); deduped = []
+        for t in all_tasks:
+            if t["task_id"] not in seen:
+                seen.add(t["task_id"]); deduped.append(t)
+        n_all = len(deduped)
+        interim = JudgeSummary(
+            experiment=experiment, model_id=model_id,
+            total_tasks=total, evaluated_tasks=n_all, skipped_tasks=skipped,
+            avg_step_completeness=round(sum(t["step_completeness"] for t in deduped) / n_all, 2),
+            avg_result_accuracy=round(sum(t["result_accuracy"] for t in deduped) / n_all, 2),
+            avg_flow_reasonableness=round(sum(t["flow_reasonableness"] for t in deduped) / n_all, 2),
+            avg_robustness=round(sum(t["robustness"] for t in deduped) / n_all, 2),
+            avg_overall=round(sum(t["overall"] for t in deduped) / n_all, 2),
+            tasks=deduped,
+        )
+        _save_judge_incremental(interim, judge_path)
 
         # Brief pause to stay under rate limits
         time.sleep(0.3)
 
-    # --- Build summary ---
-    n = len(results)
-    if n == 0:
+    # --- Build final summary ---
+    all_tasks = existing_tasks + [asdict(r) for r in results]
+    seen = set(); deduped = []
+    for t in all_tasks:
+        if t["task_id"] not in seen:
+            seen.add(t["task_id"]); deduped.append(t)
+    n_all = len(deduped)
+    if n_all == 0:
         print("  No tasks evaluated.")
         return None
-
-    avg_sc = sum(r.step_completeness for r in results) / n
-    avg_ra = sum(r.result_accuracy for r in results) / n
-    avg_fr = sum(r.flow_reasonableness for r in results) / n
-    avg_rb = sum(r.robustness for r in results) / n
-    avg_ov = sum(r.overall for r in results) / n
 
     return JudgeSummary(
         experiment=experiment,
         model_id=model_id,
         total_tasks=total,
-        evaluated_tasks=n,
+        evaluated_tasks=n_all,
         skipped_tasks=skipped,
-        avg_step_completeness=round(avg_sc, 2),
-        avg_result_accuracy=round(avg_ra, 2),
-        avg_flow_reasonableness=round(avg_fr, 2),
-        avg_robustness=round(avg_rb, 2),
-        avg_overall=round(avg_ov, 2),
-        tasks=[asdict(r) for r in results],
+        avg_step_completeness=round(sum(t["step_completeness"] for t in deduped) / n_all, 2),
+        avg_result_accuracy=round(sum(t["result_accuracy"] for t in deduped) / n_all, 2),
+        avg_flow_reasonableness=round(sum(t["flow_reasonableness"] for t in deduped) / n_all, 2),
+        avg_robustness=round(sum(t["robustness"] for t in deduped) / n_all, 2),
+        avg_overall=round(sum(t["overall"] for t in deduped) / n_all, 2),
+        tasks=deduped,
     )
 
 
@@ -529,6 +586,13 @@ def main():
         print("[ERR] No API key. Set OPENAI_API_KEY env var or pass --api-key")
         sys.exit(1)
 
+    # --- Create OpenAI client once (reuse avoids "Too many open files") ---
+    from openai import OpenAI
+    client_kwargs: Dict[str, Any] = {"api_key": api_key}
+    if args.base_url:
+        client_kwargs["base_url"] = args.base_url
+    client = OpenAI(**client_kwargs)
+
     print(f"Judge model: {args.model}")
     print(f"Benchmark:  {args.benchmark}")
     print(f"Input:      {args.input}")
@@ -558,13 +622,14 @@ def main():
         print(f"Evaluating: {os.path.basename(fpath)}")
         print(f"{'='*70}")
 
-        summary = evaluate_trajectory_file(fpath, benchmark, args.model, api_key, args.base_url)
+        summary = evaluate_trajectory_file(
+            fpath, benchmark, client, args.model, out_dir,
+        )
         if summary is None:
             continue
 
-        # Output filename
-        base = os.path.splitext(os.path.basename(fpath))[0]
-        out_path = os.path.join(out_dir, f"{base}_judge_scores.json")
+        # Final save (already incrementally saved; this is the definitive version)
+        out_path = _judge_output_path(fpath, out_dir)
         write_judge_output(summary, out_path)
 
     print("\nDone.")
