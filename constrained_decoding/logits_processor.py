@@ -51,6 +51,8 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         pad_token_id: Optional[int] = None,
         all_dfa_states: Optional[list] = None,
         allowed_start_chars: Optional[Set[str]] = None,
+        shared_masks: Optional[Dict[int, torch.Tensor]] = None,
+        shared_progress_masks: Optional[Dict[int, torch.Tensor]] = None,
     ):
         """
         Args:
@@ -59,8 +61,11 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
             prompt_length: Length of the prompt in tokens (used to detect new tokens).
             eos_token_id: Tokenizer's EOS token id.
             pad_token_id: Tokenizer's PAD token id (masked unconditionally).
-            all_dfa_states: All DFA states (for pre-computing per-state valid masks).
-            allowed_start_chars: Optional pre-computed first-character set for optimization.
+            all_dfa_states: All DFA states (for lazy mask building).
+            allowed_start_chars: Optional pre-computed first-character set.
+            shared_masks: Optional shared state-mask cache (persists across
+                ``generate()`` calls for the same tool schema).
+            shared_progress_masks: Optional shared progress-mask cache.
         """
         self.dfa_start = dfa_start
         self.current_dfa_state = dfa_start
@@ -83,101 +88,90 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         self._cache_hits = 0
         self._cache_misses = 0
 
-        # Pre-compute per-state valid-token masks (major speedup).
-        self._state_masks: Dict[int, torch.Tensor] = {}
-        # Progress masks: only tokens that actually change DFA state
-        # (used as escape hatch when the model gets stuck in a CATCHALL
-        # self-loop, e.g. inside a JSON string value).
-        self._progress_masks: Dict[int, torch.Tensor] = {}
+        # Valid-token masks built LAZILY per state on first visit.
+        # Shared caches (when provided) persist across generate() calls,
+        # so masks built for one task are reused for all subsequent tasks
+        # with the same tool schema.
+        self._state_masks = shared_masks if shared_masks is not None else {}
+        self._progress_masks = shared_progress_masks if shared_progress_masks is not None else {}
+        # DFA state lookup for lazy mask building
+        self._dfa_states: Dict[int, DFAState] = {}
+        if all_dfa_states:
+            for s in all_dfa_states:
+                self._dfa_states[s.id] = s
         # Stuck-detection: consecutive steps in the same DFA state
         self._stuck_steps = 0
         self._last_state_id = -1
         self._max_stuck_steps = 80
-        if all_dfa_states is not None:
-            self._build_state_masks(all_dfa_states, token_index)
 
     # ------------------------------------------------------------------
     # Mask pre-computation
     # ------------------------------------------------------------------
 
-    def _build_state_masks(
-        self, all_dfa_states: list, token_index: TokenIndex
-    ) -> None:
-        """Pre-compute valid-token boolean masks for every DFA state.
+    def _build_single_state_masks(self, dfa_state: DFAState) -> None:
+        """Build valid-token + progress masks for a single DFA state.
 
-        Walks each DFA state against the vocabulary once.  The resulting
-        masks are applied in O(1) at each generation step, replacing the
-        O(vocab_size) per-step loop.
+        Called lazily when *dfa_state* is first visited during generation.
         """
         from .char_fsm import CATCHALL
 
-        for dfa_state in all_dfa_states:
-            allowed_first = set(dfa_state.transitions.keys())
-            has_catchall = CATCHALL in allowed_first
+        allowed_first = set(dfa_state.transitions.keys())
+        has_catchall = CATCHALL in allowed_first
+        vocab_size = len(self.token_index.id_to_entry)
 
-            # Collect valid token IDs for this state
-            valid_ids: set = set()
+        # --- valid mask ---
+        valid_ids: set = set()
+        for first_ch, entries in self.token_index.first_char_to_tokens.items():
+            if first_ch not in allowed_first and not has_catchall:
+                continue
+            for entry in entries:
+                state = dfa_state
+                ok = True
+                for ch in entry.token_str:
+                    nxt = state.next_state(ch)
+                    if nxt is None:
+                        ok = False
+                        break
+                    state = nxt
+                if ok and state.can_reach_accept:
+                    valid_ids.add(entry.token_id)
 
-            for first_ch, entries in token_index.first_char_to_tokens.items():
-                if first_ch not in allowed_first and not has_catchall:
-                    continue
-                for entry in entries:
-                    # Walk the DFA with this token's string
-                    state = dfa_state
-                    ok = True
-                    for ch in entry.token_str:
-                        nxt = state.next_state(ch)
-                        if nxt is None:
-                            ok = False
-                            break
-                        state = nxt
-                    if ok and state.can_reach_accept:
-                        valid_ids.add(entry.token_id)
+        mask = torch.zeros(vocab_size, dtype=torch.bool)
+        for tid in valid_ids:
+            if tid < vocab_size:
+                mask[tid] = True
+        self._state_masks[dfa_state.id] = mask
 
-            # Build a boolean tensor (CPU, converted to GPU on use)
-            mask = torch.zeros(
-                len(token_index.id_to_entry), dtype=torch.bool
-            )
-            for tid in valid_ids:
-                if tid < len(mask):
-                    mask[tid] = True
+        # --- progress mask (state-changing tokens only) ---
+        progress_ids: set = set()
+        for first_ch, entries in self.token_index.first_char_to_tokens.items():
+            if first_ch not in allowed_first and not has_catchall:
+                continue
+            for entry in entries:
+                state = dfa_state
+                ok = True
+                changes = False
+                for ch in entry.token_str:
+                    nxt = state.next_state(ch)
+                    if nxt is None:
+                        ok = False
+                        break
+                    if nxt.id != dfa_state.id:
+                        changes = True
+                    state = nxt
+                if ok and changes and state.can_reach_accept:
+                    progress_ids.add(entry.token_id)
 
-            self._state_masks[dfa_state.id] = mask
+        pmask = torch.zeros(vocab_size, dtype=torch.bool)
+        for tid in progress_ids:
+            if tid < vocab_size:
+                pmask[tid] = True
+        self._progress_masks[dfa_state.id] = pmask
 
-            # Build progress mask: only tokens that meaningfully change
-            # the DFA state (not CATCHALL self-loops).  Used to escape
-            # when the model gets stuck.
-            progress_ids: set = set()
-            for first_ch, entries in token_index.first_char_to_tokens.items():
-                if first_ch not in allowed_first and not has_catchall:
-                    continue
-                for entry in entries:
-                    state = dfa_state
-                    ok = True
-                    changes = False
-                    for ch in entry.token_str:
-                        nxt = state.next_state(ch)
-                        if nxt is None:
-                            ok = False
-                            break
-                        if nxt.id != dfa_state.id:
-                            changes = True
-                        state = nxt
-                    if ok and changes and state.can_reach_accept:
-                        progress_ids.add(entry.token_id)
-            pmask = torch.zeros(
-                len(token_index.id_to_entry), dtype=torch.bool
-            )
-            for tid in progress_ids:
-                if tid < len(pmask):
-                    pmask[tid] = True
-            self._progress_masks[dfa_state.id] = pmask
-
-            logger.debug(
-                "State %d mask: %d / %d valid  progress: %d",
-                dfa_state.id, len(valid_ids), len(token_index.id_to_entry),
-                len(progress_ids),
-            )
+        logger.debug(
+            "State %d mask: %d / %d valid  progress: %d",
+            dfa_state.id, len(valid_ids), vocab_size, len(progress_ids),
+        )
 
     # ------------------------------------------------------------------
     # LogitsProcessor interface
@@ -207,6 +201,11 @@ class ToolConstraintLogitsProcessor(LogitsProcessor):
         # --- Step 3: mask invalid tokens ---
         vocab_size = scores.shape[1]
         state_id = self.current_dfa_state.id
+
+        # Lazy mask building: only build masks for states actually visited
+        # (avoids minutes of CPU work pre-computing all 500+ DFA states).
+        if state_id not in self._state_masks and state_id in self._dfa_states:
+            self._build_single_state_masks(self._dfa_states[state_id])
 
         # Stuck detection: when the DFA state hasn't changed for many
         # consecutive steps the model is likely looping inside a CATCHALL
