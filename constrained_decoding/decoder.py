@@ -106,12 +106,10 @@ class ToolConstrainedDecoder:
         # Build the vocabulary index once (static per tokenizer)
         self.token_index = TokenIndex(tokenizer)
 
-        # DFA + mask cache — shared across generate() calls for the same
-        # (template, tool_name, args_schema) tuple.  Avoids rebuilding
-        # identical DFAs and re-scanning the vocabulary every task.
-        self._dfa_cache: Dict[str, tuple] = {}          # key → (start, states)
-        self._shared_masks: Dict[int, torch.Tensor] = {}     # state_id → mask
-        self._shared_progress: Dict[int, torch.Tensor] = {}  # state_id → pmask
+        # DFA + mask cache — keyed by (template, tool_name, args_schema).
+        # Each entry holds its own isolated mask dicts to avoid state-ID
+        # collisions between tools (state IDs start from 0 in every DFA).
+        self._dfa_cache: Dict[str, dict] = {}
 
         # Ensure pad_token_id is set
         if tokenizer.pad_token_id is None:
@@ -152,8 +150,12 @@ class ToolConstrainedDecoder:
             [self.template, tool_name, args_schema],
             sort_keys=True, ensure_ascii=False,
         )
-        if cache_key in self._dfa_cache:
-            dfa_start, _all_dfa_states = self._dfa_cache[cache_key]
+        entry = self._dfa_cache.get(cache_key)
+        if entry is not None:
+            dfa_start = entry["start"]
+            _all_dfa_states = entry["states"]
+            masks = entry["masks"]
+            progress = entry["progress"]
             logger.debug("Reusing cached DFA for %r (%d states)", tool_name, len(_all_dfa_states))
         else:
             _clear_registry()
@@ -163,7 +165,14 @@ class ToolConstrainedDecoder:
                 template=self.template,
             )
             dfa_start, _all_dfa_states = nfa_to_dfa(nfa_start)
-            self._dfa_cache[cache_key] = (dfa_start, _all_dfa_states)
+            masks: Dict[int, torch.Tensor] = {}
+            progress: Dict[int, torch.Tensor] = {}
+            self._dfa_cache[cache_key] = {
+                "start": dfa_start,
+                "states": _all_dfa_states,
+                "masks": masks,
+                "progress": progress,
+            }
             logger.info("Built DFA with %d states for tool %r (cached)", len(_all_dfa_states), tool_name)
 
         # --- 2. Tokenize prompt ---
@@ -186,8 +195,8 @@ class ToolConstrainedDecoder:
             eos_token_id=eos_token_id,
             pad_token_id=pad_token_id,
             all_dfa_states=_all_dfa_states,
-            shared_masks=self._shared_masks,
-            shared_progress_masks=self._shared_progress,
+            shared_masks=masks,
+            shared_progress_masks=progress,
         )
 
         # --- 5. Generate ---
