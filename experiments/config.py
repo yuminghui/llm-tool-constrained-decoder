@@ -172,7 +172,7 @@ TEMPERATURE = 0.7
 MAX_TURNS = 10
 
 # Token budget for generation calls
-PLAN_MAX_NEW_TOKENS = 256     # constrained plan generation
+PLAN_MAX_NEW_TOKENS = 512     # constrained plan generation (256 too tight for verbose models like Gemma 4)
 FREE_MAX_NEW_TOKENS = 512     # free generation steps
 CONSTRAINED_MAX_NEW_TOKENS = 256  # constrained tool calls (non-plan)
 

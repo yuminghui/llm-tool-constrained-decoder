@@ -112,7 +112,10 @@ PLANNER_SYSTEM_PROMPT = (
 
 
 def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
-    """Dedicated planning subtask — constrained decoder forces plan tool call."""
+    """Dedicated planning subtask — constrained decoder forces plan tool call.
+
+    Retries with more tokens if the plan JSON is truncated on the first attempt.
+    """
     td = tools_registry.get_definitions()
     ps = tools_registry.get_schema("plan")
     msg = [
@@ -120,10 +123,17 @@ def run_planning_subtask(backend, tools_registry, user_query: str) -> dict:
         {"role": "user", "content": user_query},
     ]
     prompt = backend.build_prompt(msg, td)
-    dr = backend.generate_constrained(
-        prompt=prompt, tool_name="plan", args_schema=ps,
-        max_new_tokens=PLAN_MAX_NEW_TOKENS, temperature=TEMPERATURE,
-    )
+
+    for attempt, max_tok in enumerate((PLAN_MAX_NEW_TOKENS, PLAN_MAX_NEW_TOKENS * 2), 1):
+        dr = backend.generate_constrained(
+            prompt=prompt, tool_name="plan", args_schema=ps,
+            max_new_tokens=max_tok, temperature=TEMPERATURE,
+        )
+        if "_parse_error" not in dr.tool_call:
+            break  # success
+        if attempt == 1:
+            print(f"    [plan subtask] truncated at {max_tok} tokens, retrying with {max_tok*2}...")
+
     pt = len(backend.tokenizer.encode(prompt))
     gt = len(dr.token_ids)
     pa = dr.tool_call.get("arguments", {})

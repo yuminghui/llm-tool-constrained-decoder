@@ -182,6 +182,15 @@ class Agent:
             plan_args = plan_step.tool_args or {}
             planned_tools = self._extract_tools_from_plan(plan_args)
 
+            # If the plan is empty/broken (e.g. truncated JSON), don't
+            # silently fall through to free generation — the agent would
+            # have no guidance and produce garbage.
+            if not planned_tools and not plan_step.tool_result:
+                result.success = False
+                result.error = "Plan is empty or truncated — no tool steps to execute"
+                result.total_time = time.time() - start_time
+                return result
+
             if self.config.use_constrained_decoder:
                 result = self._run_constrained_loop(
                     result, messages, tool_defs, planned_tools, start_time,
