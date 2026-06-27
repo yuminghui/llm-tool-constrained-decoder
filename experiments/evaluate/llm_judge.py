@@ -522,7 +522,7 @@ def collect_trajectory_files(path: str) -> List[str]:
     if os.path.isdir(path):
         files = []
         for fname in sorted(os.listdir(path)):
-            if fname.endswith(".json"):
+            if fname.endswith(".json") and "_judge_scores" not in fname:
                 files.append(os.path.abspath(os.path.join(path, fname)))
         return files
 
