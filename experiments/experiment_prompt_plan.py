@@ -182,7 +182,7 @@ def run_experiment(models: list, task_indices=None, max_tasks=0, skip_existing: 
                 for s in (plan_step.tool_args.get("steps", []) or []):
                     if isinstance(s, dict) and s.get("expected_tools"):
                         for t in s["expected_tools"]:
-                            if isinstance(t, str): expected.add(t)
+                            if isinstance(t, str) and t not in ("task_done", "task_summary"): expected.add(t)
                 actual = set(t for t in tool_names if t and t not in ("plan", "task_done", "task_summary"))
                 if expected:
                     match_total += len(expected); match_hits += len(expected & actual)
