@@ -1,32 +1,32 @@
 # TC-Decoder (Tool Constrained Decoder)
 
-即插即用、无需训练的约束解码器。在自回归生成过程中，通过有限状态机（FSM）约束 LLM 的输出，确保生成的文本**在结构上保证**是指定工具的有效调用。
+A plug-and-play, training-free constrained decoder. During autoregressive generation, it constrains the LLM's output via a finite-state machine (FSM), ensuring that the generated text is **structurally guaranteed** to be a valid invocation of a specified tool.
 
-## 核心思路
+## Core Idea
 
 ```
 JSON Schema ──▶ NFA ──▶ DFA ──▶ LogitsProcessor ──▶ model.generate()
-   (参数定义)    (字符级)  (确定化)   (逐 token 掩码)     (约束后的输出)
+ (param defs)  (char-lvl) (determinized) (per-token mask)   (constrained output)
 ```
 
-1. 将工具的 JSON Schema **编译**为字符级 NFA（非确定性有限自动机）
-2. 通过子集构造法将 NFA **确定化**为 DFA
-3. 在每一步解码时，LogitsProcessor 遍历词表中所有 token，将 DFA 无法接受的 token 的 logit 设为 `-inf`
-4. 模型只能在"合法路径"上采样，输出**保证**是合法的工具调用
+1. **Compile** the tool's JSON Schema into a character-level NFA (Nondeterministic Finite Automaton)
+2. **Determinize** the NFA into a DFA via subset construction
+3. At each decoding step, the LogitsProcessor iterates over all tokens in the vocabulary and sets the logit of any token the DFA cannot accept to `-inf`
+4. The model can only sample along "legal paths," so the output is **guaranteed** to be a valid tool call
 
-## 模块架构
+## Module Architecture
 
 ```
 constrained_decoding/
-├── char_fsm.py              # FSM 引擎：NFA/DFA 数据结构、NFA→DFA 转换、组合子
-├── json_schema_to_fsm.py    # JSON Schema → NFA 编译器
-├── token_index.py           # 词表首字符索引（加速候选过滤）
-├── logits_processor.py      # HuggingFace LogitsProcessor（运行时约束）
-├── decoder.py               # 高层 API：ToolConstrainedDecoder
-└── __init__.py              # 公共导出
+├── char_fsm.py              # FSM engine: NFA/DFA data structures, NFA→DFA conversion, combinators
+├── json_schema_to_fsm.py    # JSON Schema → NFA compiler
+├── token_index.py           # Vocabulary first-character index (accelerates candidate filtering)
+├── logits_processor.py      # HuggingFace LogitsProcessor (runtime constraint)
+├── decoder.py               # High-level API: ToolConstrainedDecoder
+└── __init__.py              # Public exports
 ```
 
-### 数据流
+### Data Flow
 
 ```
                     ┌──────────────────────┐
@@ -62,82 +62,82 @@ constrained_decoding/
                         └── finish_reason: str
 ```
 
-## 模块详解
+## Module Details
 
-### 1. `char_fsm.py` — FSM 引擎
+### 1. `char_fsm.py` — FSM Engine
 
-字符级有限状态机核心，提供 NFA 和 DFA 两种抽象：
+The core character-level finite-state machine, providing two abstractions — NFA and DFA:
 
-| 组件 | 说明 |
+| Component | Description |
 |------|------|
-| `NFAState` | NFA 状态，支持字符转移 + ε 转移，每个状态有唯一 ID，全局注册 |
-| `DFAState` | DFA 状态，转移表为 `dict[char, DFAState]`，支持 `CATCHALL`（匹配未显式列出的任意字符） |
-| `epsilon_closure()` | 计算 NFA 状态集的 ε 闭包 |
-| `nfa_to_dfa()` | 子集构造法：NFA → DFA |
-| `compute_reachability()` | 反向 BFS 预计算每个 DFA 状态能否到达 accept（用于 token 合法性判断） |
-| `CATCHALL` | 哨兵字符 `\x00__CATCHALL__`，表示"任意未显式匹配的字符" |
+| `NFAState` | NFA state. Supports character transitions + ε transitions. Each state has a unique ID, globally registered |
+| `DFAState` | DFA state. Transition table is `dict[char, DFAState]`. Supports `CATCHALL` (matches any character not explicitly listed) |
+| `epsilon_closure()` | Computes the ε-closure of a set of NFA states |
+| `nfa_to_dfa()` | Subset construction: NFA → DFA |
+| `compute_reachability()` | Reverse BFS precomputes whether each DFA state can reach an accept state (used for token validity checking) |
+| `CATCHALL` | Sentinel character `\x00__CATCHALL__`, meaning "any character not explicitly matched" |
 
-**组合子（NFA 代数）**：
+**Combinators (NFA Algebra)**:
 
-| 函数 | 等价正则 | 用途 |
+| Function | Regex Equivalent | Purpose |
 |------|:--:|------|
-| `build_literal_nfa(s)` | `"s"` | 匹配固定字符串 |
-| `nfa_concat(a, b)` | `ab` | 串联 |
-| `nfa_union(a, b)` | `a\|b` | 并（多选一） |
-| `nfa_star(a)` | `a*` | 零或多次重复 |
-| `nfa_optional(a)` | `a?` | 零或一次 |
-| `nfa_plus(a)` | `a+` | 一或多次重复 |
+| `build_literal_nfa(s)` | `"s"` | Match a fixed string |
+| `nfa_concat(a, b)` | `ab` | Concatenation |
+| `nfa_union(a, b)` | `a\|b` | Union (choose one) |
+| `nfa_star(a)` | `a*` | Zero or more repetitions |
+| `nfa_optional(a)` | `a?` | Zero or one |
+| `nfa_plus(a)` | `a+` | One or more repetitions |
 
-### 2. `json_schema_to_fsm.py` — Schema → NFA 编译器
+### 2. `json_schema_to_fsm.py` — Schema → NFA Compiler
 
-将 JSON Schema 编译为字符级 NFA，支持的 Schema 类型：
+Compiles JSON Schema into a character-level NFA. Supported Schema types:
 
-| 类型 | 实现 | 说明 |
+| Type | Implementation | Description |
 |------|------|------|
-| `string` | `build_string_value_nfa()` | `"..."`含转义、Unicode、CATCHALL |
-| `number` | `build_number_nfa()` | RFC 8259 完整数字语法 |
-| `integer` | `build_integer_nfa()` | 整数（无小数/指数） |
+| `string` | `build_string_value_nfa()` | `"..."` including escapes, Unicode, CATCHALL |
+| `number` | `build_number_nfa()` | Full RFC 8259 number grammar |
+| `integer` | `build_integer_nfa()` | Integer (no decimal/exponent) |
 | `boolean` | `build_boolean_nfa()` | `true` / `false` |
 | `null` | `build_null_nfa()` | `null` |
-| `enum` | `build_enum_nfa()` | 枚举值并 |
-| `const` | `build_const_nfa()` | 常量匹配 |
-| `object` | `build_object_nfa()` | **位掩码**跟踪属性出现情况，支持 required、任意顺序 |
+| `enum` | `build_enum_nfa()` | Union of enum values |
+| `const` | `build_const_nfa()` | Constant match |
+| `object` | `build_object_nfa()` | **Bitmask** tracking of property appearance. Supports required fields, arbitrary order |
 | `array` | `build_array_nfa()` | `[item, ...]` |
 
-**顶层入口 `build_tool_call_nfa()`**：将 `tool_name` 和 `args_schema` 代入模板（默认 `{"name":"{name}","arguments":{arguments}}`），串联前缀、工具名、参数 NFA、后缀。
+**Top-level entry point `build_tool_call_nfa()`**: Substitutes `tool_name` and `args_schema` into the template (default `{"name":"{name}","arguments":{arguments}}`), concatenating the prefix, tool name, argument NFA, and suffix.
 
-**位掩码对象编码**：对于有 N 个 required 属性的 object，使用 `2^(N+1)` 个状态（而非 N! 个排列），每个状态对应"已见过的属性集合"。额外使用一个 `HAS_PROPERTY_BIT` 控制逗号插入（首属性前不加逗号）。
+**Bitmask Object Encoding**: For an object with N required properties, uses `2^(N+1)` states (instead of N! permutations). Each state corresponds to "the set of properties seen so far." An additional `HAS_PROPERTY_BIT` controls comma insertion (no comma before the first property).
 
-### 3. `token_index.py` — 词表索引
+### 3. `token_index.py` — Vocabulary Index
 
-| 类 | 说明 |
+| Class | Description |
 |------|------|
-| `TokenEntry` | 单个 token 的元数据：`token_id`、`token_str`、`first_char` |
-| `TokenIndex` | 按首字符建立倒排索引 `{first_char: [TokenEntry, ...]}`，同时维护 `id → entry` 映射 |
+| `TokenEntry` | Metadata for a single token: `token_id`, `token_str`, `first_char` |
+| `TokenIndex` | Builds an inverted index by first character `{first_char: [TokenEntry, ...]}`, plus an `id → entry` mapping |
 
-在 LogitsProcessor 中，先按首字符快速拒绝明显不匹配的 token，再对剩余候选做完整 DFA 行走。
+In the LogitsProcessor, tokens are first rapidly rejected by first character, and only the remaining candidates undergo a full DFA walk.
 
-### 4. `logits_processor.py` — 运行时约束
+### 4. `logits_processor.py` — Runtime Constraint
 
-`ToolConstraintLogitsProcessor` 实现 HuggingFace `LogitsProcessor` 接口，插入 `model.generate()` 流水线：
+`ToolConstraintLogitsProcessor` implements the HuggingFace `LogitsProcessor` interface, inserted into the `model.generate()` pipeline:
 
-**每步解码流程**：
+**Per-step decoding flow**:
 
 ```
-1. 推进 DFA 状态（消费上一步新生成的 token）
-2. 若 DFA 已到达 accept 状态 → 强制输出 EOS
-3. 否则，遍历词表每个 token:
-   a. 未知/空 token → 掩码（-inf）
-   b. 首字符快速拒绝 → 掩码
-   c. 完整 DFA walk → 若无法到达 accept 则掩码
-4. EOS 仅在 accept 后允许；PAD 永久掩码
+1. Advance the DFA state (consume the token generated in the previous step)
+2. If the DFA has reached an accept state → force output EOS
+3. Otherwise, iterate over every token in the vocabulary:
+   a. Unknown/empty token → mask (-inf)
+   b. First-character fast rejection → mask
+   c. Full DFA walk → mask if no accept state is reachable
+4. EOS is only allowed after accept; PAD is permanently masked
 ```
 
-**缓存**：`(dfa_state_id, token_str) → (is_valid, next_state_id)`。同一 DFA 状态面对相同 token 时直接查表，避免重复的字符级行走。
+**Cache**: `(dfa_state_id, token_str) → (is_valid, next_state_id)`. When the same DFA state encounters the same token, the result is looked up directly, avoiding repeated character-level walks.
 
-### 5. `decoder.py` — 高层 API
+### 5. `decoder.py` — High-Level API
 
-`ToolConstrainedDecoder` 面向用户的唯一入口：
+`ToolConstrainedDecoder` is the single user-facing entry point:
 
 ```python
 decoder = ToolConstrainedDecoder(model, tokenizer)
@@ -153,40 +153,40 @@ result = decoder.generate(
 # result.token_ids  → [1234, 5678, ...]
 ```
 
-**`generate()` 内部步骤**：
+**`generate()` internal steps**:
 
 1. `build_tool_call_nfa()` — Schema → NFA
 2. `nfa_to_dfa()` — NFA → DFA
-3. `tokenizer.encode(prompt)` — 获取 prompt token IDs
-4. 创建 `ToolConstraintLogitsProcessor(dfa, token_index, ...)`
-5. 调用 `model.generate(logits_processor=[processor], ...)`
-6. 解析生成的文本为 `DecoderResult`
+3. `tokenizer.encode(prompt)` — obtain prompt token IDs
+4. Create `ToolConstraintLogitsProcessor(dfa, token_index, ...)`
+5. Call `model.generate(logits_processor=[processor], ...)`
+6. Parse the generated text into a `DecoderResult`
 
-**模板感知解析**：`_parse_with_template()` 先尝试直接 JSON 解析，失败则根据模板剥离非 JSON 包裹部分再解析。
+**Template-aware parsing**: `_parse_with_template()` first attempts direct JSON parsing; on failure, strips non-JSON wrapping portions based on the template and retries.
 
-## 设计要点
+## Design Highlights
 
-### 为什么是字符级 FSM？
+### Why character-level FSM?
 
-token 级 FSM 需要在 token 之间做约束，但 token 边界由 tokenizer 决定，与 JSON 的字符结构不对齐。字符级 DFA 每次验证整个 token 字符串能否被 DFA 接受，自然处理了 token 边界穿越 JSON 语法结构的情况。
+A token-level FSM would need to enforce constraints across tokens, but token boundaries are determined by the tokenizer and do not align with JSON's character structure. A character-level DFA validates whether an entire token string can be accepted by the DFA, naturally handling cases where token boundaries cross JSON syntactic structures.
 
-### CATCHALL 机制
+### CATCHALL Mechanism
 
-JSON string 内部允许任意 Unicode 字符（通过 `\uXXXX` 或直接编码）。CATCHALL 转移避免在 NFA 中枚举所有可能的 Unicode 字符，大幅减小 DFA 状态数。
+JSON strings allow arbitrary Unicode characters (via `\uXXXX` or direct encoding). The CATCHALL transition avoids enumerating all possible Unicode characters in the NFA, dramatically reducing the DFA state count.
 
-### 位掩码对象编码
+### Bitmask Object Encoding
 
-不做属性排列枚举（N! 种），而是用位掩码跟踪"已见属性集合"。每个 `(mask, property)` 组合生成一条转移路径。对于 N 个 required 属性的对象，状态数为 `2^(N+1)` 而非 N!。
+Instead of enumerating property permutations (N! variants), a bitmask tracks "the set of properties seen so far." Each `(mask, property)` combination generates one transition path. For an object with N required properties, the state count is `2^(N+1)` rather than N!.
 
-### 缓存策略
+### Caching Strategy
 
-`(dfa_state_id, token_str)` 粒度的缓存。大多数 token 在多个生成步骤中会被反复评估（相同 DFA 状态 + 相同 token），缓存命中率通常 >90%，显著减少字符级行走开销。
+Cache granularity is `(dfa_state_id, token_str)`. Most tokens are evaluated repeatedly across multiple generation steps (same DFA state + same token). Cache hit rates are typically >90%, significantly reducing character-level walk overhead.
 
-### 训练无关
+### Training-Free
 
-整个过程不需要修改模型权重、不需要额外训练、不需要提示词调整。约束完全在解码阶段通过 logits 掩码实现，对模型本身零侵入。
+The entire process requires no weight modification, no additional training, and no prompt engineering. Constraints are implemented entirely at the decoding stage via logit masking, with zero intrusion into the model itself.
 
-## 使用示例
+## Usage Example
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -197,9 +197,9 @@ tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-0.6B")
 
 decoder = ToolConstrainedDecoder(model, tokenizer)
 
-# 约束生成 plan 工具调用
+# Constrain generation to a plan tool call
 result = decoder.generate(
-    prompt="<|im_start|>system\n你是任务规划器。<|im_end|>\n<|im_start|>assistant\n",
+    prompt="<|im_start|>system\nYou are a task planner.<|im_end|>\n<|im_start|>assistant\n",
     tool_name="plan",
     args_schema={
         "type": "object",
@@ -233,13 +233,13 @@ for step in result.tool_call["arguments"]["steps"]:
     print(f"  {step['step_number']}. {step['step_name']}")
 ```
 
-## 约束保证
+## Guarantees
 
-TC-Decoder 提供以下**构造性保证**（by construction，非概率性）：
+TC-Decoder provides the following **constructive guarantees** (by construction, not probabilistic):
 
-- 输出 **一定是** 合法 JSON（不会出现未闭合引号、非法转义等）
-- 输出 **一定包含** 指定的 `tool_name`
-- 输出 **一定包含** `arguments` 对象
-- `arguments` 中所有 `required` 属性 **一定存在**
-- 属性值 **一定符合** 声明的类型（string/number/boolean/array/object）
-- 不会出现 Schema 未定义的属性（当 `additionalProperties=false` 时）
+- The output **is always** valid JSON (no unclosed quotes, illegal escapes, etc.)
+- The output **always contains** the specified `tool_name`
+- The output **always contains** an `arguments` object
+- All `required` properties in `arguments` **are always present**
+- Property values **always conform** to their declared types (string/number/boolean/array/object)
+- No properties outside the Schema are emitted (when `additionalProperties=false`)

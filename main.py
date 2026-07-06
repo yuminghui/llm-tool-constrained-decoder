@@ -1,15 +1,15 @@
 """
 Tool-Constrained Decoding Demo
 ===============================
-使用 google/gemma-4-E2B-it 演示约束解码：
-  第一步强制调用 plan 工具（工具名锁死，参数由 LLM 自由生成）
-  之后可以自由调用其他工具
+Demonstrates constrained decoding with google/gemma-4-E2B-it:
+  Step 1 forces a plan tool call (tool name locked, arguments generated freely by the LLM)
+  Subsequent steps may call other tools freely.
 
-工具集:
-  - plan:           制定执行计划（第一步必须调用）
-  - get_weather:    查询天气
-  - search_web:     搜索网络
-  - calculator:     数学计算
+Tool set:
+  - plan:           Create an execution plan (mandatory first step)
+  - get_weather:    Query weather information
+  - search_web:     Search the web
+  - calculator:     Perform mathematical calculations
 """
 
 import json
@@ -25,32 +25,32 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from constrained_decoding import ToolConstrainedDecoder, DecoderResult
 
 # ---------------------------------------------------------------------------
-# Gemma 4 tool-call 格式模板
-# Gemma 用 <tool_call|> 开头、<|tool_call> 结尾包裹 JSON
+# Gemma 4 tool-call format template
+# Gemma wraps JSON with <tool_call|> ... <|tool_call>
 # ---------------------------------------------------------------------------
 GEMMA_TOOL_CALL_TEMPLATE = '<tool_call|>{"name":"{name}","arguments":{arguments}}<|tool_call>'
 
 
 # ---------------------------------------------------------------------------
-# 工具定义
+# Tool definitions
 # ---------------------------------------------------------------------------
 TOOLS = [
     {
         "type": "function",
         "function": {
             "name": "plan",
-            "description": "在执行任何操作之前先制定计划。这是第一步必须调用的工具。",
+            "description": "Create a plan before taking any action. This is the mandatory first-step tool.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "steps": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "有序的执行步骤列表",
+                        "description": "Ordered list of execution steps",
                     },
                     "reasoning": {
                         "type": "string",
-                        "description": "制定该计划的理由",
+                        "description": "Rationale for the plan",
                     },
                 },
                 "required": ["steps", "reasoning"],
@@ -61,18 +61,18 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "get_weather",
-            "description": "查询指定城市的天气",
+            "description": "Query the weather for a specified city",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "city": {
                         "type": "string",
-                        "description": "城市名称",
+                        "description": "City name",
                     },
                     "unit": {
                         "type": "string",
                         "enum": ["celsius", "fahrenheit"],
-                        "description": "温度单位",
+                        "description": "Temperature unit",
                     },
                 },
                 "required": ["city"],
@@ -83,17 +83,17 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "search_web",
-            "description": "在网络上搜索信息",
+            "description": "Search the web for information",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "搜索关键词",
+                        "description": "Search keywords",
                     },
                     "max_results": {
                         "type": "integer",
-                        "description": "最大返回结果数",
+                        "description": "Maximum number of results to return",
                     },
                 },
                 "required": ["query"],
@@ -104,13 +104,13 @@ TOOLS = [
         "type": "function",
         "function": {
             "name": "calculator",
-            "description": "执行数学计算",
+            "description": "Perform a mathematical calculation",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "expression": {
                         "type": "string",
-                        "description": "数学表达式，如 '2 + 3 * 4'",
+                        "description": "Mathematical expression, e.g. '2 + 3 * 4'",
                     },
                 },
                 "required": ["expression"],
@@ -119,7 +119,7 @@ TOOLS = [
     },
 ]
 
-# 工具 schema 映射表（给约束解码器用）
+# Tool schema mapping (used by the constrained decoder)
 TOOL_SCHEMAS = {
     tool["function"]["name"]: tool["function"]["parameters"]
     for tool in TOOLS
@@ -127,7 +127,7 @@ TOOL_SCHEMAS = {
 
 
 # ---------------------------------------------------------------------------
-# 场景提示词
+# Scenario prompt
 # ---------------------------------------------------------------------------
 USER_QUERY = (
     "I need to research the latest AI industry trends for 2026, "
@@ -138,13 +138,13 @@ USER_QUERY = (
 
 
 def load_model_and_tokenizer(model_id: str = "google/gemma-4-E2B-it"):
-    """加载模型和分词器。"""
-    print(f"[1/5] 加载模型: {model_id} ...")
+    """Load the model and tokenizer."""
+    print(f"[1/5] Loading model: {model_id} ...")
 
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
 
-    # Gemma 4 需要 PyTorch 支持 compute capability 12.0+ for RTX 50 系列
-    # 如果 CUDA 不兼容则退回 CPU
+    # Gemma 4 requires PyTorch compute capability 12.0+ for RTX 50 series
+    # Fall back to CPU if CUDA is incompatible
     use_cuda = False
     if torch.cuda.is_available():
         try:
@@ -167,12 +167,12 @@ def load_model_and_tokenizer(model_id: str = "google/gemma-4-E2B-it"):
     if not use_cuda:
         model = model.to(device)
 
-    print(f"       模型参数量: {sum(p.numel() for p in model.parameters()) / 1e9:.1f}B")
+    print(f"       model parameters: {sum(p.numel() for p in model.parameters()) / 1e9:.1f}B")
     return model, tokenizer, device
 
 
 def build_prompt(tokenizer, tools: list, user_query: str) -> str:
-    """使用 Gemma chat template 构建包含工具定义的 prompt。"""
+    """Build a prompt with tool definitions using the Gemma chat template."""
     messages = [
         {
             "role": "system",
@@ -181,7 +181,7 @@ def build_prompt(tokenizer, tools: list, user_query: str) -> str:
                 # "Always plan first using the 'plan' tool before calling any other tool. "
                 # "After planning, execute tools one at a time."
                 "Execute tools one at a time."
-                "Please response in Chinese."
+                "Please respond in Chinese."
             ),
         },
         {"role": "user", "content": user_query},
@@ -197,8 +197,8 @@ def build_prompt(tokenizer, tools: list, user_query: str) -> str:
 
 
 def parse_tool_call(text: str) -> dict | None:
-    """从 Gemma 的 tool call 输出中解析 JSON。"""
-    # 去除 Gemma 的特殊 token 包裹
+    """Parse JSON from a Gemma tool-call output."""
+    # Strip Gemma special-token wrappers
     for prefix in ["<tool_call|>", "<|tool_call|>"]:
         idx = text.find(prefix)
         if idx >= 0:
@@ -219,38 +219,38 @@ def parse_tool_call(text: str) -> dict | None:
 
 
 # ---------------------------------------------------------------------------
-# 主演示
+# Main demo
 # ---------------------------------------------------------------------------
 def main():
     print("=" * 70)
-    print("  Tool-Constrained Decoding 演示")
-    print("  模型: google/gemma-4-E2B-it")
-    print("  策略: 第一步强制调用 plan 工具")
+    print("  Tool-Constrained Decoding Demo")
+    print("  Model: google/gemma-4-E2B-it")
+    print("  Strategy: force plan tool on the first step")
     print("=" * 70)
 
-    # ---- 加载模型 ----
+    # ---- Load model ----
     model, tokenizer, device = load_model_and_tokenizer()
 
-    # ---- 构建 prompt ----
-    print("\n[2/5] 构建 Prompt（含 4 个工具定义）...")
+    # ---- Build prompt ----
+    print("\n[2/5] Building prompt (with 4 tool definitions)...")
     prompt = build_prompt(tokenizer, TOOLS, USER_QUERY)
-    print(f"       Prompt 长度: {len(prompt)} 字符 / {len(tokenizer.encode(prompt))} tokens")
-    print(f"       已注册工具: {', '.join(TOOL_SCHEMAS.keys())}")
+    print(f"       Prompt length: {len(prompt)} chars / {len(tokenizer.encode(prompt))} tokens")
+    print(f"       Registered tools: {', '.join(TOOL_SCHEMAS.keys())}")
 
-    # ---- 创建约束解码器 ----
-    print("\n[3/5] 初始化约束解码器 ...")
+    # ---- Create constrained decoder ----
+    print("\n[3/5] Initializing constrained decoder ...")
     decoder = ToolConstrainedDecoder(
         model=model,
         tokenizer=tokenizer,
         template=GEMMA_TOOL_CALL_TEMPLATE,
     )
-    print("       解码器就绪（热插拔模式）")
+    print("       Decoder ready (hot-plug mode)")
 
-    # ---- 第一步：强制调用 plan 工具 ----
-    print("\n[4/5] 第一步：约束解码 → 强制调用 'plan' 工具 ...")
-    print(f"       约束: tool_name='plan'（锁死）")
-    print(f"       参数: steps (array), reasoning (string) — 由 LLM 自由生成")
-    print("       [busy] 生成中 ...")
+    # ---- Step 1: Force plan tool call ----
+    print("\n[4/5] Step 1: constrained decoding → forcing 'plan' tool call ...")
+    print(f"       Constraint: tool_name='plan' (locked)")
+    print(f"       Arguments: steps (array), reasoning (string) — generated freely by LLM")
+    print("       [busy] Generating ...")
 
     plan_schema = TOOL_SCHEMAS["plan"]
     get_weather_schema = TOOL_SCHEMAS["get_weather"]
@@ -268,10 +268,10 @@ def main():
     print(f"   Generated tokens: {len(result.token_ids)}")
     print(f"   Initial test: {result.text}")
 
-    # ---- 解析 plan ----
+    # ---- Parse plan ----
     tool_call = result.tool_call
     if tool_call.get("_parse_error"):
-        # 手动解析
+        # Manual parse
         print(f"   JSON parse failed on generated text; retrying manually...")
         tool_call = parse_tool_call(result.text)
         if tool_call is None:
@@ -292,14 +292,14 @@ def main():
         for i, step in enumerate(steps, 1):
             print(f"       {i}. {step}")
 
-    # ---- 模拟后续流程 ----
-    print(f"\n[5/5] 后续步骤模拟（实际应用中）：")
-    print(f"      1. 执行 plan 中列出的步骤（调用对应工具）")
-    print(f"      2. 每一步都可以选择是否使用约束解码")
-    print(f"      3. 例如第2步约束到 get_weather, 第3步约束到 search_web ...")
+    # ---- Simulate subsequent flow ----
+    print(f"\n[5/5] Subsequent steps (in actual application):")
+    print(f"      1. Execute the steps listed in the plan (call corresponding tools)")
+    print(f"      2. Each step may optionally use constrained decoding")
+    print(f"      3. e.g. step 2 constrained to get_weather, step 3 constrained to search_web ...")
 
     print(f"\n{'=' * 70}")
-    print(f"  演示完成！plan 工具调用成功被约束。")
+    print(f"  Demo complete! plan tool call was successfully constrained.")
     print(f"{'=' * 70}")
 
 

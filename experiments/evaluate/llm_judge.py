@@ -147,25 +147,25 @@ def _build_user_prompt(
 
     fa = final_answer or "(no final answer)"
 
-    prompt = f"""## 用户问题
+    prompt = f"""## User Question
 {question}
 
-## 预期答案
+## Expected Answer
 {expected}
 
-## 预期工具步骤
+## Expected Tool Steps
 {gt_text}
 
-## Agent 实际执行轨迹
+## Agent Actual Execution Trajectory
 {traj_text}
 
-## Agent 最终输出
+## Agent Final Output
 {fa}
 
-## 辅助信息
+## Auxiliary Information
 - success: {success}
 - error: {error or 'none'}
-- 总步数: {total_steps}"""
+- total steps: {total_steps}"""
     return prompt
 
 

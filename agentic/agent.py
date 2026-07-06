@@ -28,22 +28,22 @@ logger = logging.getLogger(__name__)
 # Keyword → tool mapping for plan parsing (fallback when expected_tools absent)
 # ---------------------------------------------------------------------------
 TOOL_KEYWORDS: Dict[str, List[str]] = {
-    "get_weather":                  ["weather", "天气", "temperature", "forecast", "climate"],
-    "get_time":                     ["time", "时间", "date", "日期", "current"],
-    "chat_response":                ["reply", "respond", "回复", "answer user"],
-    "task_summary":                 ["summary", "总结", "summary", "conclusion"],
-    "task_done":                    ["done", "finish", "完成", "结束"],
-    "path_workspace":               ["workspace", "工作区", "path", "路径", "directory"],
-    "list_remote_sensing_index":    ["index list", "可用指数", "supported index", "指数列表"],
-    "remote_sensing_calculate_cli": ["calculate", "compute index", "计算指数", "波段", "遥感指数"],
-    "bash_ls":                      ["ls", "list file", "列出文件", "directory listing"],
-    "gf_pms_preprocess_cli":        ["preprocess", "预处理", "gaofen", "高分", "卫星影像预处理"],
-    "get_tools_list":               ["tool list", "工具列表", "available tool"],
-    "dcva_cd":                      ["change detect", "变化检测", "dcva", "两期"],
-    "file_search":                  ["file search", "搜索文件", "find file"],
-    "wait_user_instruction":        ["wait user", "等待用户", "user input", "confirm"],
-    "dir_search":                   ["dir search", "搜索目录", "find director"],
-    "search_tif_data":              ["tif", "卫星影像数据检索", "search tif", "影像数据"],
+    "get_weather":                  ["weather", "temperature", "forecast", "climate"],
+    "get_time":                     ["time", "date", "current", "now"],
+    "chat_response":                ["reply", "respond", "answer user", "message"],
+    "task_summary":                 ["summary", "summarize", "conclusion", "recap"],
+    "task_done":                    ["done", "finish", "complete", "end", "terminate"],
+    "path_workspace":               ["workspace", "path", "directory", "folder"],
+    "list_remote_sensing_index":    ["index list", "available index", "supported index", "list indices"],
+    "remote_sensing_calculate_cli": ["calculate", "compute index", "band", "remote sensing index", "spectral"],
+    "bash_ls":                      ["ls", "list file", "directory listing", "list directory"],
+    "gf_pms_preprocess_cli":        ["preprocess", "gaofen", "satellite image preprocessing", "orthorectification"],
+    "get_tools_list":               ["tool list", "available tool", "list tools"],
+    "dcva_cd":                      ["change detect", "dcva", "bi-temporal", "change detection"],
+    "file_search":                  ["file search", "find file", "search file", "locate file"],
+    "wait_user_instruction":        ["wait user", "user input", "confirm", "prompt user"],
+    "dir_search":                   ["dir search", "find directory", "search directory"],
+    "search_tif_data":              ["tif", "search tif", "satellite image data retrieval", "image data"],
 }
 
 

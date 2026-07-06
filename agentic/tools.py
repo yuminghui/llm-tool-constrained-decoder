@@ -62,19 +62,20 @@ logger = _get_logger(__name__, level=logging.DEBUG)
 # app2_summary — LLM-based remote sensing output summarization
 # ---------------------------------------------------------------------------
 
-APP2_SUMMARY_PROMPT = """# 用户任务
+APP2_SUMMARY_PROMPT = """# User Task
 {query}
 
-# 遥感指数分析工具计算出的 JSON 数据
+# JSON data computed by the remote sensing index analysis tool
 {json_content}
 
-# 你的任务
-你的任务是基于遥感指数分析工具计算出的 JSON 数据，对用户任务进行分析总结，并且只能返回分析总结后的结果。
+# Your Task
+Your task is to analyze and summarize the user's task based on the JSON data computed
+by the remote sensing index analysis tool. You must only return the analyzed summary.
 
-# 要求
-- 只需要返回分析总结的内容
-- 以Markdown格式
-- 请使用中文"""
+# Requirements
+- Only return the analysis and summary content
+- Use Markdown format
+- Respond in Chinese"""
 
 _summary_backend = None  # set by experiment via set_summary_backend()
 
@@ -154,7 +155,7 @@ class GetWeather(AgentTool):
         return "get_weather"
 
     def execute(self, arguments: str) -> str:
-        return "天气晴朗，温度22摄氏度"
+        return "Clear skies, temperature 22°C"
 
 
 class GetTime(AgentTool):
@@ -163,7 +164,7 @@ class GetTime(AgentTool):
 
     def execute(self, arguments: str) -> str:
         now = datetime.datetime.now()
-        return f"当前时间为：{now.year}-{now.month:02d}-{now.day:02d}"
+        return f"Current time: {now.year}-{now.month:02d}-{now.day:02d}"
 
 
 class TaskDone(AgentTool):
@@ -173,7 +174,7 @@ class TaskDone(AgentTool):
         return "task_done"
 
     def execute(self, arguments: str) -> str:
-        return "任务已完成。"
+        return "Task completed."
 
 
 class ChatResponse(AgentTool):
@@ -198,7 +199,7 @@ class TaskSummary(AgentTool):
         args = json.loads(arguments)
         task_summary = f"# {args['summary_title']}\n"
         if "key_findings" in args:
-            task_summary += "## 关键发现"
+            task_summary += "## Key Findings"
             for finding in args["key_findings"]:
                 task_summary += f"\n- {finding}"
         task_summary += "\n"
@@ -220,12 +221,12 @@ class ListSenseIndex(AgentTool):
 
     def execute(self, arguments: str) -> str:
         return """
-## 支持的指数类型 ##
-- 植被指数: ndvi, savi, evi, gndvi, arvi, msavi, lai, sr, osavi, rdvi, cvi, cigreen, grvi, gli, vari
-- 水体指数: ndwi, mndwi, awei_nsh, awei_sh, ndti
-- 土壤指数: gsi, ci, bi, bi2, ri, sci, ndshi, ndsvi
-- 藻类指数: fai, ndci, sabi, atbi, cig
-- 燃烧/色素/建筑指数: bai, nbr, sipi, vgnir_bi, building_bi
+## Supported Index Types ##
+- Vegetation indices: ndvi, savi, evi, gndvi, arvi, msavi, lai, sr, osavi, rdvi, cvi, cigreen, grvi, gli, vari
+- Water indices: ndwi, mndwi, awei_nsh, awei_sh, ndti
+- Soil indices: gsi, ci, bi, bi2, ri, sci, ndshi, ndsvi
+- Algae indices: fai, ndci, sabi, atbi, cig
+- Burn/Pigment/Building indices: bai, nbr, sipi, vgnir_bi, building_bi
 """
 
 
@@ -237,9 +238,9 @@ class RemoteSenseIndexCalculate(AgentTool):
         self.conda_env = conda_env
         self.query = query
         self.model = model
-        self.success_flag = "全部任务成功"
-        self.success = "运行成功，文件保存到{output_path}"
-        self.failed = "运行失败, 工具日志如下:\n{error}"
+        self.success_flag = "All tasks succeeded"
+        self.success = "Execution succeeded. Output saved to {output_path}"
+        self.failed = "Execution failed. Tool log:\n{error}"
 
     def get_name(self) -> str:
         return "remote_sensing_calculate_cli"
@@ -296,7 +297,7 @@ class RemoteSenseIndexCalculate(AgentTool):
                     return self.success.format(output_path=output_path)
             return self.failed.format(error=output)
         except Exception as e:
-            return self.failed.format(error=f"执行命令失败: {str(e)}")
+            return self.failed.format(error=f"Command execution failed: {str(e)}")
 
 
 class BashLs(AgentTool):
@@ -325,7 +326,7 @@ class BashLs(AgentTool):
                 output += f"\n{result.stderr.strip()}"
             return output
         except Exception as e:
-            return f"执行命令失败: {str(e)}"
+            return f"Command execution failed: {str(e)}"
 
 
 class GFPMSPreprocess(AgentTool):
@@ -380,19 +381,19 @@ class GFPMSPreprocess(AgentTool):
 
             logger.debug("app1 full log: %s", output)
 
-            fin_index = output.rfind("批量处理完成")
+            fin_index = output.rfind("Batch processing complete")
             if fin_index != -1:
                 output = output[fin_index:]
-                output = f"{output}, 所有成功结果已保存到{output_path}中"
+                output = f"{output}. All successful results saved to {output_path}"
             else:
                 error_index = output.rfind("ERROR")
                 if error_index != -1:
                     output = output[error_index:]
                 else:
-                    output = "批量处理失败"
+                    output = "Batch processing failed"
             return output
         except Exception as e:
-            return f"执行命令失败: {str(e)}"
+            return f"Command execution failed: {str(e)}"
 
 
 class GetToolsList(AgentTool):
@@ -468,15 +469,15 @@ class DcvaCD(AgentTool):
             if result.stderr.strip():
                 output += f"\n{result.stderr.strip()}"
 
-            fin_idx = output.rfind("检测完成!")
+            fin_idx = output.rfind("Detection complete!")
             if fin_idx != -1:
                 output = output[fin_idx:]
             else:
-                output = f"工具调用失败: {output}"
+                output = f"Tool invocation failed: {output}"
                 logger.error(output)
             return output
         except Exception as e:
-            return f"执行命令失败: {str(e)}"
+            return f"Command execution failed: {str(e)}"
 
 
 class WaitUserInstruction(AgentTool):
@@ -601,13 +602,13 @@ class Plan(AgentTool):
         try:
             args = json.loads(arguments)
         except json.JSONDecodeError:
-            return "规划提交失败：参数格式无效，请提供合法的JSON"
+            return "Plan submission failed: invalid argument format, please provide valid JSON"
 
-        title = args.get("title", "未命名规划")
+        title = args.get("title", "Untitled Plan")
         steps = args.get("steps", [])
 
         if not steps:
-            return "规划提交失败：steps 不能为空，请至少提供一个步骤"
+            return "Plan submission failed: steps cannot be empty, please provide at least one step"
 
         # Backward-compatible: if steps are plain strings, convert to objects
         if steps and isinstance(steps[0], str):
@@ -616,28 +617,28 @@ class Plan(AgentTool):
                 for i, s in enumerate(steps)
             ]
 
-        plan_text = f"# 📋 任务规划：{title}\n\n"
-        plan_text += f"**总体目标**：{title}\n\n"
-        plan_text += "## 执行步骤\n\n"
+        plan_text = f"# Task Plan: {title}\n\n"
+        plan_text += f"**Overall Goal**: {title}\n\n"
+        plan_text += "## Execution Steps\n\n"
 
         for step in steps:
             if isinstance(step, str):
                 step = {"step_name": step, "description": step}
             step_num = step.get("step_number", "?")
-            step_name = step.get("step_name", "未命名步骤")
+            step_name = step.get("step_name", "Unnamed Step")
             description = step.get("description", "")
             expected_tools = step.get("expected_tools", [])
 
-            plan_text += f"### 步骤 {step_num}：{step_name}\n"
-            plan_text += f"- **描述**：{description}\n"
+            plan_text += f"### Step {step_num}: {step_name}\n"
+            plan_text += f"- **Description**: {description}\n"
             if expected_tools:
-                tools_str = "、".join(expected_tools) if isinstance(expected_tools, list) else str(expected_tools)
-                plan_text += f"- **预计使用工具**：{tools_str}\n"
+                tools_str = ", ".join(expected_tools) if isinstance(expected_tools, list) else str(expected_tools)
+                plan_text += f"- **Expected Tools**: {tools_str}\n"
             plan_text += "\n"
 
         plan_text += "---\n"
-        plan_text += "规划已记录。请严格按照上述步骤顺序执行。"
-        plan_text += "执行过程中如需调整规划，可再次调用 plan 工具更新。"
+        plan_text += "Plan recorded. Please strictly follow the above step order for execution."
+        plan_text += " If adjustments are needed during execution, call the plan tool again to update."
         return plan_text
 
 
@@ -680,7 +681,7 @@ class SearchTifData(AgentTool):
             results = [os.path.abspath(p) for p in matched]
         except Exception as e:
             logger.error("SearchTifData error: %s", str(e))
-            return f"搜索过程发生错误: {str(e)}"
+            return f"Search error occurred: {str(e)}"
 
         if not results:
             return "The followings are the results:\n\nNo tif files found matching the criteria."
