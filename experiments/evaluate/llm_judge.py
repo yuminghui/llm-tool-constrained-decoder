@@ -19,7 +19,7 @@ Usage::
     python -m experiments.evaluate.llm_judge \\
         -i experiments/trajectories/exp_a_baseline/ \\
         -o results/judge_scores/ \\
-        --model gpt-4.1-mini \\
+        --model deepseek-v4-flash \\
         --base-url https://your-proxy.example.com/v1
 
 Environment::
@@ -77,6 +77,8 @@ the expected outcome.
    3 = roughly correct but missing detail or slightly wrong.
    1 = largely incorrect or irrelevant.
    0 = no useful final answer.
+Additionally, some tools just give a result representing whether the task is done, may not have a total view of how results are. So if task finished successfully \
+or failed just because tool itself's bug, give a score of 4. If task finished perfectly, give a score of 5. Only when task failed if a wrong param was given, give a score below 3.
 
 3. **flow_reasonableness** — Logical ordering, absence of redundant or \
 nonsensical tool calls.

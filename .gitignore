@@ -8,3 +8,13 @@
 experiments/trajectories/**
 
 experiments/_*.*
+
+**checklist**
+
+*.pdf
+
+submission/**
+
+*.require
+
+**audit.**

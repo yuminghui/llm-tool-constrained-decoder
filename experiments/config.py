@@ -54,9 +54,9 @@ ALL_MODELS: list = [
     # ("microsoft/phi-1_5",                      False),
 
     # ---- HuggingFace SmolLM2 ----
-    ("HuggingFaceTB/SmolLM2-135M-Instruct",    False),
-    ("HuggingFaceTB/SmolLM2-360M-Instruct",    False),
-    ("HuggingFaceTB/SmolLM2-1.7B-Instruct",    False),
+    # ("HuggingFaceTB/SmolLM2-135M-Instruct",    False),
+    # ("HuggingFaceTB/SmolLM2-360M-Instruct",    False),
+    # ("HuggingFaceTB/SmolLM2-1.7B-Instruct",    False),
 
     # ---- DeepSeek (distilled) ----
     ("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B", False),
