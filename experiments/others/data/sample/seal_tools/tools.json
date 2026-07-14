@@ -1,0 +1,1792 @@
+[
+ {
+  "name": "getNordicBooks",
+  "description": "Retrieve information about Nordic books",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "author": {
+     "type": "string",
+     "description": "The author of the Nordic book"
+    },
+    "title": {
+     "type": "string",
+     "description": "The title of the Nordic book"
+    },
+    "publication_year": {
+     "type": "integer",
+     "description": "The year of publication"
+    }
+   },
+   "required": [
+    "title"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getCommunityMembers",
+  "description": "Retrieve the total number of community members",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "community_id": {
+     "type": "string",
+     "description": "The ID of the community for which you want to retrieve the members"
+    }
+   },
+   "required": [
+    "community_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getMedievalLiteratureInfo",
+  "description": "Retrieve information about medieval literature",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "The title of the medieval literature work"
+    }
+   },
+   "required": [
+    "title"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getSteps",
+  "description": "Retrieve daily steps count",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "user_id": {
+     "type": "string",
+     "description": "The ID of the user wearing the device"
+    }
+   },
+   "required": [
+    "user_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAvailableBeds",
+  "description": "Retrieve the number of available beds in the healthcare facility",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "facility": {
+     "type": "string",
+     "description": "The healthcare facility for which you want to get the available beds count"
+    }
+   },
+   "required": [
+    "facility"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "testFPGAPerformance",
+  "description": "Test the performance of the FPGA design",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "test_duration": {
+     "type": "number",
+     "description": "Duration of the performance test in seconds"
+    },
+    "test_data_size": {
+     "type": "integer",
+     "description": "Size of test data in bytes"
+    }
+   },
+   "required": [
+    "test_duration",
+    "test_data_size"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getSustainableAgricultureData",
+  "description": "Retrieve data related to sustainable agriculture practices",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location for which you want to retrieve data about sustainable agriculture practices (e.g., country, city, region)"
+    },
+    "crop_type": {
+     "type": "string",
+     "description": "The type of crop for which you want to retrieve data (e.g., wheat, corn, rice)"
+    },
+    "year": {
+     "type": "integer",
+     "description": "The year for which you want to retrieve data (e.g., 2020, 2021)"
+    }
+   },
+   "required": [
+    "location",
+    "crop_type",
+    "year"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "checkDeliveryAvailability",
+  "description": "Check if on-demand delivery is available for a given location",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location for which you want to check delivery availability (e.g., a specific address, city, or postal code)"
+    },
+    "item": {
+     "type": "string",
+     "description": "The item/product you want to deliver"
+    }
+   },
+   "required": [
+    "location",
+    "item"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "scheduleEmail",
+  "description": "Schedule an email to be sent to a specific audience",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "email_subject": {
+     "type": "string",
+     "description": "The subject of the email"
+    },
+    "email_body": {
+     "type": "string",
+     "description": "The content of the email"
+    },
+    "recipient_list": {
+     "type": "string",
+     "description": "The list of recipients for the email"
+    },
+    "send_date": {
+     "type": "string",
+     "description": "The date and time when the email should be sent (e.g., 2022-01-01 10:00:00)"
+    }
+   },
+   "required": [
+    "email_subject",
+    "email_body",
+    "recipient_list",
+    "send_date"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFungalSpecies",
+  "description": "Retrieve the species of a given fungus",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "fungus_name": {
+     "type": "string",
+     "description": "The name of the fungus for which you want to retrieve the species (e.g., Aspergillus fumigatus, Candida albicans, Trichophyton rubrum)"
+    },
+    "isolate_number": {
+     "type": "integer",
+     "description": "The isolate number of the fungus (e.g., 1, 2, 3)"
+    }
+   },
+   "required": [
+    "fungus_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "robotTask",
+  "description": "Assign a specific task to the robot",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "robot_id": {
+     "type": "string",
+     "description": "The ID of the robot to perform the task"
+    },
+    "task": {
+     "type": "string",
+     "description": "The task to be performed by the robot (e.g., cleaning, carrying objects, surveillance)"
+    },
+    "priority": {
+     "type": "integer",
+     "description": "The priority level of the task (1-10)"
+    },
+    "duration": {
+     "type": "integer",
+     "description": "The estimated duration for the task in minutes"
+    }
+   },
+   "required": [
+    "robot_id",
+    "task"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getChemotherapyProtocol",
+  "description": "Retrieve the chemotherapy protocol for a specific type of cancer",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "cancer_type": {
+     "type": "string",
+     "description": "The type of cancer for which you want to retrieve the chemotherapy protocol"
+    }
+   },
+   "required": [
+    "cancer_type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getCameraEquipment",
+  "description": "Retrieve information about camera equipment used in a film",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "film_title": {
+     "type": "string",
+     "description": "The title of the film you want to get camera equipment information for (e.g., The Godfather, Titanic)"
+    },
+    "scene_number": {
+     "type": "integer",
+     "description": "The scene number for which you want to get camera equipment information (e.g., 1, 2, 3, ...)"
+    }
+   },
+   "required": [
+    "film_title"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getDigitalMediaInfo",
+  "description": "Retrieve information about a digital media item",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "media_id": {
+     "type": "string",
+     "description": "The unique identifier of the digital media item"
+    }
+   },
+   "required": [
+    "media_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getVideoAd",
+  "description": "Retrieve a video advertisement",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "length": {
+     "type": "integer",
+     "description": "The desired length of the video advertisement in seconds (e.g., 15, 30, 60)"
+    },
+    "interests": {
+     "type": "string",
+     "description": "The target interests for the video advertisement (e.g., sports, music, technology)"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location for which the video advertisement should be tailored (e.g., New York, London, Tokyo)"
+    }
+   },
+   "required": [
+    "length"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "organizePressConference",
+  "description": "Organize a press conference for media coverage",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "date": {
+     "type": "string",
+     "description": "The date of the press conference (e.g., March 15, 2022)"
+    },
+    "time": {
+     "type": "string",
+     "description": "The time of the press conference (e.g., 10:00 AM)"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location of the press conference"
+    }
+   },
+   "required": [
+    "date",
+    "time",
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getSovietUnionLeaders",
+  "description": "Retrieve information about the leaders of the Soviet Union",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "time_period": {
+     "type": "string",
+     "description": "Specify a time period for which you want to get information about Soviet Union leaders (e.g., 1920-1950, 1950-1991)"
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "removeMember",
+  "description": "Remove a team member from a software engineering project",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "project_id": {
+     "type": "integer",
+     "description": "The ID of the project"
+    },
+    "member_id": {
+     "type": "integer",
+     "description": "The ID of the team member to be removed"
+    }
+   },
+   "required": [
+    "project_id",
+    "member_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "createJobPosting",
+  "description": "Create a new job posting",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "The title of the job posting"
+    },
+    "department": {
+     "type": "string",
+     "description": "The department where the job position is located"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location of the job position"
+    },
+    "description": {
+     "type": "string",
+     "description": "The description of the job position and its responsibilities"
+    },
+    "requirements": {
+     "type": "string",
+     "description": "The requirements and qualifications for the job position"
+    },
+    "application_deadline": {
+     "type": "string",
+     "description": "The deadline for submitting applications"
+    }
+   },
+   "required": [
+    "title",
+    "department",
+    "location",
+    "description",
+    "requirements"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "calculateSuretyBondPremium",
+  "description": "Calculate the premium for a surety bond",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "bond_amount": {
+     "type": "number",
+     "description": "The amount of the surety bond (e.g., 10000.0, 25000.0, 50000.0)"
+    },
+    "bond_type": {
+     "type": "string",
+     "description": "The type of surety bond (e.g., performance bond, payment bond, bid bond)"
+    },
+    "credit_score": {
+     "type": "integer",
+     "description": "The credit score of the applicant (e.g., 600, 700, 800)"
+    }
+   },
+   "required": [
+    "bond_amount",
+    "bond_type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "checkEthicalCompliance",
+  "description": "Check the ethical compliance of an accounting practice",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "practice_name": {
+     "type": "string",
+     "description": "The name of the accounting practice to be checked for ethical compliance"
+    }
+   },
+   "required": [
+    "practice_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAquiferData",
+  "description": "Retrieve data about a specific aquifer",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "aquifer_name": {
+     "type": "string",
+     "description": "The name of the aquifer for which you want to retrieve data (e.g., Ogallala Aquifer, Great Artesian Basin)"
+    }
+   },
+   "required": [
+    "aquifer_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "scaleApp",
+  "description": "Scale an application on the PaaS platform",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "app_id": {
+     "type": "string",
+     "description": "The ID of the application to be scaled"
+    },
+    "instances": {
+     "type": "integer",
+     "description": "The number of instances to scale the application to"
+    }
+   },
+   "required": [
+    "app_id",
+    "instances"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "checkHealthAndSafety",
+  "description": "Check the health and safety compliance of a hospitality establishment",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "establishment": {
+     "type": "string",
+     "description": "The name or ID of the hospitality establishment you want to check"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location of the hospitality establishment (e.g., city, country)"
+    },
+    "date": {
+     "type": "string",
+     "description": "The date on which you want to check the health and safety compliance"
+    }
+   },
+   "required": [
+    "establishment",
+    "location",
+    "date"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getDataAnalyticsConsulting",
+  "description": "Consulting service for data analytics",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "company_name": {
+     "type": "string",
+     "description": "The name of the company requiring data analytics consulting"
+    }
+   },
+   "required": [
+    "company_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getECG",
+  "description": "Retrieve current electrocardiogram (ECG) information",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "patient_id": {
+     "type": "string",
+     "description": "The ID of the patient for whom you want to get the ECG"
+    },
+    "time_period": {
+     "type": "string",
+     "description": "Specify a time period for ECG (e.g., daily, weekly, monthly)"
+    }
+   },
+   "required": [
+    "patient_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getRecipe",
+  "description": "Retrieve recipe information based on cuisine type and ingredients",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "cuisine_type": {
+     "type": "string",
+     "description": "Specify the cuisine type for the recipe (e.g., Italian, Chinese, Mexican)"
+    },
+    "ingredients": {
+     "type": "string",
+     "description": "Provide a list of ingredients for the recipe (e.g., chicken, onions, tomatoes)"
+    }
+   },
+   "required": [
+    "cuisine_type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "translateBengali",
+  "description": "Translate text from English to Bengali",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "text": {
+     "type": "string",
+     "description": "The text to be translated from English to Bengali"
+    }
+   },
+   "required": [
+    "text"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "calculateConcreteVolume",
+  "description": "Calculate the required volume of concrete for a civil engineering project",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "length": {
+     "type": "number",
+     "description": "The length of the structure in meters"
+    },
+    "width": {
+     "type": "number",
+     "description": "The width of the structure in meters"
+    },
+    "height": {
+     "type": "number",
+     "description": "The height of the structure in meters"
+    }
+   },
+   "required": [
+    "length",
+    "width",
+    "height"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "bookLodging",
+  "description": "Book lodging for a specific location and duration",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location where you want to book the lodging (e.g., Paris, Tokyo, New York)"
+    },
+    "check_in_date": {
+     "type": "string",
+     "description": "The desired check-in date for the lodging (e.g., 2022-08-15)"
+    },
+    "check_out_date": {
+     "type": "string",
+     "description": "The desired check-out date for the lodging (e.g., 2022-08-20)"
+    },
+    "number_of_guests": {
+     "type": "integer",
+     "description": "The number of guests for the lodging (e.g., 2, 4, 6)"
+    },
+    "amenities": {
+     "type": "string",
+     "description": "Preferred amenities for the lodging (e.g., pool, gym, WiFi)"
+    },
+    "price_range": {
+     "type": "string",
+     "description": "The desired price range for the lodging (e.g., $50-$100, $100-$200, $200-$300)"
+    }
+   },
+   "required": [
+    "location",
+    "check_in_date",
+    "check_out_date",
+    "number_of_guests"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getProjectSchedule",
+  "description": "Retrieve construction project schedule",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "project_id": {
+     "type": "string",
+     "description": "The unique identifier of the construction project"
+    },
+    "start_date": {
+     "type": "string",
+     "description": "The start date of the project (e.g., YYYY-MM-DD)"
+    },
+    "end_date": {
+     "type": "string",
+     "description": "The end date of the project (e.g., YYYY-MM-DD)"
+    }
+   },
+   "required": [
+    "project_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "cancelMotorcycleInsurancePolicy",
+  "description": "Cancel an existing motorcycle insurance policy",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "policy_number": {
+     "type": "string",
+     "description": "The policy number for the motorcycle insurance"
+    }
+   },
+   "required": [
+    "policy_number"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getPhoneticSymbols",
+  "description": "Retrieve the phonetic symbols for a given word",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "word": {
+     "type": "string",
+     "description": "The word for which you want to get the phonetic symbols (e.g., banana, elephant, apple)"
+    }
+   },
+   "required": [
+    "word"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getCurrentDirection",
+  "description": "Retrieve the direction of ocean currents at a specific location and time",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The geographical coordinates of the location (e.g., latitude, longitude)"
+    },
+    "time": {
+     "type": "string",
+     "description": "The time for which you want to get the current direction (e.g., current time, specific date and time)"
+    }
+   },
+   "required": [
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "calculateMediaReach",
+  "description": "Calculate the reach of a media campaign",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "target_audience_size": {
+     "type": "integer",
+     "description": "The size of the target audience for the media campaign"
+    }
+   },
+   "required": [
+    "target_audience_size"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "removeElement",
+  "description": "Remove a specified HTML element from the DOM",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "element": {
+     "type": "string",
+     "description": "The HTML element to remove (e.g., '#header', '.container')"
+    }
+   },
+   "required": [
+    "element"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getOncologyDiagnosis",
+  "description": "Retrieve the diagnosis of oncology in animals",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "animal_type": {
+     "type": "string",
+     "description": "The type of animal to diagnose for oncology (e.g., cat, dog, horse)"
+    },
+    "age": {
+     "type": "integer",
+     "description": "The age of the animal in years"
+    },
+    "symptoms": {
+     "type": "string",
+     "description": "The symptoms observed in the animal"
+    }
+   },
+   "required": [
+    "animal_type",
+    "symptoms"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "employeeOffboarding",
+  "description": "Perform offboarding process for an employee",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "employee_id": {
+     "type": "string",
+     "description": "The unique ID of the employee to be offboarded"
+    },
+    "last_working_day": {
+     "type": "string",
+     "description": "The date of the employee's last working day (e.g., YYYY-MM-DD)"
+    },
+    "exit_interview": {
+     "type": "boolean",
+     "description": "Specify if an exit interview is required for the employee"
+    },
+    "access_revoked": {
+     "type": "boolean",
+     "description": "Specify if the employee's access to company resources should be revoked"
+    }
+   },
+   "required": [
+    "employee_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "translateWord",
+  "description": "Translate a word from one language to another",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "word": {
+     "type": "string",
+     "description": "The word you want to translate"
+    },
+    "source_language": {
+     "type": "string",
+     "description": "The language of the word (e.g., English, Spanish, French)"
+    },
+    "target_language": {
+     "type": "string",
+     "description": "The language to which you want to translate the word"
+    }
+   },
+   "required": [
+    "word",
+    "source_language",
+    "target_language"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getTrafficSources",
+  "description": "Retrieve the traffic sources for a website",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "website": {
+     "type": "string",
+     "description": "The website for which you want to retrieve the traffic sources"
+    }
+   },
+   "required": [
+    "website"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFoodCulture",
+  "description": "Retrieve food culture and traditions information",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "country": {
+     "type": "string",
+     "description": "The country for which you want to get the food culture information (e.g., Italy, Japan, Mexico)"
+    },
+    "dish": {
+     "type": "string",
+     "description": "Specify a traditional dish to learn more about its culture and background (e.g., Sushi, Paella, Tacos)"
+    },
+    "occasion": {
+     "type": "string",
+     "description": "Specify an occasion or festival to explore the related food traditions (e.g., Christmas, Lunar New Year, Thanksgiving)"
+    }
+   },
+   "required": [
+    "country"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getHealthInsuranceCoverage",
+  "description": "Retrieve information about health insurance coverage",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "age": {
+     "type": "integer",
+     "description": "The age of the person who needs health insurance (e.g., 30, 45, 55)"
+    },
+    "annual_income": {
+     "type": "number",
+     "description": "The annual income of the person who needs health insurance (e.g., 50000.00, 75000.00, 100000.00)"
+    },
+    "region": {
+     "type": "string",
+     "description": "The region where the person resides (e.g., North America, Europe, Asia)"
+    }
+   },
+   "required": [
+    "age",
+    "annual_income",
+    "region"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getEyeExamResult",
+  "description": "Retrieve the result of an eye exam",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "patient_id": {
+     "type": "string",
+     "description": "The ID of the patient who underwent the eye exam"
+    },
+    "eye_type": {
+     "type": "string",
+     "description": "The type of eye for which the exam was performed (e.g., left eye, right eye, both eyes)"
+    }
+   },
+   "required": [
+    "patient_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getReserves",
+  "description": "Retrieve petroleum reserves information",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location of the petroleum field (e.g., Middle East, North Sea, Gulf of Mexico)"
+    },
+    "depth": {
+     "type": "number",
+     "description": "The depth at which the reserves are estimated to be present (e.g., 5000 meters, 10000 meters)"
+    },
+    "unit": {
+     "type": "string",
+     "description": "The unit for reserves estimation (e.g., barrels, cubic meters)"
+    }
+   },
+   "required": [
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getMusicPerformance",
+  "description": "Retrieve information about a music performance",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "artist": {
+     "type": "string",
+     "description": "The name of the artist or band (e.g., Taylor Swift, Coldplay)"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location of the music performance (e.g., New York, London)"
+    },
+    "date": {
+     "type": "string",
+     "description": "The date of the music performance (e.g., 2022-12-31)"
+    },
+    "time": {
+     "type": "string",
+     "description": "The time of the music performance (e.g., 20:00)"
+    },
+    "ticket_type": {
+     "type": "string",
+     "description": "The type of ticket (e.g., VIP, General Admission)"
+    }
+   },
+   "required": [
+    "artist",
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFilmTechnology",
+  "description": "Retrieve information about film technology",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAnimationInfo",
+  "description": "Retrieve information about a specific animation",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "animation_name": {
+     "type": "string",
+     "description": "The name of the animation you want to get information about (e.g., My Neighbor Totoro, Spirited Away, Toy Story)"
+    },
+    "release_year": {
+     "type": "integer",
+     "description": "The release year of the animation (e.g., 2001, 1995, 1988)"
+    }
+   },
+   "required": [
+    "animation_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getGammaRayFlux",
+  "description": "Retrieve the flux of gamma-ray emissions from a celestial object",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "object_name": {
+     "type": "string",
+     "description": "The name of the celestial object (e.g., Crab Nebula, Cygnus X-1)"
+    },
+    "energy_band": {
+     "type": "string",
+     "description": "The desired energy band for gamma-ray measurements (e.g., GeV, TeV)"
+    }
+   },
+   "required": [
+    "object_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "authorizeEntry",
+  "description": "Authorize entry of a person into the library premises",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "user_id": {
+     "type": "string",
+     "description": "The unique identifier of the library user (e.g., library card number, username)"
+    },
+    "pin": {
+     "type": "string",
+     "description": "The personal identification number of the library user"
+    }
+   },
+   "required": [
+    "user_id",
+    "pin"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getReachAndFrequency",
+  "description": "Calculate the reach and frequency for a specific advertising campaign",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "campaign_id": {
+     "type": "string",
+     "description": "The unique identifier of the campaign for which you want to calculate reach and frequency"
+    },
+    "target_audience": {
+     "type": "string",
+     "description": "The description or criteria of the target audience (e.g., young adults, parents, sports enthusiasts)"
+    },
+    "media_channel": {
+     "type": "string",
+     "description": "The media channel(s) used for the campaign (e.g., TV, radio, online ads)"
+    },
+    "time_period": {
+     "type": "string",
+     "description": "The time period over which reach and frequency will be calculated (e.g., one week, one month)"
+    }
+   },
+   "required": [
+    "campaign_id",
+    "target_audience",
+    "media_channel",
+    "time_period"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "calculateReynoldsNumber",
+  "description": "Calculate the Reynolds number of a fluid flow",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "density": {
+     "type": "number",
+     "description": "The density of the fluid (in kilograms per cubic meter)"
+    },
+    "velocity": {
+     "type": "number",
+     "description": "The velocity of the fluid (in meters per second)"
+    },
+    "viscosity": {
+     "type": "number",
+     "description": "The dynamic viscosity of the fluid (in Pascal-seconds)"
+    },
+    "characteristic_length": {
+     "type": "number",
+     "description": "The characteristic length of the flow (in meters)"
+    }
+   },
+   "required": [
+    "density",
+    "velocity",
+    "viscosity",
+    "characteristic_length"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "addInvestment",
+  "description": "Add an investment to a portfolio",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "portfolio_id": {
+     "type": "integer",
+     "description": "The unique identifier of the portfolio"
+    },
+    "investment_name": {
+     "type": "string",
+     "description": "The name of the investment"
+    },
+    "investment_type": {
+     "type": "string",
+     "description": "The type of investment (e.g., stocks, bonds, mutual funds)"
+    }
+   },
+   "required": [
+    "portfolio_id",
+    "investment_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getSpaceManufacturingInfo",
+  "description": "Retrieve information about space manufacturing",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location where the space manufacturing is taking place (e.g., ISS, Moon, Mars)"
+    },
+    "product": {
+     "type": "string",
+     "description": "The specific product being manufactured in space (e.g., medical equipment, electronics, food)"
+    },
+    "timeframe": {
+     "type": "string",
+     "description": "The timeframe in which the manufacturing is happening (e.g., past year, current month, next 5 years)"
+    },
+    "gravity": {
+     "type": "string",
+     "description": "The level of gravity under which the manufacturing is conducted (e.g., microgravity, lunar gravity, Martian gravity)"
+    }
+   },
+   "required": [
+    "location",
+    "product"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getVRFlightSimulator",
+  "description": "Retrieve virtual reality flight simulator for aviation and aerospace",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "aircraft_type": {
+     "type": "string",
+     "description": "The type of aircraft for the flight simulator (e.g., commercial airliner, fighter jet, helicopter)"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location where the flight simulation takes place (e.g., airport, military base, training facility)"
+    },
+    "duration": {
+     "type": "integer",
+     "description": "The duration of the virtual reality flight simulation in minutes"
+    }
+   },
+   "required": [
+    "aircraft_type",
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getPlayerBalance",
+  "description": "Retrieve the current balance of a player in the virtual economy",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "player_id": {
+     "type": "string",
+     "description": "The unique identifier of the player"
+    },
+    "currency": {
+     "type": "string",
+     "description": "The currency in which the balance is provided (e.g., gold, coins)"
+    }
+   },
+   "required": [
+    "player_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getEarlyChildhoodEducationInfo",
+  "description": "Retrieve information about early childhood education",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "location": {
+     "type": "string",
+     "description": "The location for which you want to get information (e.g., city, state, country)"
+    },
+    "age": {
+     "type": "integer",
+     "description": "The age range of children for information retrieval (e.g., 1-3, 4-6, 2-5)"
+    }
+   },
+   "required": [
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getRockComposition",
+  "description": "Retrieve the composition of a rock sample",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "sample_id": {
+     "type": "string",
+     "description": "The ID of the rock sample"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location from where the rock sample was obtained"
+    },
+    "analysis_method": {
+     "type": "string",
+     "description": "The method used for analyzing the rock composition"
+    }
+   },
+   "required": [
+    "sample_id",
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "removeDuplicates",
+  "description": "Remove duplicate data from a dataset",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "data": {
+     "type": "string",
+     "description": "The dataset you want to clean"
+    }
+   },
+   "required": [
+    "data"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getHardwareSpecs",
+  "description": "Retrieve hardware specifications of a device",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "device_name": {
+     "type": "string",
+     "description": "The name of the device for which you want to get hardware specifications (e.g., iPhone X, Samsung Galaxy S20)"
+    },
+    "manufacturer": {
+     "type": "string",
+     "description": "The manufacturer of the device (e.g., Apple, Samsung)"
+    }
+   },
+   "required": [
+    "device_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getDigitalTransformation",
+  "description": "Retrieve information about digital transformation in public administration",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "country": {
+     "type": "string",
+     "description": "The country for which you want to get information about digital transformation (e.g., USA, Germany, Japan)"
+    },
+    "year": {
+     "type": "integer",
+     "description": "The specific year for which you want to retrieve the information"
+    }
+   },
+   "required": [
+    "country"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "createDeploymentPipeline",
+  "description": "Create a deployment pipeline for continuous integration and delivery of software",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "repository_url": {
+     "type": "string",
+     "description": "The URL of the software repository"
+    },
+    "build_script": {
+     "type": "string",
+     "description": "The script for building the software"
+    },
+    "test_script": {
+     "type": "string",
+     "description": "The script for testing the software"
+    }
+   },
+   "required": [
+    "repository_url",
+    "build_script",
+    "test_script"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "monitorApplication",
+  "description": "Monitor the performance and health of a software application",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "application_name": {
+     "type": "string",
+     "description": "The name of the application to be monitored"
+    },
+    "metric": {
+     "type": "string",
+     "description": "The metric to be retrieved. Possible values include: 'CPU', 'Memory', 'Network', 'Response Time'"
+    }
+   },
+   "required": [
+    "application_name",
+    "metric"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getGameReviews",
+  "description": "Retrieve user reviews of a specific open-world game",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "game_name": {
+     "type": "string",
+     "description": "The name of the open-world game"
+    },
+    "rating_threshold": {
+     "type": "number",
+     "description": "The minimum rating threshold for user reviews (e.g., 7.5, 8.0, 9.0)"
+    }
+   },
+   "required": [
+    "game_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "createTemperatureControlledShipment",
+  "description": "Create a new temperature-controlled shipment",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "sender_name": {
+     "type": "string",
+     "description": "Name of the sender"
+    },
+    "sender_address": {
+     "type": "string",
+     "description": "Address of the sender"
+    },
+    "receiver_name": {
+     "type": "string",
+     "description": "Name of the receiver"
+    },
+    "receiver_address": {
+     "type": "string",
+     "description": "Address of the receiver"
+    },
+    "product": {
+     "type": "string",
+     "description": "Type of product to be shipped (e.g., perishable food, pharmaceuticals)"
+    },
+    "temperature": {
+     "type": "number",
+     "description": "Required temperature for the shipment"
+    },
+    "unit": {
+     "type": "string",
+     "description": "Unit of temperature (e.g., Celsius, Fahrenheit)"
+    }
+   },
+   "required": [
+    "sender_name",
+    "sender_address",
+    "receiver_name",
+    "receiver_address",
+    "product",
+    "temperature"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "startHIITSession",
+  "description": "Start a high-intensity interval training session",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "session_name": {
+     "type": "string",
+     "description": "The name of the HIIT session (e.g., HIIT Workout 1, HIIT Challenge)"
+    },
+    "exercise_list": {
+     "type": "string",
+     "description": "A list of exercises to be performed during the session (e.g., burpees, push-ups, squats)"
+    },
+    "work_duration": {
+     "type": "integer",
+     "description": "The duration of each work interval in seconds"
+    },
+    "rest_duration": {
+     "type": "integer",
+     "description": "The duration of each rest interval in seconds"
+    }
+   },
+   "required": [
+    "session_name",
+    "exercise_list",
+    "work_duration",
+    "rest_duration"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getUserInfo",
+  "description": "Retrieve user information",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "user_id": {
+     "type": "integer",
+     "description": "The ID of the user for whom you want to retrieve information"
+    }
+   },
+   "required": [
+    "user_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "wordCount",
+  "description": "Count the number of words in a given text",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "text": {
+     "type": "string",
+     "description": "The text to count the words"
+    }
+   },
+   "required": [
+    "text"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "analyzeSubstance",
+  "description": "Analyze a substance for forensic purposes",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "substance": {
+     "type": "string",
+     "description": "The substance to be analyzed (e.g., white powder, unknown liquid)"
+    },
+    "technique": {
+     "type": "string",
+     "description": "The technique to be used for analysis (e.g., mass spectrometry, chromatography)"
+    },
+    "sample_source": {
+     "type": "string",
+     "description": "The source of the sample (e.g., crime scene, suspicious package)"
+    },
+    "priority": {
+     "type": "integer",
+     "description": "The priority level for analysis (e.g., 1, 2, 3)"
+    },
+    "additional_info": {
+     "type": "string",
+     "description": "Additional information related to the analysis (e.g., color, odor)"
+    }
+   },
+   "required": [
+    "substance",
+    "technique",
+    "sample_source"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getGovernanceRules",
+  "description": "Retrieve the governance rules and regulations of a blockchain network",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getBioethicsOrganizations",
+  "description": "Retrieve bioethics organizations",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getRefugeesInNeed",
+  "description": "Retrieve information about refugees in need of education",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "borrowBook",
+  "description": "Borrow a book from the library",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "book_id": {
+     "type": "string",
+     "description": "The unique identifier of the book to be borrowed"
+    }
+   },
+   "required": [
+    "book_id"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "optimizePerformance",
+  "description": "Optimize the performance of a cloud computing system",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "system_id": {
+     "type": "string",
+     "description": "The ID of the cloud computing system"
+    },
+    "workload_type": {
+     "type": "string",
+     "description": "The type of workload to be optimized (e.g., CPU-intensive, memory-intensive)"
+    },
+    "scaling_factor": {
+     "type": "number",
+     "description": "The scaling factor to adjust the resources (e.g., 0.5 for reducing, 2.0 for increasing)"
+    },
+    "optimization_algorithm": {
+     "type": "string",
+     "description": "The algorithm to be used for optimizing performance (e.g., genetic algorithm, particle swarm optimization)"
+    },
+    "constraints": {
+     "type": "string",
+     "description": "Additional constraints for the optimization process"
+    }
+   },
+   "required": [
+    "system_id",
+    "workload_type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getMaritalStatus",
+  "description": "Retrieve marital status information",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "age": {
+     "type": "integer",
+     "description": "The age of the individual"
+    },
+    "gender": {
+     "type": "string",
+     "description": "The gender of the individual (e.g., male, female, non-binary)"
+    },
+    "location": {
+     "type": "string",
+     "description": "The location of the individual's residence"
+    }
+   },
+   "required": [
+    "age",
+    "gender"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_done",
+  "description": "Task complete. No additional parameters. Calling this signals that the task has ended.",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_summary",
+  "description": "Task summary tool. Produce a logical summary of the entire execution process of the current task before calling task_done. The summary should include key steps executed, core data obtained, and the final conclusion for the user.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "summary_title": {
+     "type": "string",
+     "description": "Title of the summary report"
+    },
+    "key_findings": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "A list of key findings or completed steps"
+    },
+    "final_conclusion": {
+     "type": "string",
+     "description": "The final concluding statement, to be relayed directly to the user"
+    }
+   },
+   "required": [
+    "summary_title",
+    "final_conclusion"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "plan",
+  "description": "Decompose and plan a complex task into multiple clear, actionable steps to be executed one by one. Use this before initiating other tool calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "Task title"
+    },
+    "steps": {
+     "type": "array",
+     "description": "List of planned task execution steps",
+     "items": {
+      "type": "object",
+      "properties": {
+       "step_number": {
+        "type": "integer",
+        "description": "Step number"
+       },
+       "step_name": {
+        "type": "string",
+        "description": "Step name"
+       },
+       "description": {
+        "type": "string",
+        "description": "Detailed description of this step"
+       },
+       "expected_tools": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "List of expected tool names to use"
+       }
+      },
+      "required": [
+       "step_number",
+       "step_name",
+       "description"
+      ]
+     }
+    }
+   },
+   "required": [
+    "title",
+    "steps"
+   ]
+  },
+  "enabled": true
+ }
+]

@@ -7,6 +7,11 @@
 
 experiments/trajectories/**
 
+# experiments/others: ignore generated trajectories + downloaded/converted data,
+# but keep the small committed offline fixtures under data/sample/.
+experiments/others/trajectories/**
+experiments/others/data/_raw/**
+
 experiments/_*.*
 
 **checklist**

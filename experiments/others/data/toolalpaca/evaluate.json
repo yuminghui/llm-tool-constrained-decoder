@@ -1,0 +1,7646 @@
+[
+ {
+  "question": "Hey, can you show me a random picture of an axolotl?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomAxolotlImage",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm looking for an axolotl that is wild in color and medium in size. Can you help me find some pictures?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you tell me three interesting facts about axolotls' habitats?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to find out about axolotls' physical characteristics. Can you provide some facts?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to see a collection of pictures of albino axolotls. Can you help me with that?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to learn more about axolotls for a school project. Could you find me 5 interesting facts about their physical characteristics and provide the source URLs for further reading?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My nephew is crazy about axolotls and wants to see what they look like at different stages of growth. Could you find images of small, medium, and large-sized axolotls for him to look at?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I saw an axolotl with a unique color the other day, but I can't remember what it was called. Can you find images of axolotls with different colors, especially the more unusual ones? I'd like to figure out which one I saw.",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to share a unique axolotl fact with my coworkers during our virtual lunch break tomorrow. Can you find me a captivating fact about axolotls that will surprise and entertain them? Please include the source URL as well.",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm wondering how male and female axolotls differ in appearance. Can you find a comparison picture or a pair of pictures showing both genders, preferably of the same color variety?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, can you look up the cast of \"Attack on Titan\" and send me a list of their character roles?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getCastAndCrew",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm in the mood for a new anime to watch but don't know where to start. Can you find me some mystery and action anime options that were released in 2020 and have a user rating of at least 4 stars?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to watch \"Your Lie in April.\" Can you tell me where I can stream it?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getStreamingServices",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I just finished watching \"My Hero Academia,\" and I absolutely loved it! Can you recommend some similar anime series for me to check out?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getRecommendations",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you please synchronize my watch progress of \"Naruto\" with my tracking service \"MyAnimeList\"? I am on episode 100.",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "synchronizeTracking",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I recently discovered \"Attack on Titan\" and have already watched up to episode 25. Can you help me to synchronize my progress with my MyAnimeList account to keep track of it?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getAnimeDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you please get details about the anime with ID 123456?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAnimeDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My friend recommended an anime called \"One Punch Man\" to me, but I need more information before starting it. Can you provide me with a brief description, its cover image, and the main genres of this anime?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getAnimeDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I really enjoyed watching \"Death Note,\" and now I'm craving for some more thriller and psychological anime. Can you give me a few suggestions for other anime series that might be just as captivating?",
+  "expected": "",
+  "available_tools": [
+   "getAnimeDetails",
+   "searchAnime",
+   "getCastAndCrew",
+   "getRecommendations",
+   "getStreamingServices",
+   "synchronizeTracking"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAnime",
+     "required": true
+    },
+    {
+     "action": "getRecommendations",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, can you report an abusive IP address to the abuse database and set the categories as malware and phishing?\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "reportAbusiveIP",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've been dealing with a malicious IP address trying to access my system. Can you help me report this address, 192.168.1.100, and let's categorize it as \"brute-force\" and \"DDoS\"? Also, include a comment saying \"Multiple failed login attempts and DDoS attacks.\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "reportAbusiveIP",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"Can you please check if the IP address '123.45.67.89' has any reputation score in the database, and show me the list of associated abuse reports?\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "checkIPReputation",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"Can you provide me with the total number of abuse reports in the database for the category 'DDoS' within the past month, including the report IDs and any comments associated with them?\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchReports",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My website was recently targeted by a DDoS attack. I want to check if this IP address, 192.168.2.200, was involved in any abuse reports categorized as \"DDoS\" or \"brute-force\" in the last 90 days.",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchReports",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"I'm trying to find all abuse reports associated with the domain 'example.com' from the past week. Can you help me out with the relevant reports?\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchReports",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "To keep an updated list of abusive IP addresses, I'd like to integrate the JSON data feed published on AbuseIPDB with my security tool. Could you retrieve the feed for me, making sure it includes \"malware\" and \"hacking\" categories?",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getPublishedDataFeeds",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Over the past week, I've noticed some strange activity on my network. Can you search for abuse reports that happened between July 1st to July 7th, 2022, and are related to the IP address 10.0.0.2? Please display 20 results per page.",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchReports",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My network is being flooded with spam emails from the IP address 200.0.0.25. I want to report it for spam and phishing. In the comment section, add \"Sending multiple spam emails and phishing attempts.\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "reportAbusiveIP",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've come across an IP address, 168.0.99.1, that I suspect might be involved in illegal activities. Check its reputation score for me, but only consider the reports within the last 45 days.",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "checkIPReputation",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, I've come across an IP address, 168.0.99.1, that I doubt it to be abusive in some aspects. Could you help me check its reputation score? If its reputation score is normal, please report it as \"malware\" and \"hacking\"",
+  "expected": "",
+  "available_tools": [
+   "reportAbusiveIP",
+   "checkIPReputation",
+   "getPublishedDataFeeds",
+   "searchReports"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "checkIPReputation",
+     "required": true
+    },
+    {
+     "action": "reportAbusiveIP",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"Can you generate a custom avatar image for me on Discord using my preferred art style and image format?\"",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "generateAvatar",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I just joined a new Discord server and I want my avatar to stand out. Can you create a unique avatar for me with a \"grunge\" style in \"png\" format? My Discord user ID is \"123456789\"",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "generateAvatar",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"I want to find a user on Discord, but I only have their username. Can you search for them based on that information?\"",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "searchUser",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "\"I need a unique image for my profile on Discord. Can you generate a random image based on my taste in images and of a specific format?\"",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "generateRandomImage",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My Discord server's current icon is getting old. I'd like to get a fresh look. Please generate a minimal styled server icon for my server with the ID \"987654321\" in JPG format.",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "generateServerIcon",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm starting a new giveaway contest in my Discord server, but I don't want to include everyone. Can you help me get a list of the first 50 members in my server with ID \"135792468\" excluding the first 10? This way, I can easily select the contestants for my contest.",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listServerMembers",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "There's a user named \"MisterArcade\" that I want to connect with on Discord, but I don't know their exact username or ID. Would you be able to search for this user and provide me with their full username and discriminator?",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchUser",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need a new wallpaper for my computer. Help me find a random image that I might like. My Discord user ID is \"246813579\", and I prefer nature-themed images in PNG format.",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "generateRandomImage",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to freshen up my profile with a new avatar. How about creating an avatar in a \"minimal\" style for me in \"jpg\" format? My Discord user ID is \"321654987\".",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "generateAvatar",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've lost track of my friend, \"SolarWinds42\", on Discord. Could you help me find their exact username and discriminator by searching for them?",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchUser",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to create a new avatar for my boyfriend \"JohnEve233\" on Discord, but I don't know his UserId. Could you please check it for me and generate a cute avatar in JPG format for him using his ID?",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchUser",
+     "required": true
+    },
+    {
+     "action": "generateAvatar",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to give my first 2 fans in my Discord server \"\"13579246\" cute avatars as gifts. Could you help me with that?",
+  "expected": "",
+  "available_tools": [
+   "generateAvatar",
+   "generateServerIcon",
+   "generateRandomImage",
+   "searchUser",
+   "listServerMembers"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listServerMembers",
+     "required": true
+    },
+    {
+     "action": "generateAvatar",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to log in with my Facebook account, using my email john.doe@gmail.com and my password \"Pa$$w0rd\". Could you please authenticate me and let me know if the process is successful?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "authenticateUser",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I successfully logged in with Google, and my access token is \"abcd1234\" and my user ID is \"g-user123\". Can you fetch my user profile to show me my details?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getUserProfile",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'd like to update my profile with a new profile picture URL, \"https://example.com/new_image.jpg\". I have the access token \"abcd1234\" and my user ID is \"g-user123.\" Can you help me make this change?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "updateUserProfile",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I have an administrator role with the ID \"role123\" that I want to assign to a new user with the user ID \"user321\" and the access token \"abcd1234\". Please do this for me and let me know if it's successful.",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "assignUserRole",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I have an access token \"abcd1234.\" Could you list all the available roles in the application for me?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listRoles",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to create a new role named \"Content Moderator\" with permissions to edit and delete content. My access token is \"abcd1234.\" Can you create this role and provide the role ID?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createRole",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I no longer need the \"Guest\" role with the ID \"role456\" in the application. Using the access token \"abcd1234\", can you delete it for me?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "deleteRole",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'd like to log in without a password this time. Can you send a verification code to my email, jane.doe@example.com, to initiate passwordless authentication?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "initiatePasswordlessAuthentication",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I received a verification code, \"123456\", to my phone number for passwordless authentication via SMS. Can you verify and authenticate me using this code?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyPasswordlessAuthentication",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I just logged in using a passwordless authentication via email, and my email is john.doe@gmail.com. I received the verification code \"456789\"; could you please verify and authenticate me?",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyPasswordlessAuthentication",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you fetch my user profile to show me my details? The email associated with my Facebook account is funthing@gmail.com, and the password is \"password\".",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "authenticateUser",
+     "required": true
+    },
+    {
+     "action": "getUserProfile",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I successfully logged in with Google, and my access token is \"abcd1234\" and my user ID is \"g-user123\". If there is no profile picture in my user profile, kindly attach the following profile picture URL: \"https://example.com/new_image.jpg\".",
+  "expected": "",
+  "available_tools": [
+   "authenticateUser",
+   "getUserProfile",
+   "updateUserProfile",
+   "assignUserRole",
+   "listRoles",
+   "createRole",
+   "deleteRole",
+   "initiatePasswordlessAuthentication",
+   "verifyPasswordlessAuthentication",
+   "[Optional]updateUserProfile"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getUserProfile",
+     "required": true
+    },
+    {
+     "action": "[Optional]updateUserProfile",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Japan next year, and I want to avoid any major holidays, so can you tell me the list of holidays in Japan for 2023? Also, please provide their descriptions in English.",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getHolidaysByCountry",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "What are the details on Boxing Day?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchHolidays",
+     "required": true
+    },
+    {
+     "action": "getHolidayDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you search for any holidays related to Easter in Canada in April?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchHolidays",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm doing a study on holidays in different countries. Can you give me the list of all the countries supported by your service, so I know which ones I can research further?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listCountries",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you give me a list of all the languages supported by the API for holiday descriptions?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listLanguages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I heard about a holiday called Diwali, but I don't remember which country it belongs to. Can you search for holidays with the keyword \"Diwali\" and tell me about its date, country, and a brief description?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchHolidays",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "My family is moving to Germany next month. Can you provide me with a list of holidays in Germany for the next year, so we can plan our family gatherings?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getHolidaysByCountry",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I am curious about how the Chinese New Year is celebrated. Could you find the detailed information about the holiday, including its history, purpose, and traditions?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getHolidayDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "What countries are supported by the API?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listCountries",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm passionate about learning different languages, and I want to read about holidays in various languages. Could you provide a list of languages supported by your service for holiday descriptions?",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "listLanguages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I am researching the festivals and customs of Iceland. Please provide me with detailed information about all the festivals in Iceland, including their purpose, history, and traditions.",
+  "expected": "",
+  "available_tools": [
+   "getHolidaysByCountry",
+   "getHolidayDetails",
+   "searchHolidays",
+   "listCountries",
+   "listLanguages"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchHolidays",
+     "required": true
+    },
+    {
+     "action": "getHolidayDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning to travel to Japan next month, and I want to know the current exchange rate for converting USD to JPY. Also, I'd like to see how the exchange rate has changed over the past month. Can you help me with that?",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getExchangeRates",
+     "required": true
+    },
+    {
+     "action": "getHistoricalData",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I have 5000 EUR that I want to convert to GBP. Can you tell me how much I would get in GBP after the conversion? Also, please set an alert for me if the EUR/GBP exchange rate goes above 0.9.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "convertCurrency",
+     "required": true
+    },
+    {
+     "action": "setPriceAlert",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm interested in investing in gold and Bitcoin. Can you provide me with the current quotes for both of these assets? Additionally, I'd like to know the historical data for the BTC/USD pair for the last year.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getQuotes",
+     "required": true
+    },
+    {
+     "action": "getHistoricalData",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to send money to my friend in Canada, and I have USD. Can you tell me the current exchange rate for USD to CAD? Also, I'd like to set a price alert if the USD/CAD exchange rate goes below 1.2.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getExchangeRates",
+     "required": true
+    },
+    {
+     "action": "setPriceAlert",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning to exchange 1000 AUD to NZD. Can you help me find out how much NZD I would receive after the conversion? Additionally, I'd like to know the exchange rates for AUD to other major currencies like USD, EUR, and GBP.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getExchangeRates",
+     "required": true
+    },
+    {
+     "action": "convertCurrency",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to analyze the historical data of the EUR/USD currency pair for the past three months. Can you provide me with that information? Also, I'd like to set a price alert if the EUR/USD exchange rate goes below 1.1.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getHistoricalData",
+     "required": true
+    },
+    {
+     "action": "setPriceAlert",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm considering investing in silver and Ethereum. Can you give me the current quotes for both of these assets? Also, please provide me with the historical data for the ETH/USD pair for the last six months.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getQuotes",
+     "required": true
+    },
+    {
+     "action": "getHistoricalData",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I have 3000 CHF that I want to convert to USD. Can you tell me how much I would get in USD after the conversion? Additionally, I'd like to set a price alert if the CHF/USD exchange rate goes above 1.1.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "convertCurrency",
+     "required": true
+    },
+    {
+     "action": "setPriceAlert",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to know the current exchange rates for the following currency pairs: GBP/USD, GBP/EUR, and GBP/JPY. Also, I'd like to set a price alert if the GBP/USD exchange rate goes above 1.4.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getExchangeRates",
+     "required": true
+    },
+    {
+     "action": "setPriceAlert",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to exchange 2000 SEK to NOK. Can you help me find out how much NOK I would receive after the conversion? Additionally, I'd like to know the exchange rates for SEK to other major currencies like USD, EUR, and GBP.",
+  "expected": "",
+  "available_tools": [
+   "getExchangeRates",
+   "convertCurrency",
+   "getHistoricalData",
+   "setPriceAlert",
+   "getQuotes"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getExchangeRates",
+     "required": true
+    },
+    {
+     "action": "convertCurrency",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you tell me the list of available Bible versions using the Bible Digital API?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getBibleVersionList",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to read the content of chapter 3 in the book of Job from the New International Version. Please retrieve this chapter for me, including the chapter number, book name, version name, and all the verses with their respective verse numbers and text.",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAllVersesFromChapter",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Retrieve the text of Proverbs 18:24 from the Bible Digital API.",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpecificVerse",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm studying a passage in the book of Romans, specifically from chapter 8, verses 35 to 39. Can you please get me these verses in the New American Standard Bible version, including their verse numbers, text, book name, chapter number, and version name?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpecificVerse",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to check the text of Revelation 22:17 from the New Living Translation. Could you please show me the content of this specific verse, along with its verse number, book name, chapter number, and version name?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpecificVerse",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm preparing a sermon on the book of Ephesians, chapter 6, verses 10 to 18 in the King James Version. Can you obtain these verses for me, including their verse numbers, text, book name, chapter number, and version name?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpecificVerse",
+     "required": true
+    },
+    {
+     "action": "getAllVersesFromChapter",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm having a discussion with my friend about the Book of John, Chapter 3, Verse 16. Could you retrieve it for me in both the King James Version and the New International Version, and also get it in English and Spanish languages?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpecificVerse",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I remember a verse about 'Love is patient, love is kind', but I don't remember where it's from. Could you search for it in the New International Version in English?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchVerses",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm interested in expanding my knowledge and reading the Bible in other languages. Can you tell me what languages the Bible is available in?",
+  "expected": "",
+  "available_tools": [
+   "getSpecificVerse",
+   "getAllVersesFromChapter",
+   "getBookMetadata",
+   "getBibleVersionList",
+   "getBibleLanguages",
+   "searchVerses"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getBibleLanguages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "It seems like the connection string for data source ID 85 has changed. Can you update it with the new string \"postgres://user:password@newhost/dbname\"? Also, change its name to \"Updated Sales Data\".",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "updateDataSource",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I no longer require the data source with ID 93 in my project. Can you delete it for me, please?",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "deleteDataSource",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, I just realized I'm dealing with lots of data and manual spreadsheets are no longer cutting it. Can you help me set up a dashboard? Let's call it \"Sales Overview\", and include charts for \"Quarterly Sales\", \"Product Category Sales\", and \"Regional Sales\". After setting it up, I want you to adjust the permissions so that only I and my sales team can access it.",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createDashboard",
+     "required": true
+    },
+    {
+     "action": "managePermissions",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've been missing out on important updates because I'm not receiving any alerts. Could you configure daily email notifications for me? Please use my work email, it's john.doe@company.com.",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "configureAlerts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to set up a MySQL data source for my new project. Call it \"MySQL_DS_ProjectA\" and use the connection string \"mysql://user:pass@localhost/db\".",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createDataSource",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "We don't need the \"MySQL_DS_ProjectA_v2\" data source anymore. Can you delete it for me?",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "deleteDataSource",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "We hired a new data analyst. I want to provide him \"View\" permissions on our \"Sales Analytics Q2 Updated\" dashboard. His username is \"new_analyst\".",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "managePermissions",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "We've stopped using the \"InventoryDB\" data source and I want to make sure it's fully removed. Can you delete it? Also, I need to embed the \"Complete Sales Overview\" dashboard in our internal sales application. Make sure it's done smoothly.",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "deleteDataSource",
+     "required": true
+    },
+    {
+     "action": "embedDashboard",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "There's an update to our data source, the connection string has changed. Can you modify the existing data source called \"SalesDB\"? After you've done that, I'd also like to add a new chart to our \"Sales Overview\" dashboard, called \"Top Selling Products\". Don't forget to update the dashboard name to \"Complete Sales Overview\".",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard",
+   "getDetails"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDetails",
+     "required": true
+    },
+    {
+     "action": "updateDataSource",
+     "required": true
+    },
+    {
+     "action": "updateDashboard",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need weekly data alerts sent to my email at janedoe@company.com. Could you set that up?",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "configureAlerts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Create a dashboard called \"Customer Analytics\", then add \"Customer Segmentation\", \"Churn Rate\", and \"Lifetime Value\" charts. Also, set permissions so only the data team can access it.",
+  "expected": "",
+  "available_tools": [
+   "createDashboard",
+   "updateDashboard",
+   "deleteDashboard",
+   "createDataSource",
+   "updateDataSource",
+   "deleteDataSource",
+   "managePermissions",
+   "configureAlerts",
+   "embedDashboard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createDashboard",
+     "required": true
+    },
+    {
+     "action": "managePermissions",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm sending a package to my friend in New York, but I'm not sure if I have the correct address. Can you check if this address is valid and deliverable? Here's the address: 123 Main St, Apt 4B, New York, NY, 10001.",
+  "expected": "",
+  "available_tools": [
+   "verifyUSAddress",
+   "standardizeUSAddress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyUSAddress",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm organizing a mailing list for my business, and I want to make sure all the addresses are standardized. Can you help me standardize this address? 456 Elm Street, Suite 789, Los Angeles, CA, 90012.",
+  "expected": "",
+  "available_tools": [
+   "verifyUSAddress",
+   "standardizeUSAddress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "standardizeUSAddress",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I received a letter with an address that seems a bit off. Can you verify if it's valid and also standardize it for me? The address is: 987 Oak St, Flr 2, San Francisco, CA, 94107.",
+  "expected": "",
+  "available_tools": [
+   "verifyUSAddress",
+   "standardizeUSAddress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyUSAddress",
+     "required": true
+    },
+    {
+     "action": "standardizeUSAddress",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm sending out invitations for my wedding and want to make sure all the addresses are correct. Can you verify and standardize this address for me? 654 Pine Avenue, Unit 3A, Chicago, IL, 60601.",
+  "expected": "",
+  "available_tools": [
+   "verifyUSAddress",
+   "standardizeUSAddress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyUSAddress",
+     "required": true
+    },
+    {
+     "action": "standardizeUSAddress",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm moving to a new apartment and need to update my address with various companies. Can you first verify if my new address is valid and then standardize it? Here's the address: 321 Maple Dr, Apt 12C, Houston, TX, 77002.",
+  "expected": "",
+  "available_tools": [
+   "verifyUSAddress",
+   "standardizeUSAddress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "verifyUSAddress",
+     "required": true
+    },
+    {
+     "action": "standardizeUSAddress",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you check if today is a public holiday in China?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayIsTodayPublicHoliday",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Get the country info for China.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "CountryCountryInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Get the list of all available countries for public holiday information.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "CountryAvailableCountries",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to know the version of the Nager.Date library being used. Can you fetch that for me?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "VersionGetVersion",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to find out if there are any long weekends in the United States in 2024. Can you help me with that?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "LongWeekendLongWeekend",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Find out the next public holidays for the Great Britain.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayNextPublicHolidays",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the public holidays in Australia in 2023. Can you fetch the list for me?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayPublicHolidaysV3",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Get the upcoming public holidays worldwide for the next 7 days.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayNextPublicHolidaysWorldwide",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Japan next year. Can you find out if there are any long weekends in Japan in 2023? It would be great to align my trip with a long weekend.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "LongWeekendLongWeekend",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the public holidays in different countries. Could you show me the public holidays for the next week worldwide?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayNextPublicHolidaysWorldwide",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm working on a project about different countries. Can you provide me with information about France, such as its official name, region, and neighboring countries?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "CountryCountryInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm interested in knowing the upcoming public holidays in Germany for the next year. Could you fetch that information for me?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayNextPublicHolidays",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm creating a calendar for my international team. Can you help me find the public holidays in the USA for 2023?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayPublicHolidaysV3",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a road trip across Europe. Can you provide me with information about Italy, including its common name, official name, and the countries it shares borders with?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "CountryCountryInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you help me plan my next vacation by checking the public holidays in Japan and Germany for the next year? I want to make sure I don't miss any important dates.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayNextPublicHolidays",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, I'm curious about the holidays in different countries. Can you compare the number of public holidays in Canada, and Mexico for 2023?",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "PublicHolidayPublicHolidaysV3",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a surprise visit to my friend in Germany. I need to know when the next long weekend of the year 2023 is coming up, so I can plan my trip.",
+  "expected": "",
+  "available_tools": [
+   "CountryCountryInfo",
+   "CountryAvailableCountries",
+   "LongWeekendLongWeekend",
+   "PublicHolidayPublicHolidaysV3",
+   "PublicHolidayIsTodayPublicHoliday",
+   "PublicHolidayNextPublicHolidays",
+   "PublicHolidayNextPublicHolidaysWorldwide",
+   "VersionGetVersion"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "LongWeekendLongWeekend",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you find the website URL for the airport with the ICAO code \"EDDF\" in Germany?",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Please retrieve the name and last update date for the airport with the ICAO code \"EDDM\" in Germany.",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Get the ICAO code and website URL for the airport named \"Frankfurt Airport\" in Germany.",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need the last update date and name of the airport with the ICAO code \"EDDB\" in Germany.",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you fetch the website URL and ICAO code for the airport called \"Munich Airport\" in Germany?",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Retrieve the name and website URL for the airport with the ICAO code \"EDDH\" and \"EDDF\" in Germany.",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Germany and I want to know more about the airport I'll be landing at. Can you find the name and website of the airport with the ICAO code 'EDDF'?",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm doing a research on German airports. Could you provide me the name and website of the airport that has the ICAO code 'EDDM'?",
+  "expected": "",
+  "available_tools": [
+   "AirportApi_getAirport"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AirportApi_getAirport",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Asheville, North Carolina and I'd like to know more about the Asheville Regional Airport. Can you find the details for me using its FAA identifier, AVL?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "airports_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm preparing for a flight to Asheville Regional Airport (ICAO: AVL). Can you get me the aeronautical charts for this airport? I would like to see the general, departures, arrivals, and approaches charts specifically.",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "charts_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've heard that there have been some changes to the charts for Asheville Regional Airport (ICAO: AVL). Can you check if there are any updates to the 'Arrivals' chart?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "charts_changes_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a bit nervous about my upcoming flight. Can you find the Airport Facility Directory (AFD) for Asheville Regional Airport (ICAO: AVL) to help me familiarize myself with the airport layout?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "charts_afd_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the preferred routes for flights. Can you find all of the preferred routes for me?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "preferred-routes_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a flight from Nantucket Memorial Airport (ICAO: ACK) to Erie International Airport (ICAO: ERI). Can you find the preferred routes for this journey? I'll be flying at a low altitude.",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "preferred-routes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "preferred-routes_search_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm interested in the live air traffic at Hartsfield-Jackson Atlanta International Airport (ICAO: KATL). Can you find the arrivals and departures at this airport on VATSIM?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "vatsim_pilots_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "vatsim_pilots_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'd like to know who's controlling the airspace around Shez Ansari (fac: CHI) on VATSIM. Can you find the controllers at this facility for me?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "vatsim_controllers_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "vatsim_controllers_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm worried about the weather for my flight to Asheville. Can you get the METAR weather report for Asheville Regional Airport (ICAO: KAVL)?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "weather_metar_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "weather_metar_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to plan for the weather during my entire stay in Asheville. Can you get the Terminal Aerodrome Forecast (TAF) for Asheville Regional Airport (ICAO: KAVL)?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "weather_taf_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "weather_taf_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Chicago next week. Can you check the weather conditions at O'Hare International Airport (ICAO: ORD) for me? Also, I'd like to know the runway length and the type of surface of the longest runway there.",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get",
+   "weather_metar_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "weather_metar_get",
+     "required": true
+    },
+    {
+     "action": "airports_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm studying for my pilot's license and need some help. Could you fetch me the aeronautical chart for Los Angeles International Airport (ICAO: KLAX)? Also, please provide me with the airport's elevation and the type of fuel available there.",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "charts_get",
+     "required": true
+    },
+    {
+     "action": "airports_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a travel blogger and I'm writing about the airports in New York. Can you provide me with the airport information for John F. Kennedy International Airport (ICAO: KJFK) and LaGuardia Airport (ICAO: KLGA)?",
+  "expected": "",
+  "available_tools": [
+   "airports_get",
+   "charts_get",
+   "charts_changes_get",
+   "charts_afd_get",
+   "preferred-routes_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "airports_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm having a party tonight and want to entertain my guests with some Chuck Norris jokes. Can you find a random joke for me to tell them?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a blog post about Chuck Norris and his impact on pop culture. I need a joke related to 'music'. Can you find one for me?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_random_category_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm doing a presentation on Chuck Norris for my film class. Can you help me find a joke from the 'movie' category to lighten the mood?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_random_category_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trivia night and need some Chuck Norris jokes to include. Can you search for jokes that mention 'Texas'?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_search_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm working on a Chuck Norris-themed board game and need some jokes for the cards. Can you find jokes that involve 'sports'?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_search_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm having a party tonight and I want to entertain my guests with some Chuck Norris jokes. Can you find me 3 random jokes?",
+  "expected": "",
+  "available_tools": [
+   "jokes_random_get",
+   "jokes_random_category_get",
+   "jokes_categories_get",
+   "jokes_search_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "jokes_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm hosting a trivia night at my place this evening. Could you fetch me a random useless fact that I can use to stump my friends? I want something they'll never guess.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm feeling a bit bored. Can you cheer me up with a random, useless fact? I'm in the mood for something quirky and unexpected.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a blog post about interesting trivia. Can you provide me with a random fact that I can include? It should be something that most people wouldn't know.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm starting a new daily ritual of learning something new every day. Can you tell me today's useless fact?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_today_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a daily newsletter and I want to include a fun fact in each issue. Can you give me today's useless fact that I can share with my subscribers?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_today_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm preparing a presentation for my class about random trivia. Could you help me find some fun, useless facts to include? I need about five facts.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_facts_random_get",
+   "api_v2_facts_today_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_facts_random_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Paris next week. Could you find out what the current weather is there? And please, make sure the temperature is in Fahrenheit, I'm more familiar with that.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the weather in multiple cities for a project. Can you get me the current weather for New York, Tokyo, and Sydney? I'd prefer the data in metric units.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm heading out for a run in San Francisco. Can you tell me what the current temperature is and how it feels outside? Also, I'd like to know the humidity and visibility.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a picnic this weekend in London. Could you check the current weather for me? I'm particularly interested in the wind speed and direction.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a blog post about the weather in different parts of the world. Can you fetch the current weather for Beijing, Moscow, and Rio de Janeiro? Please include the local time in each city.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a science teacher preparing a lesson on weather patterns. Can you get me the current weather for Denver? I need the data in scientific units.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "It's getting colder here. Can you find the current temperature in Fahrenheit for Toronto? I want to see if I need to bring a jacket.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm organizing an outdoor event next weekend. Is it possible to get the UV index and visibility in Los Angeles during that time?",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a road trip from New York to Los Angeles next week. Can you help me check the weather conditions for the major cities along the route, like Chicago, Denver, and Las Vegas? I'd like to know if there will be any severe weather conditions that might affect my trip.",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a beach day in Miami this weekend. Could you check the weather for me? I'd like to know if it's going to be sunny and what the UV index will be. Also, could you tell me what the sea temperature will be?",
+  "expected": "",
+  "available_tools": [
+   "current_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "current_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm preparing for a spelling bee and need to practice my pronunciation. Could you find the phonetics and audio pronunciation for the word 'quixotic' for me?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a report on the etymology of words. Can you find the origin of the word 'serendipity'?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to expand my vocabulary. Can you find synonyms for the word 'beautiful'?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a bit confused about the usage of the word 'ephemeral'. Could you provide me with its definition and an example sentence?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to understand the difference between 'affect' and 'effect'. Could you fetch the definitions and examples of both words?",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm working on my English vocabulary. Can you help me understand the word \"serendipity\"? I need its definition, pronunciation, part of speech, and some examples of its usage. Also, provide me with some synonyms to expand my vocabulary.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a poem and I need some inspiration. Could you find the definition, pronunciation, and examples of the word \"ephemeral\"? Also, I'd love to know its synonyms to enrich my poem.",
+  "expected": "",
+  "available_tools": [
+   "api_v2_entries_en_word_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "api_v2_entries_en_word_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you find the current temperature in New York City in Fahrenheit using the weather API?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Please help me calculate the square root of 625 using the math API.",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to convert 5 miles to kilometers. Can you use the unit conversion API to help me with that?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you check the population of Tokyo for me using the demographics API?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to know the capital city of Australia. Can you use the geography API to find that out?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, I'm trying to help my daughter with her homework and we're stuck on this math problem. Can you find out what the square root of 256 is?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm working on a science project and I need to know how many moons Jupiter has. Can you look that up for me?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Paris and I'm curious about the weather. Can you find out what the average temperature is in Paris in July?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm doing a presentation on famous scientists. Can you find out when Albert Einstein was born?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to lose weight and I'm counting calories. Can you tell me how many calories are in a medium-sized apple?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm writing a report on the solar system and I need some information. Can you tell me the diameter of Mars and the distance between Mars and Earth?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to eat healthier and I need to know the nutritional value of some foods. Can you tell me how many calories are in an apple and a banana?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a road trip and I need to calculate the distance. Can you tell me the distance from Los Angeles to New York by car? Also, can you tell me how long it would take to drive that distance?",
+  "expected": "",
+  "available_tools": [
+   "result_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "result_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you find me information about a fruit called \"mango\" using the API? I want to know its nutritional values like carbohydrates, protein, fat, calories, and sugar.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByName",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Please fetch all the fruits available in the API. I want to explore the variety and learn about different fruit options.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAllFruits",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about fruits belonging to the \"Rosaceae\" family. Can you retrieve information about a fruit from this family using the API? I'd like to know its name, genus, order, and nutritional values.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByFamily",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to find fruits that belong to the \"Citrus\" genus. Could you help me retrieve a list of all such fruits using the API? I'm interested in their names, families, and nutritional values.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitsByGenus",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning to make a fruit salad, and I want to include fruits from the \"Sapindales\" order. Can you fetch a list of fruits belonging to this order using the API? I need their names, families, and nutritional values.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitsByOrder",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a themed dinner and want to serve fruits from the 'Rosales' order. Can you provide me with a list of fruits in this order?",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitsByOrder",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm interested in learning more about the 'Citrus' genus. Can you provide me with a list of fruits that belong to this genus?",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitsByGenus",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I've been told that fruits from the 'Solanaceae' family are not good for my health. Can you find out which fruits belong to this family so I can avoid them?",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByFamily",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the nutritional value of an apple. Can you find out how many calories, carbohydrates, proteins, fats, and sugars an apple has?",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByName",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm trying to put together a fruit salad for a party this weekend. Can you help me find a list of fruits that are in season right now, and also tell me their nutritional values? I want to make sure I'm providing a healthy option for my guests.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByName",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about the origin of my favorite fruits. Could you find out where apples, oranges, and bananas originally come from? Also, I'd like to know their peak harvesting times.",
+  "expected": "",
+  "available_tools": [
+   "getFruitByName",
+   "getAllFruits",
+   "getFruitByFamily",
+   "getFruitsByGenus",
+   "getFruitsByOrder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFruitByName",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, can you help me find a random cat picture? I need one with a width of 500 pixels and a height of 300 pixels. It would be great if you could return it in JSON format.",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomCat",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm looking for a cat picture with the tag 'cute'. Could you find me a random one? Make sure it has a width of 800 pixels and a height of 600 pixels.",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatByTag",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to surprise my friend with a cat picture that says 'Happy Birthday!' Can you find a random cat image with that text?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatWithText",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need a list of all the available cat tags. Can you retrieve them for me?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "tags",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm curious about how many cats are available in the database. Can you count them for me?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "count",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to browse through a variety of cat pictures. Can you retrieve a list of 3 cats for me?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomCat",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm feeling a bit down and could use a pick-me-up. Could you find me a random picture of a cat? Make sure it's a cute one!",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomCat",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm working on a presentation about cats and need some visuals. Can you get me a picture of a cat that's exactly 500 pixels wide and 300 pixels high? I'd prefer it if the cat was a tabby.",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomCat",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need a funny image for a birthday card. Can you find me a picture of a cat with the text 'Happy Birthday' on it?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatWithText",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a surprise party for my friend who loves cats. Could you help me design an invitation? I'd like a picture of a cat with a party hat, and the text \"You're invited to a purr-fect party!\" on it.",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatWithText",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm starting a blog about my life as a cat owner. Could you provide me with a cat gif for my first post? I'd also like to add a caption saying \"Welcome to my cat-tastic journey!\".",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatWithText",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm making a birthday card for my niece who loves kittens. Could you find a cute kitten picture for me? And could you add the text \"Happy Birthday!\" on it?",
+  "expected": "",
+  "available_tools": [
+   "getRandomCat",
+   "findCatById",
+   "findCatByTag",
+   "findCatWithText",
+   "api",
+   "tags",
+   "count"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "findCatWithText",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Hey, can you help me find out the current exchange rate for USD to EUR using the currency API? I need to know how many Euros I'll get for 100 US dollars.",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "latest_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Could you please fetch the historical exchange rate data for GBP to CAD on January 1, 2022, using the currency API? I want to analyze the currency fluctuations for that day.",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "historical_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Japan next month. Can you retrieve the exchange rate data for USD to JPY from October 1, 2021, to November 30, 2021, using the currency API? I want to compare the rates and estimate my expenses.",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "timeseries_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to convert 500 Euros to US dollars. Can you use the currency API to convert the amount from EUR to USD for me?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "convert_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to know the current exchange rates for USD, EUR, and GBP. Can you fetch the real-time rates for these currencies using the currency API?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "latest_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a vacation to Thailand next year. Can you fetch the exchange rate data for THB to USD from January 1, 2023, to December 31, 2023, using the currency API? I want to estimate my budget.",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "timeseries_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Japan next month. Could you find out how much 1000 US dollars would be in Japanese yen using the current exchange rate?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "convert_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to send some money to my friend in France. Can you tell me how much 200 US dollars would convert to in Euros?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "convert_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a forex trader and I need to know the current exchange rates for the US dollar against the Euro, British pound, and Japanese yen. Can you get this information for me?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "latest_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm planning a trip to Japan next month, and I want to start budgeting. Can you tell me the current exchange rate from US dollars to Japanese yen, and also provide the average exchange rate for July?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "latest_get",
+     "required": true
+    },
+    {
+     "action": "timeseries_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm a business owner and I need to invoice a client in Europe. Can you provide me with the current exchange rate from US dollars to Euros, and also the average rate for the July so I can set a fair price?",
+  "expected": "",
+  "available_tools": [
+   "latest_get",
+   "historical_get",
+   "timeseries_get",
+   "currencies_get",
+   "convert_get"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "latest_get",
+     "required": true
+    },
+    {
+     "action": "timeseries_get",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ }
+]

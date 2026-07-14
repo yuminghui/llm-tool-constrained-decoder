@@ -1,0 +1,286 @@
+[
+ {
+  "question": "Please provide me with information about the book titled \"Before the Frost\" in the Nordic region.",
+  "expected": "",
+  "available_tools": [
+   "getNordicBooks",
+   "getCommunityMembers",
+   "getMedievalLiteratureInfo",
+   "getSteps",
+   "getAvailableBeds",
+   "testFPGAPerformance",
+   "getSustainableAgricultureData",
+   "checkDeliveryAvailability",
+   "scheduleEmail",
+   "getFungalSpecies",
+   "robotTask",
+   "getChemotherapyProtocol",
+   "getCameraEquipment"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getNordicBooks",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getNordicBooks": "{\"book_info\": \"<string>\", \"author\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Provide me with the digital media information for the media ID '20mlHuoe'.",
+  "expected": "",
+  "available_tools": [
+   "getDigitalMediaInfo",
+   "getVideoAd",
+   "organizePressConference",
+   "getSovietUnionLeaders",
+   "removeMember",
+   "createJobPosting",
+   "calculateSuretyBondPremium",
+   "checkEthicalCompliance",
+   "getAquiferData",
+   "scaleApp",
+   "checkHealthAndSafety",
+   "getDataAnalyticsConsulting",
+   "getECG"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDigitalMediaInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getDigitalMediaInfo": "{\"title\": \"<string>\", \"duration\": \"<integer>\", \"file_type\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance in preparing an Italian recipe. Can you find a suitable recipe with ingredients including chicken, onions, and tomatoes? Once we have a recipe, please translate the word 'Hello' into Bengali. Additionally, calculate the required volume of concrete for a structure with length 10 meters, width 5 meters, and height 3.5 meters. Can you also help me book lodging in Tokyo from September 1st to September 5th for 2 guests? Let's look for accommodations in the price range of $100-$200 per night. Lastly, retrieve the schedule for a construction project with ID 'abcd1234' and an end date of January 31st, 2023. If possible, please cancel my motorcycle insurance policy with the policy number '123456789'.",
+  "expected": "",
+  "available_tools": [
+   "getRecipe",
+   "translateBengali",
+   "calculateConcreteVolume",
+   "bookLodging",
+   "getProjectSchedule",
+   "cancelMotorcycleInsurancePolicy",
+   "getPhoneticSymbols",
+   "getCurrentDirection",
+   "calculateMediaReach",
+   "removeElement",
+   "getOncologyDiagnosis",
+   "employeeOffboarding",
+   "translateWord",
+   "getTrafficSources",
+   "getFoodCulture",
+   "getHealthInsuranceCoverage",
+   "getEyeExamResult",
+   "getReserves"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRecipe",
+     "required": true
+    },
+    {
+     "action": "translateBengali",
+     "required": true
+    },
+    {
+     "action": "calculateConcreteVolume",
+     "required": true
+    },
+    {
+     "action": "bookLodging",
+     "required": true
+    },
+    {
+     "action": "getProjectSchedule",
+     "required": true
+    },
+    {
+     "action": "cancelMotorcycleInsurancePolicy",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getRecipe": "{\"recipe_name\": \"<string>\", \"ingredients_needed\": \"<string>\", \"instructions\": \"<string>\"}",
+   "translateBengali": "{\"translated_text\": \"<string>\"}",
+   "calculateConcreteVolume": "{\"concrete_volume\": \"<number>\"}",
+   "bookLodging": "{\"booking_id\": \"<string>\", \"confirmation_number\": \"<string>\", \"total_amount\": \"<number>\"}",
+   "getProjectSchedule": "{\"schedule\": \"<string>\"}",
+   "cancelMotorcycleInsurancePolicy": "{\"cancellation_message\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I am interested in attending a music performance in New York. Please find information about a Taylor Swift concert with VIP tickets at 20:00. Additionally, I would like to know more about the film technology. Finally, I'm curious about a specific animation called Toy Story. Can you provide details such as the director, genre, and rating?",
+  "expected": "",
+  "available_tools": [
+   "getMusicPerformance",
+   "getFilmTechnology",
+   "getAnimationInfo",
+   "getGammaRayFlux",
+   "authorizeEntry",
+   "getReachAndFrequency",
+   "calculateReynoldsNumber",
+   "addInvestment",
+   "getSpaceManufacturingInfo",
+   "getVRFlightSimulator",
+   "getPlayerBalance",
+   "getEarlyChildhoodEducationInfo",
+   "getRockComposition",
+   "removeDuplicates",
+   "getHardwareSpecs"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getMusicPerformance",
+     "required": true
+    },
+    {
+     "action": "getFilmTechnology",
+     "required": true
+    },
+    {
+     "action": "getAnimationInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getMusicPerformance": "{\"performance_info\": \"<string>\", \"ticket_availability\": \"<boolean>\"}",
+   "getFilmTechnology": "{\"information\": \"<string>\"}",
+   "getAnimationInfo": "{\"animation_name\": \"<string>\", \"release_year\": \"<integer>\", \"director\": \"<string>\", \"genre\": \"<string>\", \"rating\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "Please retrieve information about the level of digital transformation in the USA. After that, create a deployment pipeline for continuous integration and delivery of software using the specified software repository, build script, and test script. Finally, monitor the performance and health of the Instagram application by retrieving the CPU metric.",
+  "expected": "",
+  "available_tools": [
+   "getDigitalTransformation",
+   "createDeploymentPipeline",
+   "monitorApplication",
+   "getGameReviews",
+   "createTemperatureControlledShipment",
+   "startHIITSession",
+   "getUserInfo",
+   "wordCount",
+   "analyzeSubstance",
+   "getGovernanceRules",
+   "getBioethicsOrganizations",
+   "getRefugeesInNeed",
+   "borrowBook",
+   "optimizePerformance",
+   "getMaritalStatus"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDigitalTransformation",
+     "required": true
+    },
+    {
+     "action": "createDeploymentPipeline",
+     "required": true
+    },
+    {
+     "action": "monitorApplication",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getDigitalTransformation": "{\"digital_transformation\": \"<string>\"}",
+   "createDeploymentPipeline": "{\"pipeline_id\": \"<string>\"}",
+   "monitorApplication": "{\"value\": \"<number>\", \"unit\": \"<string>\"}"
+  }
+ }
+]

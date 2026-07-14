@@ -1,0 +1,156 @@
+[
+ {
+  "name": "getRandomAxolotlImage",
+  "description": "Retrieve a random axolotl image with information on the image source. Parameters: {} Output: Successful response.  - Format: application/json  - Structure: Object{url, source, description}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchAxolotlImages",
+  "description": "Search for axolotl images based on specific criteria such as color, gender, and size. Parameters: {\"color\": \"string. One of: [wild, leucistic, albino]. The color of the axolotl (e.g., 'wild', 'leucistic', 'albino', etc.).\", \"gender\": \"string. One of: [male, female]. The gender of the axolotl ('male', 'female').\", \"size\": \"string. One of: [small, medium, large]. The size of the axolotl ('small', 'm",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "color": {
+     "type": "string",
+     "description": ""
+    },
+    "gender": {
+     "type": "string",
+     "description": ""
+    },
+    "size": {
+     "type": "string",
+     "description": ""
+    },
+    "page": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "color",
+    "gender",
+    "size",
+    "page"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAxolotlFacts",
+  "description": "Retrieve interesting facts about axolotls such as their habits, habitats, and physical characteristics. Parameters: {\"category\": \"string. One of: [habits, habitat, physical characteristics]. The category of facts to retrieve (e.g., 'habits', 'habitat', 'physical characteristics').\", \"limit\": \"integer. The maximum number of facts to return.\"} Output: Successful response.  - Format: application/json",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "category": {
+     "type": "string",
+     "description": ""
+    },
+    "limit": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "category",
+    "limit"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_done",
+  "description": "Task complete. No additional parameters. Calling this signals that the task has ended.",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_summary",
+  "description": "Task summary tool. Produce a logical summary of the entire execution process of the current task before calling task_done. The summary should include key steps executed, core data obtained, and the final conclusion for the user.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "summary_title": {
+     "type": "string",
+     "description": "Title of the summary report"
+    },
+    "key_findings": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "A list of key findings or completed steps"
+    },
+    "final_conclusion": {
+     "type": "string",
+     "description": "The final concluding statement, to be relayed directly to the user"
+    }
+   },
+   "required": [
+    "summary_title",
+    "final_conclusion"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "plan",
+  "description": "Decompose and plan a complex task into multiple clear, actionable steps to be executed one by one. Use this before initiating other tool calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "Task title"
+    },
+    "steps": {
+     "type": "array",
+     "description": "List of planned task execution steps",
+     "items": {
+      "type": "object",
+      "properties": {
+       "step_number": {
+        "type": "integer",
+        "description": "Step number"
+       },
+       "step_name": {
+        "type": "string",
+        "description": "Step name"
+       },
+       "description": {
+        "type": "string",
+        "description": "Detailed description of this step"
+       },
+       "expected_tools": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "List of expected tool names to use"
+       }
+      },
+      "required": [
+       "step_number",
+       "step_name",
+       "description"
+      ]
+     }
+    }
+   },
+   "required": [
+    "title",
+    "steps"
+   ]
+  },
+  "enabled": true
+ }
+]

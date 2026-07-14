@@ -16,12 +16,6 @@ from .tools import (
     load_tools_from_json,
 )
 
-from .llm_backend import (
-    LLMBackend,
-    TEMPLATE_REGISTRY,
-    DEFAULT_TEMPLATE,
-)
-
 from .agent import (
     Agent,
     AgentConfig,
@@ -30,14 +24,40 @@ from .agent import (
     TOOL_KEYWORDS,
 )
 
-from .experiment import (
-    Task,
-    ExperimentConfig,
-    RunMetrics,
-    ExperimentRunner,
-    DEFAULT_TASKS,
-    main as run_experiment_cli,
-)
+# ``llm_backend`` and ``experiment`` pull in ``torch``.  Importing them eagerly
+# here would force every consumer of the *torch-free* parts of this package
+# (e.g. ``from agentic.tools import ToolRegistry`` used by the offline dataset
+# tooling and tests) to have a working CUDA/torch stack.  Expose them lazily via
+# PEP 562 so ``from agentic import LLMBackend`` / ``ExperimentRunner`` still work
+# exactly as before, but torch is only imported on first access.
+_LAZY_EXPORTS = {
+    "LLMBackend": ("llm_backend", "LLMBackend"),
+    "TEMPLATE_REGISTRY": ("llm_backend", "TEMPLATE_REGISTRY"),
+    "DEFAULT_TEMPLATE": ("llm_backend", "DEFAULT_TEMPLATE"),
+    "Task": ("experiment", "Task"),
+    "ExperimentConfig": ("experiment", "ExperimentConfig"),
+    "RunMetrics": ("experiment", "RunMetrics"),
+    "ExperimentRunner": ("experiment", "ExperimentRunner"),
+    "DEFAULT_TASKS": ("experiment", "DEFAULT_TASKS"),
+    "run_experiment_cli": ("experiment", "main"),
+}
+
+
+def __getattr__(name):  # PEP 562 — module-level lazy attribute access
+    target = _LAZY_EXPORTS.get(name)
+    if target is None:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    import importlib
+
+    module = importlib.import_module(f".{target[0]}", __name__)
+    value = getattr(module, target[1])
+    globals()[name] = value  # cache for subsequent lookups
+    return value
+
+
+def __dir__():
+    return sorted(list(globals().keys()) + list(_LAZY_EXPORTS.keys()))
+
 
 __all__ = [
     # Tools

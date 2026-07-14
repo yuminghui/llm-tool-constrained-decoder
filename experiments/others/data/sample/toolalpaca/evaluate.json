@@ -1,0 +1,167 @@
+[
+ {
+  "question": "Hey, can you show me a random picture of an axolotl?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRandomAxolotlImage",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I'm looking for an axolotl that is wild in color and medium in size. Can you help me find some pictures?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "Can you tell me three interesting facts about axolotls' habitats?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I need to find out about axolotls' physical characteristics. Can you provide some facts?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAxolotlFacts",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ },
+ {
+  "question": "I want to see a collection of pictures of albino axolotls. Can you help me with that?",
+  "expected": "",
+  "available_tools": [
+   "getRandomAxolotlImage",
+   "searchAxolotlImages",
+   "getAxolotlFacts"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchAxolotlImages",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  }
+ }
+]

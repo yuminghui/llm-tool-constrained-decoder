@@ -1,0 +1,306 @@
+[
+ {
+  "name": "GetUserToken",
+  "description": "API-Bank tool `GetUserToken`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "username": {
+     "type": "string",
+     "description": ""
+    },
+    "password": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "username",
+    "password"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "AddReminder",
+  "description": "API-Bank tool `AddReminder`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "token": {
+     "type": "string",
+     "description": ""
+    },
+    "content": {
+     "type": "string",
+     "description": ""
+    },
+    "time": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "token",
+    "content",
+    "time"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "AddAlarm",
+  "description": "API-Bank tool `AddAlarm`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "token": {
+     "type": "string",
+     "description": ""
+    },
+    "time": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "token",
+    "time"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "AppointmentRegistration",
+  "description": "API-Bank tool `AppointmentRegistration`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "patient_name": {
+     "type": "string",
+     "description": ""
+    },
+    "date": {
+     "type": "string",
+     "description": ""
+    },
+    "doctor_name": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "patient_name",
+    "date",
+    "doctor_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "BookHotel",
+  "description": "API-Bank tool `BookHotel`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "hotel_name": {
+     "type": "string",
+     "description": ""
+    },
+    "check_in_time": {
+     "type": "string",
+     "description": ""
+    },
+    "check_out_time": {
+     "type": "string",
+     "description": ""
+    },
+    "room_count": {
+     "type": "string",
+     "description": ""
+    },
+    "adult_count": {
+     "type": "string",
+     "description": ""
+    },
+    "child_count": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "hotel_name",
+    "check_in_time",
+    "check_out_time",
+    "room_count",
+    "adult_count",
+    "child_count"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "AddAgenda",
+  "description": "API-Bank tool `AddAgenda`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "token": {
+     "type": "string",
+     "description": ""
+    },
+    "content": {
+     "type": "string",
+     "description": ""
+    },
+    "time": {
+     "type": "string",
+     "description": ""
+    },
+    "location": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "token",
+    "content",
+    "time",
+    "location"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "AddMeeting",
+  "description": "API-Bank tool `AddMeeting`. Parameter schema inferred from reference calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "token": {
+     "type": "string",
+     "description": ""
+    },
+    "meeting_topic": {
+     "type": "string",
+     "description": ""
+    },
+    "start_time": {
+     "type": "string",
+     "description": ""
+    },
+    "end_time": {
+     "type": "string",
+     "description": ""
+    },
+    "location": {
+     "type": "string",
+     "description": ""
+    },
+    "attendees": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "token",
+    "meeting_topic",
+    "start_time",
+    "end_time",
+    "location",
+    "attendees"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_done",
+  "description": "Task complete. No additional parameters. Calling this signals that the task has ended.",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_summary",
+  "description": "Task summary tool. Produce a logical summary of the entire execution process of the current task before calling task_done. The summary should include key steps executed, core data obtained, and the final conclusion for the user.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "summary_title": {
+     "type": "string",
+     "description": "Title of the summary report"
+    },
+    "key_findings": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "A list of key findings or completed steps"
+    },
+    "final_conclusion": {
+     "type": "string",
+     "description": "The final concluding statement, to be relayed directly to the user"
+    }
+   },
+   "required": [
+    "summary_title",
+    "final_conclusion"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "plan",
+  "description": "Decompose and plan a complex task into multiple clear, actionable steps to be executed one by one. Use this before initiating other tool calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "Task title"
+    },
+    "steps": {
+     "type": "array",
+     "description": "List of planned task execution steps",
+     "items": {
+      "type": "object",
+      "properties": {
+       "step_number": {
+        "type": "integer",
+        "description": "Step number"
+       },
+       "step_name": {
+        "type": "string",
+        "description": "Step name"
+       },
+       "description": {
+        "type": "string",
+        "description": "Detailed description of this step"
+       },
+       "expected_tools": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "List of expected tool names to use"
+       }
+      },
+      "required": [
+       "step_number",
+       "step_name",
+       "description"
+      ]
+     }
+    }
+   },
+   "required": [
+    "title",
+    "steps"
+   ]
+  },
+  "enabled": true
+ }
+]

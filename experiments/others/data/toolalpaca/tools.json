@@ -1,0 +1,2049 @@
+[
+ {
+  "name": "getRandomAxolotlImage",
+  "description": "Retrieve a random axolotl image with information on the image source. Parameters: {} Output: Successful response.  - Format: application/json  - Structure: Object{url, source, description}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchAxolotlImages",
+  "description": "Search for axolotl images based on specific criteria such as color, gender, and size. Parameters: {\"color\": \"string. One of: [wild, leucistic, albino]. The color of the axolotl (e.g., 'wild', 'leucistic', 'albino', etc.).\", \"gender\": \"string. One of: [male, female]. The gender of the axolotl ('male', 'female').\", \"size\": \"string. One of: [small, medium, large]. The size of the axolotl ('small', 'm",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "color": {
+     "type": "string",
+     "description": ""
+    },
+    "gender": {
+     "type": "string",
+     "description": ""
+    },
+    "size": {
+     "type": "string",
+     "description": ""
+    },
+    "page": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "color",
+    "gender",
+    "size",
+    "page"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAxolotlFacts",
+  "description": "Retrieve interesting facts about axolotls such as their habits, habitats, and physical characteristics. Parameters: {\"category\": \"string. One of: [habits, habitat, physical characteristics]. The category of facts to retrieve (e.g., 'habits', 'habitat', 'physical characteristics').\", \"limit\": \"integer. The maximum number of facts to return.\"} Output: Successful response.  - Format: application/json",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "category": {
+     "type": "string",
+     "description": ""
+    },
+    "limit": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "category",
+    "limit"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAnimeDetails",
+  "description": "Retrieve information about a specific anime series, movie, or episode. Parameters: {\"animeId\": \"Required. integer. The unique identifier of the anime.\"} Output: Returns detailed information about the specified anime, including title, synopsis, release date, duration, genres, cover image, and trailer.  - Format: application/json  - Structure: Object{title, synopsis, releaseDate, duration, genres: A",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "animeId": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchAnime",
+  "description": "Search for anime based on a query string and optional filters. Parameters: {\"query\": \"Required. string. The search query.\", \"filters\": \"Object.  Filters to apply to the search, such as genre, release year, and rating.\"} Output: Returns a list of anime that match the search query and filters, including their animeIds, titles, cover images, and brief descriptions.  - Format: application/json  - Stru",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string",
+     "description": ""
+    },
+    "filter": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getCastAndCrew",
+  "description": "Retrieve cast and crew details for a specific anime. Parameters: {\"animeId\": \"Required. integer. The unique identifier of the anime.\"} Output: Returns a list of cast and crew members, including their names, roles (voice actor, director, producer, etc.), and character names (if applicable).  - Format: application/json  - Structure: Array[Object{name, role, characterName}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getRecommendations",
+  "description": "Retrieve recommendations for similar anime based on a specified anime. Parameters: {\"animeId\": \"Required. integer. The unique identifier of the anime.\"} Output: Returns a list of recommended anime, including their IDs, titles, cover images, and brief descriptions.  - Format: application/json  - Structure: Array[Object{id, title, coverImage, description}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getStreamingServices",
+  "description": "Retrieve a list of streaming services that offer a specific anime. Parameters: {\"animeId\": \"Required. integer. The unique identifier of the anime.\"} Output: Returns a list of streaming services, including their names, logos, and URLs to watch the specified anime.  - Format: application/json  - Structure: Array[Object{name, logo, url}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "synchronizeTracking",
+  "description": "Synchronize an anime's watch progress with a tracking service. Parameters: {\"animeId\": \"Required. integer. The unique identifier of the anime.\", \"trackingService\": \"string.\", \"progress\": \"integer.\"} Output: Returns a confirmation message indicating the successful synchronization of the anime's watch progress with the specified tracking service.  - Format: application/json  - Structure: Object{mess",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "reportAbusiveIP",
+  "description": "Report an abusive IP address or domain to the AbuseIPDB database. Parameters: {\"ip\": \"Required. string. The IP address or domain to report.\", \"categories\": \"Required. Array[string]. The abuse categories associated with the IP/domain.\", \"comment\": \"string. A brief description of the abuse incident.\"} Output: The report was submitted successfully.  - Format: application/json  - Structure: Object{suc",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "ip": {
+     "type": "string",
+     "description": ""
+    },
+    "categories": {
+     "type": "array",
+     "description": ""
+    },
+    "comment": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "checkIPReputation",
+  "description": "Query the AbuseIPDB database for the reputation score of a given IP address or domain. Parameters: {\"ip\": \"Required. string. The IP address or domain to check.\", \"maxAgeInDays\": \"integer. The maximum age of reports to consider, in days (default is 30).\"} Output: The reputation score and associated abuse reports for the queried IP/domain.  - Format: application/json  - Structure: Object{ip, reputat",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "ip": {
+     "type": "string",
+     "description": ""
+    },
+    "maxAgeInDays": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "ip"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getPublishedDataFeeds",
+  "description": "Retrieve published data feeds from AbuseIPDB to integrate with third-party security tools. Parameters: {\"feedType\": \"Required. string. The type of data feed to retrieve (e.g., 'csv', 'json', 'xml').\", \"categories\": \"Array[string].  Filter the data feed by specific abuse categories.\"} Output: The requested data feed.  - Format: application/json  - Structure: Object{feedUrl, feedFormat, lastUpdated}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "feedType": {
+     "type": "string",
+     "description": ""
+    },
+    "categories": {
+     "type": "array",
+     "description": ""
+    }
+   },
+   "required": [
+    "feedType",
+    "categories"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchReports",
+  "description": "Search the AbuseIPDB database for abuse reports based on various criteria. Parameters: {\"ip\": \"string. The IP address or domain to search for.\", \"categories\": \"Array[string].  Filter the search by specific abuse categories.\", \"startDate\": \"string. The start date for the search (format: YYYY-MM-DD).\", \"endDate\": \"string. The end date for the search (format: YYYY-MM-DD).\", \"page\": \"integer. The page",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getDetails",
+  "description": "ToolAlpaca function getDetails.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "Question": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "Question"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "generateAvatar",
+  "description": "Create a unique avatar based on the user's preferences. Parameters: {\"userId\": \"string.\", \"style\": \"string.\", \"format\": \"string.\"} Output: URL to the generated avatar image.  - Format: application/json  - Structure: Object{url}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "style": {
+     "type": "string",
+     "description": ""
+    },
+    "format": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "generateServerIcon",
+  "description": "Generate an icon for a Discord server based on the user's style preferences. Parameters: {\"serverId\": \"string.\", \"style\": \"string.\", \"format\": \"string.\"} Output: URL to the generated server icon image.  - Format: application/json  - Structure: Object{url}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "serverId": {
+     "type": "string",
+     "description": ""
+    },
+    "style": {
+     "type": "string",
+     "description": ""
+    },
+    "format": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "serverId",
+    "style",
+    "format"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "generateRandomImage",
+  "description": "Generate a custom image that matches the user's taste. Parameters: {\"userId\": \"string.\", \"category\": \"string.\", \"format\": \"string.\"} Output: URL to the generated random image.  - Format: application/json  - Structure: Object{url}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "category": {
+     "type": "string",
+     "description": ""
+    },
+    "format": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchUser",
+  "description": "Search for a Discord user by their username or ID. Parameters: {\"query\": \"Required. string. The username or ID of the Discord user.\"} Output: User information.  - Format: application/json  - Structure: Object{id, username, discriminator}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "listServerMembers",
+  "description": "List the members of a Discord server. Parameters: {\"serverId\": \"Required. string. Discord server ID.\", \"limit\": \"integer. The maximum number of members to return.\", \"offset\": \"integer. The number of members to skip before starting to return results.\"} Output: List of server members.  - Format: application/json  - Structure: Array[Object{id, username, discriminator}]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "serverId": {
+     "type": "string",
+     "description": ""
+    },
+    "limit": {
+     "type": "integer",
+     "description": ""
+    },
+    "offset": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "serverId",
+    "limit"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "authenticateUser",
+  "description": "Authenticate a user using their credentials and a specified identity provider. Parameters: {\"provider\": \"Required. string. The identity provider to use for authentication. One of: [google, facebook, twitter].\", \"email\": \"Required. string. The user's email address.\", \"password\": \"Required. string. The user's password.\"} Output: The access token for the authenticated user.  - Format: application/jso",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "provider": {
+     "type": "string",
+     "description": ""
+    },
+    "email": {
+     "type": "string",
+     "description": ""
+    },
+    "password": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "provider",
+    "email",
+    "password"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getUserProfile",
+  "description": "Retrieve the user profile for a given user ID. Parameters: {\"userId\": \"Required. string. The unique identifier for the user.\", \"accessToken\": \"Required. string. The access token for the authenticated user.\"} Output: The user profile object containing user information such as name, email, and profile picture.  - Format: application/json  - Structure: Object{userProfile: Object}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "updateUserProfile",
+  "description": "Update the user profile for a given user ID. Parameters: {\"userId\": \"Required. string. The unique identifier for the user.\", \"accessToken\": \"Required. string. The access token for the authenticated user.\", \"profileData\": \"Required. Object. The updated user profile data.\"} Output: Indicates whether the update was successful.  - Format: application/json  - Structure: Object{success}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    },
+    "profileData": {
+     "type": "object",
+     "description": ""
+    }
+   },
+   "required": [
+    "userId",
+    "accessToken",
+    "profileData"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "assignUserRole",
+  "description": "Assign a role to a user. Parameters: {\"userId\": \"Required. string. The unique identifier for the user.\", \"accessToken\": \"Required. string. The access token for the authenticated user.\", \"roleId\": \"Required. string. The unique identifier for the role to be assigned.\"} Output: Indicates whether the role assignment was successful.  - Format: application/json  - Structure: Object{success}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    },
+    "roleId": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "userId",
+    "accessToken",
+    "roleId"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "listRoles",
+  "description": "List all available roles in the application. Parameters: {\"accessToken\": \"Required. string. The access token for the authenticated user.\"} Output: A list of role objects, each containing a unique identifier and role name.  - Format: application/json  - Structure: Object{roles: Array[Object{roleId, roleName}]}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "accessToken"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "createRole",
+  "description": "Create a new role in the application. Parameters: {\"accessToken\": \"Required. string. The access token for the authenticated user.\", \"roleName\": \"Required. string. The name of the new role.\", \"permissions\": \"Array[Object{permissionId: string. The unique identifier for the permission., permissionName: string. The name of the permission.}. ]. A list of permission objects to be associated with the new",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    },
+    "roleName": {
+     "type": "string",
+     "description": ""
+    },
+    "permissions": {
+     "type": "array",
+     "description": ""
+    }
+   },
+   "required": [
+    "accessToken",
+    "roleName",
+    "permissions"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "deleteRole",
+  "description": "Delete a role from the application. Parameters: {\"accessToken\": \"Required. string. The access token for the authenticated user.\", \"roleId\": \"Required. string. The unique identifier for the role to be deleted.\"} Output: Indicates whether the role deletion was successful.  - Format: application/json  - Structure: Object{success}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    },
+    "roleId": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "accessToken",
+    "roleId"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "initiatePasswordlessAuthentication",
+  "description": "Initiate a passwordless authentication process for a user. Parameters: {\"provider\": \"Required. string. The identity provider to use for passwordless authentication. One of: [sms, email].\", \"identifier\": \"Required. string. The user's phone number or email address, depending on the chosen provider.\"} Output: The verification code sent to the user's phone number or email address.  - Format: applicati",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "provider": {
+     "type": "string",
+     "description": ""
+    },
+    "identifier": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "provider",
+    "identifier"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "verifyPasswordlessAuthentication",
+  "description": "Verify the user's passwordless authentication using the provided verification code. Parameters: {\"provider\": \"Required. string. The identity provider used for passwordless authentication. One of: [sms, email].\", \"identifier\": \"Required. string. The user's phone number or email address, depending on the chosen provider.\", \"verificationCode\": \"Required. string. The verification code sent to the user",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "provider": {
+     "type": "string",
+     "description": ""
+    },
+    "identifier": {
+     "type": "string",
+     "description": ""
+    },
+    "verificationCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "provider",
+    "identifier",
+    "verificationCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "[Optional]updateUserProfile",
+  "description": "ToolAlpaca function [Optional]updateUserProfile.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "userId": {
+     "type": "string",
+     "description": ""
+    },
+    "accessToken": {
+     "type": "string",
+     "description": ""
+    },
+    "profileData": {
+     "type": "object",
+     "description": ""
+    }
+   },
+   "required": [
+    "userId",
+    "accessToken",
+    "profileData"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getHolidaysByCountry",
+  "description": "Retrieve a list of holidays for a specific country with dates, descriptions, and types. Parameters: {\"country\": \"Required. string. The country for which holidays are to be retrieved.\", \"year\": \"integer. The year for which holidays are to be retrieved.\", \"month\": \"integer. The month for which holidays are to be retrieved.\", \"day\": \"integer. The day for which holidays are to be retrieved.\", \"languag",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "country": {
+     "type": "string",
+     "description": ""
+    },
+    "year": {
+     "type": "integer",
+     "description": ""
+    },
+    "language": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getHolidayDetails",
+  "description": "Retrieve detailed information on a specific holiday, including its history, purpose, and traditions. Parameters: {\"holidayId\": \"Required. string. The unique identifier of the holiday for which detailed information is to be retrieved.\", \"language\": \"string. The language in which holiday descriptions should be returned.\"} Output: Detailed information on the specified holiday, including its history, ",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "holidayId": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchHolidays",
+  "description": "Search for holidays based on keywords, country, and date range. Parameters: {\"keywords\": \"string. Keywords to search for in holiday names and descriptions.\", \"country\": \"string. The country for which holidays are to be searched.\", \"startDate\": \"string. The start date of the date range for which holidays are to be searched (format: YYYY-MM-DD).\", \"endDate\": \"string. The end date of the date range f",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "keywords": {
+     "type": "string",
+     "description": ""
+    },
+    "country": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "listCountries",
+  "description": "Retrieve a list of countries supported by the API. Parameters: {} Output: A list of countries supported by the API, with their country codes and names.  - Format: application/json  - Structure: Array[Object{code, name}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "listLanguages",
+  "description": "Retrieve a list of languages supported by the API for holiday descriptions. Parameters: {} Output: A list of languages supported by the API, with their language codes and names.  - Format: application/json  - Structure: Array[Object{code, name}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getExchangeRates",
+  "description": "Retrieve real-time currency exchange rates for all pairs and intervals. Parameters: {\"base\": \"Required. string. The base currency code.\", \"symbols\": \"string. Comma-separated list of currency codes to get exchange rates for. If not provided, all available currency pairs will be returned.\"} Output: Successful response.  - Format: application/json  - Structure: Array[Object{symbol, price, timestamp}]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "base": {
+     "type": "string",
+     "description": ""
+    },
+    "symbols": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "base",
+    "symbols"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "convertCurrency",
+  "description": "Convert currency values from one currency to another. Parameters: {\"from\": \"Required. string. The currency code to convert from.\", \"to\": \"Required. string. The currency code to convert to.\", \"amount\": \"Required. number. The amount to be converted.\"} Output: Successful response.  - Format: application/json  - Structure: Object{converted_amount, exchange_rate}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "from": {
+     "type": "string",
+     "description": ""
+    },
+    "to": {
+     "type": "string",
+     "description": ""
+    },
+    "amount": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "from",
+    "to",
+    "amount"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getHistoricalData",
+  "description": "Retrieve historical data for a specific currency pair. Parameters: {\"currency_pair\": \"Required. string. The currency pair to get historical data for.\", \"start_date\": \"Required. string. The start date for the historical data in YYYY-MM-DD format.\", \"end_date\": \"string. The end date for the historical data in YYYY-MM-DD format. If not provided, the current date will be used.\"} Output: Successful res",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "setPriceAlert",
+  "description": "Receive notifications when a specific currency pair reaches a certain price. Parameters: {\"currency_pair\": \"string.\", \"price\": \"number.\", \"direction\": \"string. One of: [above, below].\"} Output: Successful response.  - Format: application/json  - Structure: Object{alert_id, currency_pair, price, direction}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "currency_pair": {
+     "type": "string",
+     "description": ""
+    },
+    "price": {
+     "type": "number",
+     "description": ""
+    },
+    "direction": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "currency_pair",
+    "price",
+    "direction"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getQuotes",
+  "description": "Get quotes for precious metals and cryptocurrencies. Parameters: {\"symbols\": \"Required. string. Comma-separated list of precious metal or cryptocurrency codes to get quotes for.\"} Output: Successful response.  - Format: application/json  - Structure: Array[Object{symbol, bid, ask, timestamp}]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "symbols": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "symbols"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getSpecificVerse",
+  "description": "Retrieve a specific verse from a particular book and chapter of the Bible. Parameters: {\"book\": \"Required. string. The name of the book in the Bible.\", \"chapter\": \"Required. integer. The chapter number in the book.\", \"verse\": \"Required. integer. The verse number in the chapter.\", \"version\": \"string. The version of the Bible you want to retrieve the verse from.\", \"language\": \"string. The language y",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "book": {
+     "type": "string",
+     "description": ""
+    },
+    "chapter": {
+     "type": "integer",
+     "description": ""
+    },
+    "verse": {
+     "type": "integer",
+     "description": ""
+    },
+    "version": {
+     "type": "string",
+     "description": ""
+    },
+    "language": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "book",
+    "chapter",
+    "verse"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAllVersesFromChapter",
+  "description": "Retrieve all verses from a specific chapter of a given book of the Bible. Parameters: {\"book\": \"Required. string. The name of the book in the Bible.\", \"chapter\": \"Required. integer. The chapter number in the book.\", \"version\": \"string. The version of the Bible you want to retrieve the verses from.\", \"language\": \"string. The language you want the verses to be displayed in.\"} Output: All verses from",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "book": {
+     "type": "string",
+     "description": ""
+    },
+    "chapter": {
+     "type": "integer",
+     "description": ""
+    },
+    "version": {
+     "type": "string",
+     "description": ""
+    },
+    "language": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "book",
+    "chapter",
+    "version"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getBookMetadata",
+  "description": "Retrieve metadata for a specific book of the Bible. Parameters: {\"book\": \"Required. string. The name of the book in the Bible.\", \"version\": \"string. The version of the Bible you want to retrieve metadata from.\", \"language\": \"string. The language you want the metadata to be displayed in.\"} Output: Metadata for the specified book, version, and language.  - Format: application/json  - Structure: #Boo",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getBibleVersionList",
+  "description": "Retrieve a list of all available versions of the Bible in a specific language. Parameters: {\"language\": \"Required. string. The language you want to retrieve the list of Bible versions in.\"} Output: A list of all available versions of the Bible in the specified language.  - Format: application/json  - Structure: #BibleVersionListResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "language": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "language"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getBibleLanguages",
+  "description": "Retrieve a list of all languages available for Bible versions. Parameters: {} Output: A list of all languages in which the Bible versions are available.  - Format: application/json  - Structure: #BibleLanguagesResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "searchVerses",
+  "description": "Search for verses in the Bible containing a specific text. Parameters: {\"text\": \"Required. string. The text to search for in the Bible.\", \"version\": \"string. The version of the Bible you want to search in.\", \"language\": \"string. The language you want to search in.\"} Output: A list of verses containing the specified text, version, and language.  - Format: application/json  - Structure: #SearchVerse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "text": {
+     "type": "string",
+     "description": ""
+    },
+    "version": {
+     "type": "string",
+     "description": ""
+    },
+    "language": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "text",
+    "version",
+    "language"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "createDashboard",
+  "description": "Create a new dashboard Parameters: {\"dashboardName\": \"string. The name of the new dashboard.\", \"description\": \"string. A brief description of the dashboard.\", \"charts\": \"Array[string]. A list of charts to be included in the dashboard initially.\"} Output: Successful creation of the dashboard.  - Format: application/json  - Structure: #CreateDashboardResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "dashboardName": {
+     "type": "string",
+     "description": ""
+    },
+    "description": {
+     "type": "string",
+     "description": ""
+    },
+    "charts": {
+     "type": "array",
+     "description": ""
+    }
+   },
+   "required": [
+    "dashboardName",
+    "description",
+    "charts"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "updateDashboard",
+  "description": "Modify an existing dashboard Parameters: {\"dashboardId\": \"integer. The unique ID of the dashboard to be modified.\", \"dashboardName\": \"string. The new name of the dashboard.\", \"description\": \"string. A new description for the dashboard.\", \"charts\": \"Array[string]. A list of charts to be added or removed from the dashboard.\"} Output: Successful update of the dashboard.  - Format: application/json  -",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "dashboardId": {
+     "type": "integer",
+     "description": ""
+    },
+    "dashboardName": {
+     "type": "string",
+     "description": ""
+    },
+    "description": {
+     "type": "string",
+     "description": ""
+    },
+    "charts": {
+     "type": "array",
+     "description": ""
+    }
+   },
+   "required": [
+    "dashboardId",
+    "dashboardName",
+    "description",
+    "charts"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "deleteDashboard",
+  "description": "Delete an existing dashboard Parameters: {\"dashboardId\": \"Required. integer. The unique ID of the dashboard to be deleted.\"} Output: Successful deletion of the dashboard.  - Format: application/json  - Structure: #DeleteDashboardResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "createDataSource",
+  "description": "Create a new data source Parameters: {\"sourceName\": \"string. The name of the new data source.\", \"connectionString\": \"string. The connection string to connect to the data source.\", \"type\": \"string. The type of the data source (e.g., 'mysql', 'postgresql', etc.).\"} Output: Successful creation of the data source.  - Format: application/json  - Structure: #CreateDataSourceResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "sourceName": {
+     "type": "string",
+     "description": ""
+    },
+    "connectionString": {
+     "type": "string",
+     "description": ""
+    },
+    "type": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "sourceName",
+    "connectionString",
+    "type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "updateDataSource",
+  "description": "Modify an existing data source Parameters: {\"sourceId\": \"integer. The unique ID of the data source to be modified.\", \"sourceName\": \"string. The new name of the data source.\", \"connectionString\": \"string. The new connection string to connect to the data source.\", \"type\": \"string. The new type of the data source.\"} Output: Successful update of the data source.  - Format: application/json  - Structur",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "sourceId": {
+     "type": "integer",
+     "description": ""
+    },
+    "sourceName": {
+     "type": "string",
+     "description": ""
+    },
+    "connectionString": {
+     "type": "string",
+     "description": ""
+    },
+    "type": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "sourceId",
+    "sourceName",
+    "connectionString"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "deleteDataSource",
+  "description": "Delete an existing data source Parameters: {\"sourceId\": \"Required. integer. The unique ID of the data source to be deleted.\"} Output: Successful deletion of the data source.  - Format: application/json  - Structure: #DeleteDataSourceResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "sourceId": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "managePermissions",
+  "description": "Manage permissions for dashboards and data sources Parameters: {\"targetId\": \"integer. The unique ID of the dashboard or data source for which permissions are to be managed.\", \"targetType\": \"string. The type of the target ('dashboard' or 'data source').\", \"permissions\": \"Array[string]. A list of permissions to be granted or revoked.\", \"users\": \"Array[string]. A list of users for which the permissio",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "configureAlerts",
+  "description": "Configure email notifications for data alerts and updates Parameters: {\"email\": \"string. The email address to which notifications are to be sent.\", \"frequency\": \"string. The frequency at which notifications are to be sent ('daily', 'weekly', 'monthly', etc.).\"} Output: Successful configuration of alerts.  - Format: application/json  - Structure: #ConfigureAlertsResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "email": {
+     "type": "string",
+     "description": ""
+    },
+    "frequency": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "email",
+    "frequency"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "embedDashboard",
+  "description": "Embed a dashboard into another application Parameters: {\"dashboardId\": \"integer. The unique ID of the dashboard to be embedded.\", \"targetApp\": \"string. The name of the application into which the dashboard is to be embedded.\"} Output: Successful embedding of the dashboard.  - Format: application/json  - Structure: #EmbedDashboardResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "dashboardId": {
+     "type": "integer",
+     "description": ""
+    },
+    "targetApp": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "dashboardId",
+    "targetApp"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "verifyUSAddress",
+  "description": "Verify a given US address to ensure it meets USPS standards and is deliverable. Parameters: {\"addressLine1\": \"Required. string. The primary address line, including street number and name.\", \"addressLine2\": \"string. The secondary address line, such as apartment or suite number.\", \"city\": \"Required. string. The city of the address.\", \"state\": \"Required. string. The state or territory of the address.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "addressLine1": {
+     "type": "string",
+     "description": ""
+    },
+    "addressLine2": {
+     "type": "string",
+     "description": ""
+    },
+    "city": {
+     "type": "string",
+     "description": ""
+    },
+    "state": {
+     "type": "string",
+     "description": ""
+    },
+    "zipCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "addressLine1",
+    "addressLine2",
+    "city",
+    "state",
+    "zipCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "standardizeUSAddress",
+  "description": "Standardize a given US address to create consistency and accuracy in addressing. Parameters: {\"addressLine1\": \"Required. string. The primary address line, including street number and name.\", \"addressLine2\": \"string. The secondary address line, such as apartment or suite number.\", \"city\": \"Required. string. The city of the address.\", \"state\": \"Required. string. The state or territory of the address",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "addressLine1": {
+     "type": "string",
+     "description": ""
+    },
+    "addressLine2": {
+     "type": "string",
+     "description": ""
+    },
+    "city": {
+     "type": "string",
+     "description": ""
+    },
+    "state": {
+     "type": "string",
+     "description": ""
+    },
+    "zipCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "addressLine1",
+    "addressLine2",
+    "city",
+    "state",
+    "zipCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "CountryCountryInfo",
+  "description": "Get country info for the given country Parameters: {\"countryCode\": \"Required. string. Two-character represented country code. For instance, CN or cn represents China.\"} Output: Success.  - Format: text/plain  - Structure: #CountryInfoDto",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "countryCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "countryCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "CountryAvailableCountries",
+  "description": "Get all available countries Parameters: {} Output: Success.  - Format: text/plain  - Structure: Array[#CountryV3Dto]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "LongWeekendLongWeekend",
+  "description": "Get long weekends for a given country Parameters: {\"year\": \"Required. integer. \", \"countryCode\": \"Required. string. Two-character represented country code. For instance, CN or cn represents China.\"} Output: Success.  - Format: text/plain  - Structure: Array[#LongWeekendV3Dto]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "year": {
+     "type": "integer",
+     "description": ""
+    },
+    "countryCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "year",
+    "countryCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "PublicHolidayPublicHolidaysV3",
+  "description": "Get public holidays Parameters: {\"year\": \"Required. integer. \", \"countryCode\": \"Required. string. Two-character represented country code. For instance, CN or cn represents China.\"} Output: Public holidays.  - Format: text/plain  - Structure: Array[#PublicHolidayV3Dto]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "year": {
+     "type": "integer",
+     "description": ""
+    },
+    "countryCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "year",
+    "countryCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "PublicHolidayIsTodayPublicHoliday",
+  "description": "Is today a public holiday Parameters: {\"countryCode\": \"Required. string. Two-character represented country code. For instance, CN or cn represents China.\", \"countyCode\": \"string. \", \"offset\": \"integer. utc timezone offset.\"} Output: Today is a public holiday.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "countryCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "countryCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "PublicHolidayNextPublicHolidays",
+  "description": "Returns the upcoming public holidays for the next 365 days for the given country Parameters: {\"countryCode\": \"Required. string. Two-character represented country code. For instance, CN or cn represents China.\"} Output: Success.  - Format: text/plain  - Structure: Array[#PublicHolidayV3Dto]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "countryCode": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "countryCode"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "PublicHolidayNextPublicHolidaysWorldwide",
+  "description": "Returns the upcoming public holidays for the next 7 days Parameters: {} Output: Success.  - Format: text/plain  - Structure: Array[#PublicHolidayV3Dto]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "VersionGetVersion",
+  "description": "Get version of the used Nager.Date library Parameters: {} Output: Success.  - Format: text/plain  - Structure: #VersionInfoDto",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "AirportApi_getAirport",
+  "description": "Parameters: {\"icao_code\": \"Required. string. The ICAO code of the target airport located in Germany.\"} Output: A successful response.  - Format: application/json  - Structure: #ApiEndpointsAirportResponse",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "icao_code": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "icao_code"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "airports_get",
+  "description": "Get an airport by its ICAO or FAA identifier Parameters: {\"apt\": \"Required. string. FAA or ICAO facility identifier (KAVL or AVL). Separate multiple entries with a comma.\"} Output: OK.  - Format: application/json  - Structure: Object{site_number, type, facility_name, faa_ident, icao_ident, district_office, state, state_full, county, city, ownership, use, manager, manager_phone, latitude, latitude_",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "charts_get",
+  "description": "Get charts for a specified airport Parameters: {\"apt\": \"Required. string. FAA or ICAO airport identifier (KAVL or AVL). Separate multiple entries with a comma.\", \"group\": \"integer. Optional grouping of the charts. 1 -> General, Departures, Arrivals, Approaches; 2 -> Airport Diagram only; 3 -> General only; 4 -> Departures only; 5 -> Arrivals only; 6 -> Approaches only; 7 -> Everything but General.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    },
+    "group": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "charts_changes_get",
+  "description": "Get chart changes by airport or chart name Parameters: {\"apt\": \"Required. string. FAA or ICAO airport identifier (KAVL or AVL).\", \"chart_name\": \"string. Partial or full name of the chart/procedure.\"} Output: OK.  - Format: application/json  - Structure: Object{state, state_full, city, airport_name, military, faa_ident, icao_ident, chart_seq, chart_code, chart_name, pdf_name, pdf_path}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    },
+    "chart_name": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt",
+    "chart_name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "charts_afd_get",
+  "description": "Get the AFD for a specified airport Parameters: {\"apt\": \"Required. string. FAA or ICAO airport identifier (KCLT or CLT).\"} Output: OK.  - Format: application/json  - Structure: Object{state, city, airport_name, icao_ident, pdf_name, pdf_path}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "preferred-routes_get",
+  "description": "Get all of the preferred routes Parameters: {} Output: OK.  - Format: application/json  - Structure: Object{origin, route, destination, hours1, hours2, hours3, type, area, altitude, aircraft, flow, seq, d_artcc, a_artcc}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "preferred-routes_search_get",
+  "description": "ToolAlpaca function preferred-routes_search_get.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "origin": {
+     "type": "string",
+     "description": ""
+    },
+    "dest": {
+     "type": "string",
+     "description": ""
+    },
+    "type": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "origin",
+    "dest",
+    "type"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "vatsim_pilots_get",
+  "description": "ToolAlpaca function vatsim_pilots_get.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "vatsim_controllers_get",
+  "description": "ToolAlpaca function vatsim_controllers_get.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "fac": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "fac"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "weather_metar_get",
+  "description": "ToolAlpaca function weather_metar_get.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "weather_taf_get",
+  "description": "ToolAlpaca function weather_taf_get.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "apt": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "apt"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "jokes_random_get",
+  "description": "Retrieve a random Chuck Norris joke Parameters: {} Output: Successful response.  - Format: application/json  - Structure: Object{icon_url, id, url, value}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "jokes_random_category_get",
+  "description": "Retrieve a random Chuck Norris joke by category Parameters: {\"category\": \"string. The category from which to fetch the random joke.\"} Output: Successful response.  - Format: application/json  - Structure: Object{icon_url, id, url, value}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "category": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "category"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "jokes_categories_get",
+  "description": "Retrieve a list of available categories Parameters: {} Output: Successful response.  - Format: application/json  - Structure: Array[string]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "jokes_search_get",
+  "description": "Free text search for Chuck Norris jokes Parameters: {\"query\": \"Required. string. The search query for filtering jokes.\"} Output: Successful response.  - Format: application/json  - Structure: Object{total, result: Array[Object{icon_url, id, url, value}]}",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "query": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "query"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "api_v2_facts_random_get",
+  "description": "Get random useless fact Parameters: {} Output: OK.  - Format: application/json  - Structure: Object{fact}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "api_v2_facts_today_get",
+  "description": "Get today's useless fact Parameters: {} Output: OK.  - Format: application/json  - Structure: Object{fact}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "current_get",
+  "description": "Get current weather Parameters: {\"access_key\": \"Required. string. Your API access key, obtained from your account dashboard.\", \"query\": \"Required. string. The location(s) you want to get weather data for. It can be a single location or multiple semicolon-separated location identifiers.\", \"units\": \"string. One of: [m, s, f]. [Optional] Specify the unit identifier for temperature and other measureme",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "access_key": {
+     "type": "string",
+     "description": ""
+    },
+    "query": {
+     "type": "string",
+     "description": ""
+    },
+    "units": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "access_key",
+    "query"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "api_v2_entries_en_word_get",
+  "description": "Get word definitions Parameters: {\"word\": \"Required. string. The English word for which definitions are requested.\"} Output: Successful response with word definitions.  - Format: application/json  - Structure: Array[Object{word, phonetic, phonetics: Array[Object{text, audio}], origin, meanings: Array[Object{partOfSpeech, definitions: Array[Object{definition, example, synonyms: Array[string], anton",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "word": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "word"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "result_get",
+  "description": "Get short answer from Wolfram Alpha Parameters: {\"appid\": \"Required. string. Your Wolfram Alpha API AppID.\", \"i\": \"Required. string. The URL-encoded input for your query.\", \"units\": \"string. One of: [metric, imperial]. Select what system of units to use for measurements and quantities (either 'metric' or 'imperial'). Defaults to location-based unit selection.\", \"timeout\": \"integer. The maximum amo",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "appid": {
+     "type": "string",
+     "description": ""
+    },
+    "i": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "appid",
+    "i"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFruitByName",
+  "description": "Get a fruit information by its name Parameters: {\"name\": \"Required. string. \"} Output: Success.  - Format: application/json  - Structure: Array[#Fruit]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "name": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "name"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getAllFruits",
+  "description": "Get all fruits Parameters: {} Output: Success.  - Format: application/json  - Structure: Array[#Fruit]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFruitByFamily",
+  "description": "Get a fruit by family Parameters: {\"family\": \"Required. string. \"} Output: Success.  - Format: application/json  - Structure: #Fruit",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "family": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "family"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFruitsByGenus",
+  "description": "Get fruits by genus Parameters: {\"genus\": \"Required. string. \"} Output: Success.  - Format: application/json  - Structure: Array[#Fruit]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "genus": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "genus"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getFruitsByOrder",
+  "description": "Get fruits by order Parameters: {\"order\": \"Required. string. \"} Output: Success.  - Format: application/json  - Structure: Array[#Fruit]",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "order": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "order"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "getRandomCat",
+  "description": "Get random cat Parameters: {\"type\": \"string. Filter by cat type.\", \"width\": \"string. Desired width of the cat image.\", \"height\": \"string. Desired height of the cat image.\", \"html\": \"string. Include HTML code.\", \"json\": \"string. Include JSON data.\"} Output: Cat returned.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "width": {
+     "type": "string",
+     "description": ""
+    },
+    "height": {
+     "type": "string",
+     "description": ""
+    },
+    "json": {
+     "type": "string",
+     "description": ""
+    },
+    "type": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "findCatById",
+  "description": "Get cat by id Parameters: {\"id\": \"Required. string. Cat ID.\", \"type\": \"string. Filter by cat type.\", \"width\": \"string. Desired width of the cat image.\", \"height\": \"string. Desired height of the cat image.\", \"html\": \"string. Include HTML code.\", \"json\": \"string. Include JSON data.\"} Output: Cat returned.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "findCatByTag",
+  "description": "Get random cat by tag Parameters: {\"tag\": \"Required. string. Tag to filter cats.\", \"type\": \"string. Filter by cat type.\", \"width\": \"string. Desired width of the cat image.\", \"height\": \"string. Desired height of the cat image.\", \"html\": \"string. Include HTML code.\", \"json\": \"string. Include JSON data.\"} Output: Cat returned.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "tag": {
+     "type": "string",
+     "description": ""
+    },
+    "width": {
+     "type": "string",
+     "description": ""
+    },
+    "height": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "tag",
+    "width",
+    "height"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "findCatWithText",
+  "description": "Get random cat saying text Parameters: {\"text\": \"Required. string. Text that the cat says.\", \"type\": \"string. Filter by cat type.\", \"width\": \"string. Desired width of the cat image.\", \"height\": \"string. Desired height of the cat image.\", \"html\": \"string. Include HTML code.\", \"json\": \"string. Include JSON data.\"} Output: Cat returned.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "text": {
+     "type": "string",
+     "description": ""
+    },
+    "type": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "text"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "api",
+  "description": "Will return all cats Parameters: {\"limit\": \"number. Number of cats to retrieve.\", \"skip\": \"number. Number of cats to skip.\", \"tags\": \"string. Filter by tags.\"} Output: List of cats.  - Format: application/json  - Structure: Array[Object{_id, tags: Array[string], owner, createdAt, updatedAt}]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "tags",
+  "description": "Will return all tags Parameters: {} Output: List of tags.  - Format: application/json  - Structure: Array[string]",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "count",
+  "description": "Count how many cats Parameters: {} Output: Count of cats.  - Format: application/json  - Structure: Object{number}",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "latest_get",
+  "description": "Get real-time exchange rates for all supported currencies. Parameters: {\"api_key\": \"Required. string. API key for authentication.\", \"base\": \"Required. string. The base currency you would like to use for your rates.\", \"symbols\": \"string. A list of currencies you want to see the rates for.\"} Output: Successful response with real-time exchange rates.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "api_key": {
+     "type": "string",
+     "description": ""
+    },
+    "base": {
+     "type": "string",
+     "description": ""
+    },
+    "symbols": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "historical_get",
+  "description": "Get historical exchange rate data for a specific date. Parameters: {\"api_key\": \"Required. string. API key for authentication.\", \"base\": \"Required. string. The base currency you would like to use for your rates.\", \"date\": \"Required. string. The historical date you would like to access.\", \"symbols\": \"string. A list of currencies you want to see the rates for.\"} Output: Successful response with histo",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "api_key": {
+     "type": "string",
+     "description": ""
+    },
+    "base": {
+     "type": "string",
+     "description": ""
+    },
+    "date": {
+     "type": "string",
+     "description": ""
+    },
+    "symbols": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "api_key",
+    "base",
+    "date",
+    "symbols"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "timeseries_get",
+  "description": "Get historical exchange rate data for a specified time range. Parameters: {\"api_key\": \"Required. string. API key for authentication.\", \"base\": \"Required. string. The base currency you would like to use for your rates.\", \"start_date\": \"Required. string. The start date for the time series you would like to access.\", \"end_date\": \"Required. string. The end date for the time series you would like to ac",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "api_key": {
+     "type": "string",
+     "description": ""
+    },
+    "base": {
+     "type": "string",
+     "description": ""
+    },
+    "start_date": {
+     "type": "string",
+     "description": ""
+    },
+    "end_date": {
+     "type": "string",
+     "description": ""
+    },
+    "symbols": {
+     "type": "string",
+     "description": ""
+    }
+   },
+   "required": [
+    "api_key",
+    "base",
+    "start_date",
+    "end_date",
+    "symbols"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "currencies_get",
+  "description": "Get information about supported currencies. Parameters: {\"api_key\": \"Required. string. API key for authentication.\", \"type\": \"Required. string. The type of currencies (fiat or crypto).\"} Output: Successful response with information about supported currencies.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "convert_get",
+  "description": "Convert an amount from one currency to another. Parameters: {\"api_key\": \"Required. string. API key for authentication.\", \"from\": \"Required. string. The base currency you would like to use for your rates.\", \"to\": \"string. The currency you would like to convert to.\", \"amount\": \"Required. string. The amount to convert.\"} Output: Successful response with converted currency.  - Format:   - Structure:",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "api_key": {
+     "type": "string",
+     "description": ""
+    },
+    "from": {
+     "type": "string",
+     "description": ""
+    },
+    "to": {
+     "type": "string",
+     "description": ""
+    },
+    "amount": {
+     "type": "integer",
+     "description": ""
+    }
+   },
+   "required": [
+    "api_key",
+    "from",
+    "to",
+    "amount"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_done",
+  "description": "Task complete. No additional parameters. Calling this signals that the task has ended.",
+  "parameters": {
+   "type": "object",
+   "properties": {},
+   "required": []
+  },
+  "enabled": true
+ },
+ {
+  "name": "task_summary",
+  "description": "Task summary tool. Produce a logical summary of the entire execution process of the current task before calling task_done. The summary should include key steps executed, core data obtained, and the final conclusion for the user.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "summary_title": {
+     "type": "string",
+     "description": "Title of the summary report"
+    },
+    "key_findings": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "A list of key findings or completed steps"
+    },
+    "final_conclusion": {
+     "type": "string",
+     "description": "The final concluding statement, to be relayed directly to the user"
+    }
+   },
+   "required": [
+    "summary_title",
+    "final_conclusion"
+   ]
+  },
+  "enabled": true
+ },
+ {
+  "name": "plan",
+  "description": "Decompose and plan a complex task into multiple clear, actionable steps to be executed one by one. Use this before initiating other tool calls.",
+  "parameters": {
+   "type": "object",
+   "properties": {
+    "title": {
+     "type": "string",
+     "description": "Task title"
+    },
+    "steps": {
+     "type": "array",
+     "description": "List of planned task execution steps",
+     "items": {
+      "type": "object",
+      "properties": {
+       "step_number": {
+        "type": "integer",
+        "description": "Step number"
+       },
+       "step_name": {
+        "type": "string",
+        "description": "Step name"
+       },
+       "description": {
+        "type": "string",
+        "description": "Detailed description of this step"
+       },
+       "expected_tools": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        },
+        "description": "List of expected tool names to use"
+       }
+      },
+      "required": [
+       "step_number",
+       "step_name",
+       "description"
+      ]
+     }
+    }
+   },
+   "required": [
+    "title",
+    "steps"
+   ]
+  },
+  "enabled": true
+ }
+]

@@ -1,0 +1,867 @@
+[
+ {
+  "question": "Can you add a reminder for me? Can you remind me to call John at 3 pm tomorrow? Today is 2022-05-24 Username is user1 and password is user1pass.",
+  "expected": "Your reminder has been added successfully. You will be reminded to call John at 3 pm tomorrow.",
+  "available_tools": [
+   "GetUserToken",
+   "AddReminder",
+   "AddAlarm",
+   "AppointmentRegistration",
+   "BookHotel",
+   "AddAgenda",
+   "AddMeeting"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddReminder",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"n9m8k7j6h5g4f3d2s1a0\"}",
+   "AddReminder": "success"
+  }
+ },
+ {
+  "question": "Can you book a hotel room for me? It's Hilton. Next Monday. 2022-03-14. Friday. Two. Two adults and one child.",
+  "expected": "I have successfully booked your hotel rooms at Hilton. Your order ID is ABC123. Is there anything else that I can help with?",
+  "available_tools": [
+   "BookHotel",
+   "AddAlarm",
+   "AddAgenda",
+   "AppointmentRegistration",
+   "AddReminder",
+   "AddMeeting",
+   "GetUserToken"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "BookHotel",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "BookHotel": "11"
+  }
+ },
+ {
+  "question": "Can you help me book a hotel room? The Hilton. I'll be checking in on June 1st and checking out on June 10th. I need two rooms for four adults and two children.",
+  "expected": "I was able to successfully book your stay at the Hilton. Your order ID is ABC123.",
+  "available_tools": [
+   "BookHotel",
+   "AddAlarm",
+   "AddAgenda",
+   "AppointmentRegistration",
+   "GetUserToken",
+   "AddReminder",
+   "AddMeeting"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "BookHotel",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "BookHotel": "11"
+  }
+ },
+ {
+  "question": "Can you help me book an appointment with Dr. Smith? My name is John, the doctor's name is Smith and I want to book the appointment on 2022-08-15. At 2 PM.",
+  "expected": "The API call was successful. Your appointment ID is 11540956. Is there anything else I can help you with?",
+  "available_tools": [
+   "AppointmentRegistration",
+   "AddAgenda",
+   "AddAlarm",
+   "AddMeeting",
+   "GetUserToken",
+   "AddReminder",
+   "BookHotel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AppointmentRegistration",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "AppointmentRegistration": "11540956"
+  }
+ },
+ {
+  "question": "Can you add a schedule for me at 2pm on September 12th called \"Meeting with John\" at the office? Can you remind me 10 minutes before the schedule? My username is JaneSmith, my email is janesmith@example.com, and my password is password.",
+  "expected": "Your schedule and alarm have been successfully added.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAgenda",
+   "AddAlarm",
+   "AddReminder",
+   "BookHotel",
+   "AppointmentRegistration",
+   "AddMeeting"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAgenda",
+     "required": true
+    },
+    {
+     "action": "AddAlarm",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"o8i7u6y5t4r3e2w1q0\"}",
+   "AddAgenda": "success",
+   "AddAlarm": "success"
+  }
+ },
+ {
+  "question": "Can you help me book a hotel room? I want to book Marriott Hotel. My check-in date is 2022-05-20 and check-out date is 2022-05-22. I need two rooms. Two adults in each room and no children.",
+  "expected": "Your hotel room is booked. Your order ID is XXXXXXXXX. Can I help with anything else?",
+  "available_tools": [
+   "BookHotel",
+   "AppointmentRegistration",
+   "AddAlarm",
+   "AddMeeting",
+   "GetUserToken",
+   "AddReminder",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "BookHotel",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "BookHotel": "11"
+  }
+ },
+ {
+  "question": "Can you add a reminder for a meeting on 2022-05-06 at 2 PM? user1 user1 user1pass",
+  "expected": "Reminder has been added successfully.",
+  "available_tools": [
+   "GetUserToken",
+   "AddReminder",
+   "AddAgenda",
+   "AppointmentRegistration",
+   "BookHotel",
+   "AddAlarm",
+   "AddMeeting"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddReminder",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"n9m8k7j6h5g4f3d2s1a0\"}",
+   "AddReminder": "success"
+  }
+ },
+ {
+  "question": "Can you add a meeting reservation for me on November 12th, 2023 at 3 PM? The meeting topic is about the new project launch, held in the conference room with John and Jane attending. Yes, that's correct.",
+  "expected": "I have successfully reserved a meeting for you on November 12th, 2023 at 3 PM with the topic of new project launch in the conference room, and John and Jane attending.",
+  "available_tools": [
+   "GetUserToken",
+   "AddMeeting",
+   "AppointmentRegistration",
+   "BookHotel",
+   "AddReminder",
+   "AddAlarm",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddMeeting",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"a9s8d7f6g5h4j3k2l1\"}",
+   "AddMeeting": "success"
+  }
+ },
+ {
+  "question": "Can you add \"Meeting with clients\" on December 15, 2023 at 2:00 PM at ABC company in AddAgenda API?",
+  "expected": "\"Meeting with clients at ABC company\" has been added to your agenda.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAgenda",
+   "AddAlarm",
+   "AppointmentRegistration",
+   "AddReminder",
+   "BookHotel",
+   "AddMeeting"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAgenda",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"a9s8d7f6g5h4j3k2l1\"}",
+   "AddAgenda": "success"
+  }
+ },
+ {
+  "question": "Can you set a reminder for me to call my mom tomorrow at 10 AM? Yes, my username is user1 and my password is user1pass. \"Call mom\" \"2022-05-10 at 10 AM\"",
+  "expected": "Your reminder is all set.",
+  "available_tools": [
+   "GetUserToken",
+   "AddReminder",
+   "AppointmentRegistration",
+   "AddMeeting",
+   "AddAlarm",
+   "BookHotel",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddReminder",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"n9m8k7j6h5g4f3d2s1a0\"}",
+   "AddReminder": "success"
+  }
+ },
+ {
+  "question": "Can you help me add a new schedule to my agenda? The content is \"Meeting with John\". The meeting should be on the 21th of September at 3 pm. The meeting will take place in the cafeteria.",
+  "expected": "Done. The schedule \"Meeting with John\" on the 21th of September at 3 pm in the cafeteria has been added to your agenda.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAgenda",
+   "BookHotel",
+   "AddMeeting",
+   "AppointmentRegistration",
+   "AddReminder",
+   "AddAlarm"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAgenda",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"z9x8c7v6b5n4m3q2w1\"}",
+   "AddAgenda": "success"
+  }
+ },
+ {
+  "question": "Can you help me set an alarm for 8 am tomorrow? Sure, my username is foo and password is bar. 8 am tomorrow. Today is 2021-10-13.",
+  "expected": "Alarm has been set for 8 am tomorrow.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAlarm",
+   "AddMeeting",
+   "BookHotel",
+   "AppointmentRegistration",
+   "AddReminder",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAlarm",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"z9x8c7v6b5n4m3q2w1\"}",
+   "AddAlarm": "success"
+  }
+ },
+ {
+  "question": "Hi, can you help me add a new schedule for my meeting tomorrow at 2pm? Today is 2021-09-27 The meeting with the marketing team At the conference room Tomorrow at 2pm Sure, my username is foo and my password is bar",
+  "expected": "The agenda has been added successfully.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAgenda",
+   "AppointmentRegistration",
+   "AddAlarm",
+   "AddMeeting",
+   "AddReminder",
+   "BookHotel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAgenda",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"z9x8c7v6b5n4m3q2w1\"}",
+   "AddAgenda": "success"
+  }
+ },
+ {
+  "question": "Can you help me book a hotel room for 2 adults and 1 child from September 1st to September 5th? Sheraton Hotel September 1st for check in and September 5th for check out Just one, thanks.",
+  "expected": "The hotel room has been booked for you. Your order ID is 123456.",
+  "available_tools": [
+   "BookHotel",
+   "AddAlarm",
+   "AddAgenda",
+   "GetUserToken",
+   "AddMeeting",
+   "AddReminder",
+   "AppointmentRegistration"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "BookHotel",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "BookHotel": "11"
+  }
+ },
+ {
+  "question": "Can you help me set an alarm for 8:30 AM on March 25th, 2023? I don't have a token. My username is \"admin\" and the password is \"adminpass\". Please set the alarm for 8:30 AM on March 25th, 2023.",
+  "expected": "Done. The alarm has been set for that time.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAlarm",
+   "AppointmentRegistration",
+   "BookHotel",
+   "AddAgenda",
+   "AddMeeting",
+   "AddReminder"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAlarm",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"m9n8b7v6c5x4z3a2s1\"}",
+   "AddAlarm": "success"
+  }
+ },
+ {
+  "question": "Can you help me book a hotel room for two adults and one child? How about the Hilton in San Francisco? I want to check in on August 10th and check out on August 15th. Just one room for all of us. Two adults and one child. Thank you so much! How much is the cost?",
+  "expected": "I apologize, but I do not have access to that information. You can contact the hotel directly to inquire about the cost.",
+  "available_tools": [
+   "BookHotel",
+   "AddReminder",
+   "GetUserToken",
+   "AddAlarm",
+   "AddMeeting",
+   "AppointmentRegistration",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "BookHotel",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "BookHotel": "11"
+  }
+ },
+ {
+  "question": "Can you help me schedule a meeting? It's about project updates. Let's schedule it for 2022-12-15 at 2 PM, and it should end by 4 PM. We can host it in our conference room. John Smith, Jane Doe and Adam Lee. My username is JohnDoe, and my password is pass123.",
+  "expected": "Your meeting has been scheduled!",
+  "available_tools": [
+   "GetUserToken",
+   "AddMeeting",
+   "AppointmentRegistration",
+   "AddReminder",
+   "BookHotel",
+   "AddAlarm",
+   "AddAgenda"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddMeeting",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"a9s8d7f6g5h4j3k2l1\"}",
+   "AddMeeting": "success"
+  }
+ },
+ {
+  "question": "Can you help me add a schedule item for tomorrow at 9am with the title \"Meeting with John\" at the coffee shop on Main Street?",
+  "expected": "Done. The schedule item has been added.",
+  "available_tools": [
+   "GetUserToken",
+   "AddAgenda",
+   "BookHotel",
+   "AddMeeting",
+   "AddReminder",
+   "AppointmentRegistration",
+   "AddAlarm"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "GetUserToken",
+     "required": true
+    },
+    {
+     "action": "AddAgenda",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "GetUserToken": "{\"token\": \"a9s8d7f6g5h4j3k2l1\"}",
+   "AddAgenda": "success"
+  }
+ },
+ {
+  "question": "Can you help me register an appointment at the hospital? The patient name is John, appointment date is 2022-03-05 and the doctor's name is Dr. Smith.",
+  "expected": "Your appointment has been successfully registered. Your appointment ID is APPT1234. Is there anything else I can assist you with?",
+  "available_tools": [
+   "AppointmentRegistration",
+   "AddAgenda",
+   "AddReminder",
+   "AddMeeting",
+   "GetUserToken",
+   "AddAlarm",
+   "BookHotel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AppointmentRegistration",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "AppointmentRegistration": "84252722"
+  }
+ },
+ {
+  "question": "Can you help me register an appointment with a specific doctor on a specific date? The patient's name is John Smith, the doctor's name is Dr. Johnson, and the date is June 1st, 2022.",
+  "expected": "Your appointment has been successfully registered, and your appointment ID is 12345. Is there anything else I can do for you today?",
+  "available_tools": [
+   "AppointmentRegistration",
+   "AddAgenda",
+   "GetUserToken",
+   "AddAlarm",
+   "AddReminder",
+   "AddMeeting",
+   "BookHotel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "AppointmentRegistration",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "AppointmentRegistration": "43744231"
+  }
+ }
+]

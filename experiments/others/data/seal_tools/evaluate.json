@@ -1,0 +1,2226 @@
+[
+ {
+  "question": "Please provide me with information about the book titled \"Before the Frost\" in the Nordic region.",
+  "expected": "",
+  "available_tools": [
+   "getNordicBooks",
+   "getCommunityMembers",
+   "getMedievalLiteratureInfo",
+   "getSteps",
+   "getAvailableBeds",
+   "testFPGAPerformance",
+   "getSustainableAgricultureData",
+   "checkDeliveryAvailability",
+   "scheduleEmail",
+   "getFungalSpecies",
+   "robotTask",
+   "getChemotherapyProtocol",
+   "getCameraEquipment"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getNordicBooks",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getNordicBooks": "{\"book_info\": \"<string>\", \"author\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Provide me with the digital media information for the media ID '20mlHuoe'.",
+  "expected": "",
+  "available_tools": [
+   "getDigitalMediaInfo",
+   "getVideoAd",
+   "organizePressConference",
+   "getSovietUnionLeaders",
+   "removeMember",
+   "createJobPosting",
+   "calculateSuretyBondPremium",
+   "checkEthicalCompliance",
+   "getAquiferData",
+   "scaleApp",
+   "checkHealthAndSafety",
+   "getDataAnalyticsConsulting",
+   "getECG"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDigitalMediaInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getDigitalMediaInfo": "{\"title\": \"<string>\", \"duration\": \"<integer>\", \"file_type\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance in preparing an Italian recipe. Can you find a suitable recipe with ingredients including chicken, onions, and tomatoes? Once we have a recipe, please translate the word 'Hello' into Bengali. Additionally, calculate the required volume of concrete for a structure with length 10 meters, width 5 meters, and height 3.5 meters. Can you also help me book lodging in Tokyo from September 1st to September 5th for 2 guests? Let's look for accommodations in the price range of $100-$200 per night. Lastly, retrieve the schedule for a construction project with ID 'abcd1234' and an end date of January 31st, 2023. If possible, please cancel my motorcycle insurance policy with the policy number '123456789'.",
+  "expected": "",
+  "available_tools": [
+   "getRecipe",
+   "translateBengali",
+   "calculateConcreteVolume",
+   "bookLodging",
+   "getProjectSchedule",
+   "cancelMotorcycleInsurancePolicy",
+   "getPhoneticSymbols",
+   "getCurrentDirection",
+   "calculateMediaReach",
+   "removeElement",
+   "getOncologyDiagnosis",
+   "employeeOffboarding",
+   "translateWord",
+   "getTrafficSources",
+   "getFoodCulture",
+   "getHealthInsuranceCoverage",
+   "getEyeExamResult",
+   "getReserves"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getRecipe",
+     "required": true
+    },
+    {
+     "action": "translateBengali",
+     "required": true
+    },
+    {
+     "action": "calculateConcreteVolume",
+     "required": true
+    },
+    {
+     "action": "bookLodging",
+     "required": true
+    },
+    {
+     "action": "getProjectSchedule",
+     "required": true
+    },
+    {
+     "action": "cancelMotorcycleInsurancePolicy",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getRecipe": "{\"recipe_name\": \"<string>\", \"ingredients_needed\": \"<string>\", \"instructions\": \"<string>\"}",
+   "translateBengali": "{\"translated_text\": \"<string>\"}",
+   "calculateConcreteVolume": "{\"concrete_volume\": \"<number>\"}",
+   "bookLodging": "{\"booking_id\": \"<string>\", \"confirmation_number\": \"<string>\", \"total_amount\": \"<number>\"}",
+   "getProjectSchedule": "{\"schedule\": \"<string>\"}",
+   "cancelMotorcycleInsurancePolicy": "{\"cancellation_message\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I am interested in attending a music performance in New York. Please find information about a Taylor Swift concert with VIP tickets at 20:00. Additionally, I would like to know more about the film technology. Finally, I'm curious about a specific animation called Toy Story. Can you provide details such as the director, genre, and rating?",
+  "expected": "",
+  "available_tools": [
+   "getMusicPerformance",
+   "getFilmTechnology",
+   "getAnimationInfo",
+   "getGammaRayFlux",
+   "authorizeEntry",
+   "getReachAndFrequency",
+   "calculateReynoldsNumber",
+   "addInvestment",
+   "getSpaceManufacturingInfo",
+   "getVRFlightSimulator",
+   "getPlayerBalance",
+   "getEarlyChildhoodEducationInfo",
+   "getRockComposition",
+   "removeDuplicates",
+   "getHardwareSpecs"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getMusicPerformance",
+     "required": true
+    },
+    {
+     "action": "getFilmTechnology",
+     "required": true
+    },
+    {
+     "action": "getAnimationInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getMusicPerformance": "{\"performance_info\": \"<string>\", \"ticket_availability\": \"<boolean>\"}",
+   "getFilmTechnology": "{\"information\": \"<string>\"}",
+   "getAnimationInfo": "{\"animation_name\": \"<string>\", \"release_year\": \"<integer>\", \"director\": \"<string>\", \"genre\": \"<string>\", \"rating\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "Please retrieve information about the level of digital transformation in the USA. After that, create a deployment pipeline for continuous integration and delivery of software using the specified software repository, build script, and test script. Finally, monitor the performance and health of the Instagram application by retrieving the CPU metric.",
+  "expected": "",
+  "available_tools": [
+   "getDigitalTransformation",
+   "createDeploymentPipeline",
+   "monitorApplication",
+   "getGameReviews",
+   "createTemperatureControlledShipment",
+   "startHIITSession",
+   "getUserInfo",
+   "wordCount",
+   "analyzeSubstance",
+   "getGovernanceRules",
+   "getBioethicsOrganizations",
+   "getRefugeesInNeed",
+   "borrowBook",
+   "optimizePerformance",
+   "getMaritalStatus"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getDigitalTransformation",
+     "required": true
+    },
+    {
+     "action": "createDeploymentPipeline",
+     "required": true
+    },
+    {
+     "action": "monitorApplication",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getDigitalTransformation": "{\"digital_transformation\": \"<string>\"}",
+   "createDeploymentPipeline": "{\"pipeline_id\": \"<string>\"}",
+   "monitorApplication": "{\"value\": \"<number>\", \"unit\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I am interested in exploring the wonders of space. Please help me retrieve an ultraviolet image captured by the Hubble telescope on a specific date. Then, I would like to learn about the geological data of the Grand Canyon. Finally, let's explore the predator-prey relationship between lions and deer.",
+  "expected": "",
+  "available_tools": [
+   "getTelescopeImage",
+   "getGeologyData",
+   "getPredatorPreyRelationship",
+   "createEnvironmentalReport",
+   "getHeterodoxEconomicsInfo",
+   "getTurkishAlphabet",
+   "sanitizeInput",
+   "getSEMData",
+   "startBusiness",
+   "generateRandomPassword",
+   "getDigitalPRMetrics",
+   "createVirtualAssistant",
+   "getLanguageLearningResources",
+   "citeSource",
+   "getCustomerServiceRating"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getTelescopeImage",
+     "required": true
+    },
+    {
+     "action": "getGeologyData",
+     "required": true
+    },
+    {
+     "action": "getPredatorPreyRelationship",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getTelescopeImage": "{\"image\": \"<string>\"}",
+   "getGeologyData": "{\"geological_data\": \"<string>\"}",
+   "getPredatorPreyRelationship": "{\"relationship\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Retrieve a short story.",
+  "expected": "",
+  "available_tools": [
+   "getShortStory",
+   "getPageViews",
+   "setPowerSystemControlMode",
+   "generateTypographySample",
+   "getDamHeight",
+   "getLandUse",
+   "getSalary",
+   "setAutonomousMode",
+   "getUavLocation",
+   "getSculptureDetails",
+   "getDancePhotography",
+   "compressHTML",
+   "crawl_like_a_spider"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getShortStory",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getShortStory": "{\"title\": \"<string>\", \"author\": \"<string>\", \"content\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Please verify the authentication status of user mike84 by checking the username and password. Then, create a new mobile app called ChatApp for the iOS platform using React Native framework. Finally, update the version of the existing application named 2002-12-20 to 'The new version of the application has a redesigned UI'.",
+  "expected": "",
+  "available_tools": [
+   "checkAuthentication",
+   "createMobileApp",
+   "updateApplicationVersion",
+   "getDecisionMakingFramework",
+   "calculateNursingHours",
+   "getBroadcastSchedule",
+   "sendReliefSupplies",
+   "getDiversityStatistics",
+   "getPublicAdminHistory",
+   "analyzeProteinStructure",
+   "getPropulsionType",
+   "getGolfCourseDetails",
+   "getGameDeveloper",
+   "getSustainableLivelihoods",
+   "getNetworkCapacity"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "checkAuthentication",
+     "required": true
+    },
+    {
+     "action": "createMobileApp",
+     "required": true
+    },
+    {
+     "action": "updateApplicationVersion",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "checkAuthentication": "{\"authenticated\": \"<boolean>\"}",
+   "createMobileApp": "{\"success\": \"<boolean>\", \"app_id\": \"<integer>\"}",
+   "updateApplicationVersion": "{\"success\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "Please generate an explainability report for the AI model named \"AI_Model_123\". After that, deploy the application located at \"/home/user/application/app.py\" on the server with IP address \"192.168.127.7\". Finally, update the version of the application named \"my_application\" to \"v2.0\" in the cloud.",
+  "expected": "",
+  "available_tools": [
+   "generateExplainabilityReport",
+   "deployApplication",
+   "updateApplicationVersion",
+   "addCloudDNSRecord",
+   "createChangeRequest",
+   "startCall",
+   "getRobotSimulator",
+   "getChildDevelopment",
+   "calculateSum",
+   "getPowerGeneration",
+   "getECGSample",
+   "calculateAPGARScore",
+   "getReadingTime",
+   "addCrop",
+   "getSpacecraftData"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "generateExplainabilityReport",
+     "required": true
+    },
+    {
+     "action": "deployApplication",
+     "required": true
+    },
+    {
+     "action": "updateApplicationVersion",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "generateExplainabilityReport": "{\"report\": \"<string>\"}",
+   "deployApplication": "{\"status\": \"<string>\"}",
+   "updateApplicationVersion": "{\"success\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "Determine if the \"network_traffic.pcap\" file contains any malicious activity using machine learning algorithms.",
+  "expected": "",
+  "available_tools": [
+   "detectMaliciousActivity",
+   "getAdCost",
+   "likePost",
+   "deleteUser",
+   "updateTaskProgress",
+   "getRoomColorScheme",
+   "applyMicroloan",
+   "getIPAddress",
+   "getAircraft",
+   "muteCall",
+   "processSignal",
+   "getBilingualismPercentage",
+   "navigate"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "detectMaliciousActivity",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "detectMaliciousActivity": "{\"malicious_activity\": \"<boolean>\", \"result\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance to gather information for my research project. First, retrieve the pharmacodynamics information of the drug Aspirin. Then, find the details of the chick lit book 'Pride and Prejudice' including the author, genre, and a brief description. Lastly, provide me with the oral examination results for the geriatric patient with the ID GCwuERr2.",
+  "expected": "",
+  "available_tools": [
+   "getPharmacodynamics",
+   "getChickLitBookDetails",
+   "getOralExamResults",
+   "createCloudResource",
+   "roomAvailability",
+   "trackHumanitarianAid",
+   "fillMissingValues",
+   "getAdStats",
+   "getMobileUI",
+   "checkDataPrivacy",
+   "getLegalAdvice",
+   "getLibraryStrategicPlan",
+   "flightSimulation",
+   "performSentimentAnalysis",
+   "createTransferModel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getPharmacodynamics",
+     "required": true
+    },
+    {
+     "action": "getChickLitBookDetails",
+     "required": true
+    },
+    {
+     "action": "getOralExamResults",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getPharmacodynamics": "{\"mechanism_of_action\": \"<string>\", \"effect\": \"<string>\", \"side_effects\": \"<string>\"}",
+   "getChickLitBookDetails": "{\"title\": \"<string>\", \"author\": \"<string>\", \"genre\": \"<string>\", \"description\": \"<string>\"}",
+   "getOralExamResults": "{\"oral_exam_results\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "As a graphic designer, I need to create a new graphic design for a project. The graphic should have a width of 11 pixels, a height of 17 pixels, and a white background color. Please generate a public-private key pair using the RSA algorithm with a key length of 2048 bits for secure communication. Finally, check if our email marketing campaigns adhere to ethical standards.",
+  "expected": "",
+  "available_tools": [
+   "createGraphic",
+   "generateKeyPair",
+   "checkEthicalStandards",
+   "updateMembershipLevel",
+   "getAdoptionRate",
+   "translateHindi",
+   "getGameDetails",
+   "getDeliveryCost",
+   "getVolcanoInfo",
+   "deleteDatabase",
+   "getGynecologicalExam",
+   "dockerBuild",
+   "volunteerAtSocialService",
+   "getGenderSupport",
+   "applyOCR"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createGraphic",
+     "required": true
+    },
+    {
+     "action": "generateKeyPair",
+     "required": true
+    },
+    {
+     "action": "checkEthicalStandards",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "createGraphic": "{\"graphic_id\": \"<integer>\", \"url\": \"<string>\"}",
+   "generateKeyPair": "{\"public_key\": \"<string>\", \"private_key\": \"<string>\"}",
+   "checkEthicalStandards": "{\"adherence\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "Please provide me with the details of the animation 'Frozen'. I also need information about the pharmaceutical technology used for the drug 'Aspirin', developed by Pfizer in the United States. Additionally, please check for microbial contamination in the pharmaceutical product 'Injectable' with batch number 'B1234'. Finally, compare the language test scores of Irene and Emily who took the TOEFL test.",
+  "expected": "",
+  "available_tools": [
+   "getAnimationDetails",
+   "getPharmaceuticalTechnology",
+   "detectMicrobialContamination",
+   "compareLanguageTestScores",
+   "getCultureOverview",
+   "getGameSoundEffects",
+   "getPerformanceInfo",
+   "getOccupationalInequality",
+   "updateEventDate",
+   "getUnderwriter",
+   "getBridgeMaintenanceSchedule",
+   "getEmbassyInfo",
+   "createFashionEvent",
+   "improvePublicSpeaking",
+   "getRoute",
+   "getSocialMediaAds"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getAnimationDetails",
+     "required": true
+    },
+    {
+     "action": "getPharmaceuticalTechnology",
+     "required": true
+    },
+    {
+     "action": "detectMicrobialContamination",
+     "required": true
+    },
+    {
+     "action": "compareLanguageTestScores",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getAnimationDetails": "{\"title\": \"<string>\", \"director\": \"<string>\", \"genre\": \"<string>\", \"release_year\": \"<integer>\", \"rating\": \"<number>\"}",
+   "getPharmaceuticalTechnology": "{\"technology_description\": \"<string>\", \"patent_expiration\": \"<string>\"}",
+   "detectMicrobialContamination": "{\"contamination_detected\": \"<boolean>\", \"contaminant_type\": \"<string>\"}",
+   "compareLanguageTestScores": "{\"score_difference\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "We need help with a forensic investigation. We have collected some fingerprints as evidence from the crime scene located at 4y3QugJb. We would like to analyze the fingerprints and compare them to known records. Additionally, we have found a skull, estimated to belong to an adult individual. We would like to identify the individual based on anthropological analysis. Finally, we have dental records and patient information for a potential match. We would like to analyze the dental records to determine if they belong to the same individual. Please assist us with analyzing the forensic evidence, identifying the human remains, and analyzing dental records for forensic purposes.",
+  "expected": "",
+  "available_tools": [
+   "analyzeForensicEvidence",
+   "identifyHumanRemains",
+   "analyzeDentalRecords",
+   "upgradeFirmware",
+   "translatePunjabi",
+   "createPromotionCampaign",
+   "compareMotorControl",
+   "bookConferenceRoom",
+   "getBloodGlucoseLevel",
+   "optimizeExpression",
+   "generatePersonalEssay",
+   "getCSRInformation",
+   "calculateGreenLogisticsScore",
+   "chargeRobotBattery",
+   "getBatteryCapacity"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "analyzeForensicEvidence",
+     "required": true
+    },
+    {
+     "action": "identifyHumanRemains",
+     "required": true
+    },
+    {
+     "action": "analyzeDentalRecords",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "analyzeForensicEvidence": "{\"analysis_results\": \"<string>\", \"conclusion\": \"<string>\"}",
+   "identifyHumanRemains": "{\"identification_status\": \"<string>\", \"identification_details\": \"<string>\"}",
+   "analyzeDentalRecords": "{\"identification\": \"<string>\", \"forensic_accuracy\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance with a research project on architectural design. First, retrieve the current humidity level of a smart building with the ID \"1tsahXekUS\". Then, collect information about architectural psychology. After that, obtain architectural visualization images of projects in New York with a high-quality render. Please make sure to include the URL of the visualization images and provide a brief description.",
+  "expected": "",
+  "available_tools": [
+   "getBuildingHumidity",
+   "getArchPsychologyInfo",
+   "getVisualization",
+   "searchCompound",
+   "getBusinessNews",
+   "getExchangeRate",
+   "getOfficeLayout",
+   "checkTaxExemption",
+   "reportChildAbuse",
+   "calculateOpticalRotation",
+   "getFertilityWindow",
+   "getColonoscopyRecommendations",
+   "getGastroenterologyReport",
+   "getGameAmbience",
+   "getBookCoverDesign"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getBuildingHumidity",
+     "required": true
+    },
+    {
+     "action": "getArchPsychologyInfo",
+     "required": true
+    },
+    {
+     "action": "getVisualization",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getBuildingHumidity": "{\"humidity\": \"<number>\"}",
+   "getArchPsychologyInfo": "{\"info\": \"<string>\"}",
+   "getVisualization": "{\"visualization_url\": \"<string>\", \"description\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Please toggle the light with ID \"UeIXhLUrt\".",
+  "expected": "",
+  "available_tools": [
+   "controlLight",
+   "getPublicPolicy",
+   "analyzeSpeechEmotion",
+   "getFontType",
+   "getGamePlayers",
+   "getFashionTrends",
+   "getTextEffects",
+   "getGiftedPrograms",
+   "calculateSpacecraftPower",
+   "getBorderWaitTime",
+   "calculateRadiatedEmissions",
+   "getGovernmentBudget",
+   "getPsychosomaticSymptoms"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "controlLight",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "controlLight": "{\"status\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need information about a specific bridge. Could you please find the length of the bridge with the unique identifier 'B8m4c92VnG'? Then, using the response from the previous API, retrieve information about the doors of the building with the unique identifier from the first API response. Finally, retrieve the production capacity of the aerospace manufacturing facility 'XYZ Factory'.",
+  "expected": "",
+  "available_tools": [
+   "getBridgeLength",
+   "getBuildingInfo",
+   "getProductionCapacity",
+   "calculateSocialImpact",
+   "calculateNanodevicePerformance",
+   "getAuthor",
+   "recognizeText",
+   "calculateBill",
+   "submitSurvey",
+   "getWildlifeInjuries",
+   "subscribe",
+   "evaluateEthicalDilemma",
+   "organizePressConference",
+   "getForeignCorrespondence",
+   "getHRStrategy"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getBridgeLength",
+     "required": true
+    },
+    {
+     "action": "getBuildingInfo",
+     "required": true
+    },
+    {
+     "action": "getProductionCapacity",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getBridgeLength": "{\"length\": \"<number>\"}",
+   "getBuildingInfo": "{\"component_info\": \"<string>\", \"material\": \"<string>\"}",
+   "getProductionCapacity": "{\"capacity\": \"<integer>\"}"
+  }
+ },
+ {
+  "question": "Please create a new IT project called \"Project Infinite\" belonging to the Finance department. The project is scheduled to start on May 1, 2022, and end on April 30, 2023. After creating the project, submit a distributed computing job named \"Data Analyst\" with input data located at \"data/input/file2.txt\" and store the output at \"logs/job_logs.txt\". Finally, check the security status of the Azure cloud environment with the account ID \"zzYKO2Ds6\".",
+  "expected": "",
+  "available_tools": [
+   "createITProject",
+   "runDistributedJob",
+   "checkSecurityStatus",
+   "getWeedDensity",
+   "createVideoAd",
+   "cancelRequest",
+   "getFacilityAvailability",
+   "getFishStock",
+   "getTunnelGradient",
+   "controlSystemConfig",
+   "getBiblicalText",
+   "getSeafloorTopography",
+   "generateCopy",
+   "sendThankYouLetter",
+   "getDanceWorkshop"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createITProject",
+     "required": true
+    },
+    {
+     "action": "runDistributedJob",
+     "required": true
+    },
+    {
+     "action": "checkSecurityStatus",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "createITProject": "{\"message\": \"<string>\"}",
+   "runDistributedJob": "{\"status\": \"<string>\", \"execution_time\": \"<integer>\"}",
+   "checkSecurityStatus": "{\"status\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance with securing my wireless network. Please scan the network named 'HomeWiFi' for potential security threats and generate a PDF report of the scan results. After that, perform a port scanning vulnerability assessment on the target system with IP address '192.168.1.100'. Finally, conduct quality control on the collected temperature data. Please provide the quality controlled statistical data along with the parameters used for quality control.",
+  "expected": "",
+  "available_tools": [
+   "scanNetwork",
+   "scanVulnerabilities",
+   "performQualityControl",
+   "lemmatizer",
+   "getFireRisk",
+   "deployiOSSimulator",
+   "getFoodIntake",
+   "decryptMessage",
+   "testMobileApp",
+   "calculateInsurancePremium",
+   "checkFact",
+   "getIoTData",
+   "checkPowerStatus",
+   "getLimit",
+   "requestDocumentDelivery"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "scanNetwork",
+     "required": true
+    },
+    {
+     "action": "scanVulnerabilities",
+     "required": true
+    },
+    {
+     "action": "performQualityControl",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "scanNetwork": "{\"scan_results\": \"<string>\", \"timestamp\": \"<string>\"}",
+   "scanVulnerabilities": "{\"vulnerabilities\": \"<string>\"}",
+   "performQualityControl": "{\"qc_data\": \"<string>\", \"qc_parameters\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Please check the service quality of the Hilton hotel on August 15th in the morning. Then, cancel the shipment with ID 'aBcD1234'. Finally, request a refund for return request ID 'xyz987' with the refund amount of $10.5.",
+  "expected": "",
+  "available_tools": [
+   "checkServiceQuality",
+   "cancelShipment",
+   "requestRefund",
+   "reservePlayground",
+   "getAnesthesiaInfo",
+   "getPetSymptoms",
+   "submitExperiment",
+   "getGeriatricPatientInfo",
+   "getForestRunoff",
+   "getRobotErrors",
+   "getSpacecraftData",
+   "optimizeDatabase",
+   "getPlayerRanking",
+   "getLiveScore",
+   "getFacilityCapacity"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "checkServiceQuality",
+     "required": true
+    },
+    {
+     "action": "cancelShipment",
+     "required": true
+    },
+    {
+     "action": "requestRefund",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "checkServiceQuality": "{\"rating\": \"<number>\", \"comments\": \"<string>\"}",
+   "cancelShipment": "{\"success\": \"<boolean>\"}",
+   "requestRefund": "{\"refund_id\": \"<string>\", \"status\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Tell me about the TV show \"Game of Thrones\".",
+  "expected": "",
+  "available_tools": [
+   "getTVShowInfo",
+   "checkFlightPermission",
+   "getAgriculturalLoans",
+   "refundOrder",
+   "validateAccessPermissions",
+   "fitModel",
+   "trainFraudModel",
+   "getRobotData",
+   "getControlSignal",
+   "getPresidentialTermLimits",
+   "getCollectionQuality",
+   "schedulePickup",
+   "getUserInterface"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getTVShowInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getTVShowInfo": "{\"title\": \"<string>\", \"genre\": \"<string>\", \"duration\": \"<integer>\"}"
+  }
+ },
+ {
+  "question": "I need some information about virtual reference services provided by the University Library. Specifically, I am interested in their chat service. Can you retrieve the details for me? Additionally, I would also like to know the population of bilingual individuals in Canada. Lastly, could you please provide me with a list of bioethics organizations? Thank you.",
+  "expected": "",
+  "available_tools": [
+   "getVirtualReferenceService",
+   "getBilingualPopulation",
+   "getBioethicsOrganizations",
+   "trackOrder",
+   "optimizeProcess",
+   "geneticAlgorithm",
+   "getGreenhouseSensorData",
+   "speakerIdentification",
+   "runTestAutomation",
+   "calculateForce",
+   "runAndroidEmulator",
+   "predictInheritedTraits",
+   "createTask",
+   "applyForGrant",
+   "checkDeviceType"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getVirtualReferenceService",
+     "required": true
+    },
+    {
+     "action": "getBilingualPopulation",
+     "required": true
+    },
+    {
+     "action": "getBioethicsOrganizations",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getVirtualReferenceService": "{\"library_name\": \"<string>\", \"service_type\": \"<string>\", \"website\": \"<string>\", \"availability\": \"<string>\"}",
+   "getBilingualPopulation": "{\"population\": \"<integer>\"}",
+   "getBioethicsOrganizations": "{\"bioethics_organizations\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I am interested in learning about the history of pizza. Could you please provide me with historical information about pizza? After that, I would like to get some recipes for Italian cuisine. Specifically, I am interested in finding recipes that include pizza as one of the ingredients.",
+  "expected": "",
+  "available_tools": [
+   "getFoodHistory",
+   "getRecipe",
+   "healCharacter",
+   "createAdHocNetwork",
+   "styleFood",
+   "getCarbonNeutralCertificate",
+   "getAdROI",
+   "checkColorBlindMode",
+   "getActionValue",
+   "getCountryTradeData",
+   "getSoundIntensity",
+   "getMagazineInfo",
+   "getCropGrowthStage",
+   "getDepressionLevel"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFoodHistory",
+     "required": true
+    },
+    {
+     "action": "getRecipe",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getFoodHistory": "{\"history\": \"<string>\"}",
+   "getRecipe": "{\"recipe_name\": \"<string>\", \"ingredients_needed\": \"<string>\", \"instructions\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Get the current location of the ship with the ID \"mXG99OxV0j.",
+  "expected": "",
+  "available_tools": [
+   "getShipLocation",
+   "getStudentCount",
+   "getContemporaryDanceMoves",
+   "getGameDetails",
+   "bookRestaurantReservation",
+   "getThreatIntelligence",
+   "getGenderEqualityStatistics",
+   "getOccupancyRate",
+   "registerEmployeeCourse",
+   "getTapDanceSteps",
+   "sendPressRelease",
+   "getTeacherCertification",
+   "getDisabilityQuote"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getShipLocation",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getShipLocation": "{\"latitude\": \"<number>\", \"longitude\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance in assessing the risk of sleep apnea for a patient. The patient is a 45-year-old male with a body mass index (BMI) of 29.2. Get the patient's risk level and any advice based on the risk level. Additionally, we require the analysis of a fingerprint image for forensic purposes. The image to be analyzed is 'fingerprint_image1.png'. Finally, estimate the maximal oxygen uptake (VO2 max) for a person who completed a 1-mile walk test. The person is a 30-year-old male weighing 75 kilograms. The time taken to complete the test was 12.5 minutes, and the heart rate immediately after the test was 98 beats per minute.",
+  "expected": "",
+  "available_tools": [
+   "getSleepApneaRisk",
+   "analyzeFingerprints",
+   "estimateVO2Max",
+   "checkMobileDevice",
+   "adjustThermostat",
+   "getCuisine",
+   "getCommunityHealthData",
+   "getCyclingDistance",
+   "addChemicalToInventory",
+   "getLibraryDataPrivacyPolicy",
+   "getGPSCoordinates",
+   "getPostmodernTheory",
+   "translateToTurkish",
+   "getSunriseTime",
+   "checkEthicsInArtificialLife"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSleepApneaRisk",
+     "required": true
+    },
+    {
+     "action": "analyzeFingerprints",
+     "required": true
+    },
+    {
+     "action": "estimateVO2Max",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getSleepApneaRisk": "{\"risk_level\": \"<string>\", \"advice\": \"<string>\"}",
+   "analyzeFingerprints": "{\"match\": \"<boolean>\"}",
+   "estimateVO2Max": "{\"vo2_max\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "Please provide me with information about the growth rate of Candida albicans under the conditions of 25.0 degrees Celsius and Sabouraud agar culture medium. After that, perform a high-intensity scan on application ID tuzZgJEolj0L and check for any vulnerabilities. Finally, check the license status of pharmacy ID XkwRd9zY3Qd.",
+  "expected": "",
+  "available_tools": [
+   "getFungalGrowthRate",
+   "scanApplication",
+   "checkPharmacyLicense",
+   "getTypology",
+   "getSafetyRating",
+   "getCommunityDemographics",
+   "validateAppSignature",
+   "getTVShowInfo",
+   "getTreatmentPlan",
+   "checkSpaAvailability",
+   "getPlaygroundRules",
+   "getAvailableSpace",
+   "calculateInventoryTurnover",
+   "endMatch",
+   "getPetSymptoms"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getFungalGrowthRate",
+     "required": true
+    },
+    {
+     "action": "scanApplication",
+     "required": true
+    },
+    {
+     "action": "checkPharmacyLicense",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getFungalGrowthRate": "{\"growth_rate\": \"<number>\", \"unit\": \"<string>\"}",
+   "scanApplication": "{\"results\": \"<string>\", \"vulnerabilities\": \"<string>\"}",
+   "checkPharmacyLicense": "{\"license_status\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "As a security analyst, I need to detect and identify any potential malicious activity in our network. Please analyze the system logs file \"system_logs.log\" using the machine learning algorithm. After that, I also need to analyze the network graph of our web traffic dataset. Generate an undirected network graph with a force-directed layout. Finally, please log any errors occurring during code execution, specifically the error message \"Connection refused by the server.\".",
+  "expected": "",
+  "available_tools": [
+   "detectMaliciousActivity",
+   "getNetworkGraph",
+   "logErrors",
+   "startJob",
+   "getPlay",
+   "donateMoney",
+   "assessEthicality",
+   "getCasting",
+   "getPageViews",
+   "createProductionPlan",
+   "getRiskScore",
+   "getFilmCriticism",
+   "getTable",
+   "getBusinessNews",
+   "getEthicsGuidelines"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "detectMaliciousActivity",
+     "required": true
+    },
+    {
+     "action": "getNetworkGraph",
+     "required": true
+    },
+    {
+     "action": "logErrors",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "detectMaliciousActivity": "{\"malicious_activity\": \"<boolean>\", \"result\": \"<string>\"}",
+   "getNetworkGraph": "{\"network_graph\": \"<string>\", \"stats\": \"<string>\"}",
+   "logErrors": "{\"success\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "I am interested in learning about space exploration history. Can you please provide information about any significant space events that occurred in the year 1999? Additionally, I would also like to know the current progress of space colonization on Mars. Finally, I am planning to construct a building in Canada. Could you provide me with the building code requirements for the region?",
+  "expected": "",
+  "available_tools": [
+   "getSpaceHistory",
+   "getColonizationProgress",
+   "getBuildingCodeRequirements",
+   "getMatchSchedule",
+   "getDestinationWeather",
+   "getDataAnalyticsConsulting",
+   "checkEMCRadiation",
+   "getAdaptedPEProgram",
+   "calculateSocialImpact",
+   "calculateElectrochemicalCellPotential",
+   "getTelecomPolicy",
+   "getMediaTheory",
+   "getStudentMotivation",
+   "getMaxBenchPress",
+   "getMouthguard"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpaceHistory",
+     "required": true
+    },
+    {
+     "action": "getColonizationProgress",
+     "required": true
+    },
+    {
+     "action": "getBuildingCodeRequirements",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getSpaceHistory": "{\"description\": \"<string>\", \"location\": \"<string>\"}",
+   "getColonizationProgress": "{\"progress\": \"<number>\"}",
+   "getBuildingCodeRequirements": "{\"requirements\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Please help me retrieve the well-being score of an individual named John, who is a 30-year-old male. Then, retrieve social sciences data for the topic of psychology in the year 2021 in the United States. Lastly, I need the phone number for advocacy inquiries related to the organization Helping Hands and the topic of mental health awareness.",
+  "expected": "",
+  "available_tools": [
+   "getWellBeingScore",
+   "getSocialSciencesData",
+   "getAdvocacyPhone",
+   "startArtTherapySession",
+   "getCommunityHealthData",
+   "getPublicHealthMicrobiologyData",
+   "transferInventory",
+   "getWoodSource",
+   "estimateDataRate",
+   "calculateDeliveryTime",
+   "getEarlyChildhoodEducationInfo",
+   "checkSafetyCompliance",
+   "getProcedures",
+   "getSentenceSentiment",
+   "getEnvironmentalAnthropologyInfo"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getWellBeingScore",
+     "required": true
+    },
+    {
+     "action": "getSocialSciencesData",
+     "required": true
+    },
+    {
+     "action": "getAdvocacyPhone",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getWellBeingScore": "{\"well-being_score\": \"<number>\"}",
+   "getSocialSciencesData": "{\"data\": \"<string>\"}",
+   "getAdvocacyPhone": "{\"phone\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "As an agricultural scientist, I need to calculate the weed control index for a specific herbicide. Please calculate the weed control index using the herbicide Glyphosate with a dosage of 2.5 applied in the field. The target weed species is lKu12xNbng. Once you have the result, please retrieve the detailed information of a product for launch, specifically the Nintendo Switch. Finally, I need to retrieve the coverage details of a critical illness insurance policy with the policy number CRIT-005.",
+  "expected": "",
+  "available_tools": [
+   "calculateWeedControlIndex",
+   "getProductDetails",
+   "getPolicyCoverage",
+   "measureAirQuality",
+   "startNegotiation",
+   "getSafetyStatus",
+   "calculateHardyWeinberg",
+   "uploadFPGADesign",
+   "getInfectiousDiseaseInfo",
+   "donateMoney",
+   "getHumanRightsInfo",
+   "getFaultOrientation",
+   "getTollPrice",
+   "getMedicineAvailability",
+   "validateDigitalSignature"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "calculateWeedControlIndex",
+     "required": true
+    },
+    {
+     "action": "getProductDetails",
+     "required": true
+    },
+    {
+     "action": "getPolicyCoverage",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "calculateWeedControlIndex": "{\"weed_control_index\": \"<number>\"}",
+   "getProductDetails": "{\"product_details\": \"<string>\"}",
+   "getPolicyCoverage": "{\"coverage_details\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Retrieve the lighting information for the film \"Inception\".",
+  "expected": "",
+  "available_tools": [
+   "getLightingInfo",
+   "evaluateEthicsInPhilanthropy",
+   "getAnimalPathology",
+   "getControlSignal",
+   "getVisualJournalism",
+   "getVideoStats",
+   "generateJoke",
+   "reportAnimalEthicsViolation",
+   "getToxicityLevel",
+   "reportDomesticViolence",
+   "getSupportedConnectivity",
+   "getTreeSpecies",
+   "textClassification"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getLightingInfo",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getLightingInfo": "{\"lighting_type\": \"<string>\", \"lighting_techniques\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need help with identifying a microorganism that has rod-shaped, purple, and aerobic characteristics. Can you also retrieve the hematological test results for the veterinary patient with the ID Vet123 from last month? Finally, I would like to know more details about the Jellyfish species, including its habitat, reproductive behavior, and lifecycle stages.",
+  "expected": "",
+  "available_tools": [
+   "identifyMicroorganism",
+   "getHematologyResults",
+   "getInvertebrateDetails",
+   "getArtAdminInfo",
+   "getChemicalSafetyDataSheet",
+   "getAnimationInfo",
+   "getWastewaterTreatmentProcess",
+   "sellTower",
+   "getTextLinguistics",
+   "getHedgeFundInfo",
+   "createVirtualAssistant",
+   "findWaterSource",
+   "getParticleCharge",
+   "getVoltage",
+   "getEarInfection"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "identifyMicroorganism",
+     "required": true
+    },
+    {
+     "action": "getHematologyResults",
+     "required": true
+    },
+    {
+     "action": "getInvertebrateDetails",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "identifyMicroorganism": "{\"identification_result\": \"<string>\"}",
+   "getHematologyResults": "{\"red_blood_cells\": \"<number>\", \"white_blood_cells\": \"<number>\", \"hemoglobin\": \"<number>\", \"platelets\": \"<number>\"}",
+   "getInvertebrateDetails": "{\"species_name\": \"<string>\", \"habitat\": \"<string>\", \"reproduction\": \"<string>\", \"lifecycle\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I'm looking for a hidden object game to play. Please help me find one in the Gr1o3tivIC scene with a level of difficulty of 2. If possible, provide hints during the game. After playing the game, I'm also interested in learning more about artwork. Can you retrieve information about the artwork with the ID of b9ADsodmL? Additionally, I'm looking for contemporary dance instructors who specialize in choreography. Finally, I want to focus on developing my balance skills at an intermediate level. Can you provide psychomotor skill development information for a 10-year-old individual?",
+  "expected": "",
+  "available_tools": [
+   "searchHiddenObjects",
+   "getArtwork",
+   "getContemporaryDanceInstructors",
+   "getPsychomotorSkills",
+   "getPhilosophyOfLiterature",
+   "getSustainableLivelihoods",
+   "getMicroorganismCount",
+   "guessUrduWord",
+   "getPolicyInfo",
+   "demodulateSignal",
+   "getQuantumComputer",
+   "createDNSRecord",
+   "getDemographics",
+   "getMicroprocessorDetails",
+   "placeHold",
+   "getGameReviews"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "searchHiddenObjects",
+     "required": true
+    },
+    {
+     "action": "getArtwork",
+     "required": true
+    },
+    {
+     "action": "getContemporaryDanceInstructors",
+     "required": true
+    },
+    {
+     "action": "getPsychomotorSkills",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "searchHiddenObjects": "{\"objects_found\": \"<integer>\"}",
+   "getArtwork": "{\"title\": \"<string>\", \"artist\": \"<string>\", \"year\": \"<integer>\", \"description\": \"<string>\"}",
+   "getContemporaryDanceInstructors": "{\"instructors\": \"<string>\"}",
+   "getPsychomotorSkills": "{\"skill_level\": \"<string>\", \"development_area\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Retrieve the temperature sensor data for the device with ID \"NTioRsYcsqUE\".",
+  "expected": "",
+  "available_tools": [
+   "getTemperatureSensorData",
+   "getImplantCost",
+   "analyzeVisualCulture",
+   "getBrandInfo",
+   "getRoomColorScheme",
+   "getScalabilityMetrics",
+   "getGroupFitnessClasses",
+   "scheduleCampaign",
+   "getRefugeeInfo",
+   "getHealthBehavior",
+   "getRecipe",
+   "getRiskScore",
+   "getColonizationProgress"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getTemperatureSensorData",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getTemperatureSensorData": "{\"temperature_data\": \"<number>\"}"
+  }
+ },
+ {
+  "question": "I need your assistance in launching a new product. Please create a product named iPhone 12 with a brief description 'The latest smartphone from Apple' and a price of $999.99. Once the product is created, retrieve the HTML content from the Apple website using the getHTMLContent API. Lastly, update the documentation for the software project with the ID ABC123 by providing the updated document for version 2.0.",
+  "expected": "",
+  "available_tools": [
+   "createProduct",
+   "getHTMLContent",
+   "updateSoftwareDocumentation",
+   "getFurnitureDetails",
+   "analyzeNutrition",
+   "getLibraryUserDemographics",
+   "getCarPricing",
+   "getRunningDistance",
+   "getHearingLoss",
+   "getMissionDetails",
+   "refundOrder",
+   "performQualitativeResearch",
+   "getBasketballScore",
+   "getExhibition",
+   "getHybridInfo"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "createProduct",
+     "required": true
+    },
+    {
+     "action": "getHTMLContent",
+     "required": true
+    },
+    {
+     "action": "updateSoftwareDocumentation",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "createProduct": "{\"product_id\": \"<string>\"}",
+   "getHTMLContent": "{\"html_content\": \"<string>\"}",
+   "updateSoftwareDocumentation": "{\"success\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "I need your help to plan a trip from New York to Los Angeles by car. Could you please retrieve the transportation logistics information, including the duration, distance, and recommended route? Then, I would like to know the score of the basketball game between the Los Angeles Lakers and the Golden State Warriors that took place on December 1, 2021, at the Staples Center. Specifically, I'm interested in the scores of both teams at a specific period of the game. Next, I would like to retrieve information about a social enterprise called EcoVeg, including an overview of the enterprise, the services they offer, and the social impact they have created. Lastly, I need to retrieve the performance metrics of a specific supplier with the ID XUZIvgpTrw4 for supply chain planning purposes.",
+  "expected": "",
+  "available_tools": [
+   "getTransportationLogistics",
+   "getBasketballScore",
+   "getSocialEnterpriseInfo",
+   "getSupplierPerformance",
+   "getPrintAd",
+   "recordProgress",
+   "determineCauseOfDeath",
+   "queryOntology",
+   "getPublicWorkStatus",
+   "moveArm",
+   "getTextileDesign",
+   "getInformedConsentForm",
+   "performUsabilityTesting",
+   "getAfricanDanceInfo",
+   "getPublicAffairsInfo",
+   "optimizeProcess"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getTransportationLogistics",
+     "required": true
+    },
+    {
+     "action": "getBasketballScore",
+     "required": true
+    },
+    {
+     "action": "getSocialEnterpriseInfo",
+     "required": true
+    },
+    {
+     "action": "getSupplierPerformance",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getTransportationLogistics": "{\"duration\": \"<integer>\", \"distance\": \"<number>\", \"route\": \"<string>\"}",
+   "getBasketballScore": "{\"team_score\": \"<integer>\", \"opponent_score\": \"<integer>\"}",
+   "getSocialEnterpriseInfo": "{\"overview\": \"<string>\", \"services\": \"<string>\", \"impact\": \"<string>\"}",
+   "getSupplierPerformance": "{\"performance_metrics\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "I need some assistance with real estate investment analysis. Can you calculate the return on investment (ROI) for a property in New York City with a purchase price of $14.8 million, monthly rental income of $36,400, monthly expenses of $10,200, and a holding period of 5 years? Additionally, please provide the current value of a residential property in New York City. Finally, I would like to know the estimated value of a company named Sunshine Software based on the income approach business valuation method as of January 31, 2022.",
+  "expected": "",
+  "available_tools": [
+   "calculatePropertyROI",
+   "getPropertyValue",
+   "getBusinessValuation",
+   "getSpecificImpulse",
+   "calculateWastewaterFlowRate",
+   "getBrandPositioning",
+   "getRadioAdPerformance",
+   "updateTherapyNotes",
+   "detectVirus",
+   "updateInvestmentQuantity",
+   "getColonizationProgress",
+   "getNetworkGraph",
+   "getFontType",
+   "createVirtualAd",
+   "getProductAR"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "calculatePropertyROI",
+     "required": true
+    },
+    {
+     "action": "getPropertyValue",
+     "required": true
+    },
+    {
+     "action": "getBusinessValuation",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "calculatePropertyROI": "{\"roi\": \"<number>\"}",
+   "getPropertyValue": "{\"value\": \"<number>\"}",
+   "getBusinessValuation": "{\"valuation_amount\": \"<number>\", \"currency\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Please run a simultaneous localization and mapping (SLAM) algorithm using a differential drive robot with LIDAR sensor. Generate a map of the environment with a resolution of 0.1 meters per pixel and a maximum of 1000 iterations. Retrieve the status of the robot swarm with the ID '0xhd2nid'. Scan the wireless network named 'MyWiFi' for potential security threats, using a scan duration of 10 seconds and generating the scan report in PDF format. Finally, modify the priority of process 73 in the real-time system '05:44' to a priority value of 2.",
+  "expected": "",
+  "available_tools": [
+   "runSLAM",
+   "getSwarmStatus",
+   "scanNetwork",
+   "modifyProcessPriority",
+   "getDentalXRay",
+   "togglePowerOutlet",
+   "calculateSterilityAssuranceLevel",
+   "getPsychosomaticSymptoms",
+   "translateGujarati",
+   "getCompositeStrength",
+   "getHydroPower",
+   "getEthicsAndPrivacyInformation",
+   "analyzeText",
+   "getCommunityEngagement",
+   "getLandscapeProjects",
+   "recordPatientActivity"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "runSLAM",
+     "required": true
+    },
+    {
+     "action": "getSwarmStatus",
+     "required": true
+    },
+    {
+     "action": "scanNetwork",
+     "required": true
+    },
+    {
+     "action": "modifyProcessPriority",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "runSLAM": "{\"map\": \"<string>\", \"robot_pose\": \"<string>\"}",
+   "getSwarmStatus": "{\"status\": \"<string>\", \"num_robots\": \"<integer>\"}",
+   "scanNetwork": "{\"scan_results\": \"<string>\", \"timestamp\": \"<string>\"}",
+   "modifyProcessPriority": "{\"success\": \"<boolean>\"}"
+  }
+ },
+ {
+  "question": "Tell me the species distribution of Penguins at 06:46.",
+  "expected": "",
+  "available_tools": [
+   "getSpeciesDistribution",
+   "getSpacePlan",
+   "getPsychiatricNursingPatient",
+   "verifyTransaction",
+   "getStomachPainSeverity",
+   "performEDA",
+   "getBasketballScore",
+   "compareOrganismsAnatomy",
+   "getLegislativeAffairs",
+   "removeTrackFromPlaylist",
+   "getGeneSequence",
+   "getEmployeeAttendance",
+   "getEthicsOfHumanEnhancement"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSpeciesDistribution",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getSpeciesDistribution": "{\"distribution\": \"<string>\"}"
+  }
+ },
+ {
+  "question": "Tell me the steps for user \"NIjaryO4\".",
+  "expected": "",
+  "available_tools": [
+   "getSteps",
+   "createBookCover",
+   "calculateWastewaterFlowRate",
+   "sendMobileCampaign",
+   "getARAvatar",
+   "deleteMotionDesign",
+   "getAircraftStructures",
+   "getGreenhouseSensorData",
+   "multiplyComplexNumbers",
+   "getImmuneResponse",
+   "getLikes",
+   "getTeamMembers",
+   "getLiftCoefficient"
+  ],
+  "trajectory_evaluate": true,
+  "trajectory_ground_truth": {
+   "type": "trajectory",
+   "required_score": 1.0,
+   "optional_score": 0.5,
+   "steps": [
+    {
+     "action": "plan",
+     "required": false
+    },
+    {
+     "action": "getSteps",
+     "required": true
+    },
+    {
+     "action": "task_summary",
+     "required": true
+    },
+    {
+     "action": "task_done",
+     "required": true
+    }
+   ]
+  },
+  "tool_responses": {
+   "getSteps": "{\"steps_count\": \"<integer>\"}"
+  }
+ }
+]

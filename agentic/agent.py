@@ -17,10 +17,18 @@ import json
 import logging
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from .tools import ToolRegistry
-from .llm_backend import LLMBackend
+
+# ``LLMBackend`` is used only for type annotations here.  Importing it eagerly
+# pulls in ``torch`` (via llm_backend), which forces every consumer of the agent
+# loop — including offline dataset tooling and unit tests — to have a working
+# CUDA/torch stack.  Guarding the import keeps ``agentic.agent`` torch-free at
+# import time; annotations are strings thanks to ``from __future__ import
+# annotations`` above, so this is a pure-hygiene change with no runtime effect.
+if TYPE_CHECKING:
+    from .llm_backend import LLMBackend
 
 logger = logging.getLogger(__name__)
 
