@@ -100,8 +100,21 @@ Prints, per dataset, the A/B/F **group-means** table and writes `report.md` +
 
 ```bash
 export OPENAI_API_KEY=sk-...
-python -m experiments.evaluate.llm_judge -i experiments/others/trajectories/seal_tools/exp_b_ptc_decoder/
+python -m experiments.evaluate.llm_judge \
+  -i experiments/others/trajectories/api_bank/exp_b_ptc_decoder/ \
+  --benchmark experiments/others/data/api_bank/evaluate.json \
+  --domain "a general tool-using agent environment; tools are external APIs called in sequence" \
+  --reference-outputs
 ```
+
+`--benchmark` points the judge at the dataset's own `evaluate.json` (for the
+`expected` outcome + GT steps). `--domain` replaces the judge's default
+remote-sensing domain sentence (omit it and the main-benchmark prompt is used
+verbatim). `--reference-outputs` feeds each task's ground-truth `tool_responses`
+into the judge as a reference block — valuable precisely when the agent failed to
+call a tool (its trajectory then has no result to inspect), giving the judge what
+the correct tool *would* have returned. All three flags default off/unchanged, so
+the main-benchmark judge behaves exactly as before.
 
 ## Metrics (per `(dataset, group, model)`)
 

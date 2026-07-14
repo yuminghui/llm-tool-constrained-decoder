@@ -105,6 +105,34 @@ You MUST respond with a single JSON object (no markdown fences, no extra text):
  "reasoning": "concise Chinese reasoning (2-4 sentences)"}
 """
 
+# The first sentence of JUDGE_SYSTEM_PROMPT that pins the evaluation domain.
+# Kept as an exact substring so ``build_system_prompt`` can swap it out for other
+# datasets without touching the (byte-identical) default used by the main benchmark.
+_DEFAULT_DOMAIN_SENTENCE = (
+    "You are an expert evaluator for AI agent trajectories in a remote-sensing "
+    "satellite image processing environment.  The agent has access to tools "
+    "(preprocessing, change detection, file search, etc.) and must call them "
+    "in a sensible order to fulfil a user request."
+)
+
+
+def build_system_prompt(domain: Optional[str] = None) -> str:
+    """Return the judge system prompt.
+
+    ``domain=None`` → the original prompt verbatim (main-benchmark behaviour is
+    unchanged).  A non-empty ``domain`` replaces the remote-sensing domain
+    sentence, e.g. ``"a general tool-using agent environment; tools are external
+    APIs called in sequence"`` for the external-dataset experiments.
+    """
+    if not domain:
+        return JUDGE_SYSTEM_PROMPT
+    new_sentence = f"You are an expert evaluator for AI agent trajectories in {domain}"
+    out = JUDGE_SYSTEM_PROMPT.replace(_DEFAULT_DOMAIN_SENTENCE, new_sentence, 1)
+    if out == JUDGE_SYSTEM_PROMPT:
+        print("[WARN] --domain override did not match the default domain sentence; "
+              "using the default judge domain.")
+    return out
+
 
 def _build_user_prompt(
     question: str,
@@ -115,6 +143,7 @@ def _build_user_prompt(
     success: bool,
     error: Optional[str],
     total_steps: int,
+    reference_outputs: Optional[Dict[str, Any]] = None,
 ) -> str:
     """Build the user message for the judge LLM."""
 
@@ -124,6 +153,20 @@ def _build_user_prompt(
         label = "required" if s.get("required") else "optional"
         gt_lines.append(f"  - [{label}] {s['action']}")
     gt_text = "\n".join(gt_lines) if gt_lines else "(none)"
+
+    # Optional: ground-truth reference tool outputs.  Useful when the agent
+    # failed to call a tool (its trajectory then has no result to inspect) —
+    # this shows the judge what the correct tool *would* have returned.
+    ref_block = ""
+    if reference_outputs:
+        ref_lines = []
+        for name, out in reference_outputs.items():
+            out_str = str(out)
+            if len(out_str) > 300:
+                out_str = out_str[:300] + "..."
+            ref_lines.append(f"  - {name} → {out_str}")
+        if ref_lines:
+            ref_block = "\n\n## Reference Tool Outputs (ground truth)\n" + "\n".join(ref_lines)
 
     # Format actual trajectory
     traj_lines = []
@@ -156,7 +199,7 @@ def _build_user_prompt(
 {expected}
 
 ## Expected Tool Steps
-{gt_text}
+{gt_text}{ref_block}
 
 ## Agent Actual Execution Trajectory
 {traj_text}
@@ -278,6 +321,8 @@ def evaluate_trajectory_file(
     client,
     model: str,
     output_dir: str = "",
+    system_prompt: Optional[str] = None,
+    include_reference_outputs: bool = False,
 ) -> Optional[JudgeSummary]:
     """Evaluate a single trajectory JSON file against the benchmark.
 
@@ -285,8 +330,14 @@ def evaluate_trajectory_file(
     already-scored tasks are skipped and evaluation resumes from where
     it left off.  Results are saved after every task.
 
+    Args:
+        system_prompt: judge system prompt (defaults to ``JUDGE_SYSTEM_PROMPT``).
+        include_reference_outputs: if True, pass each task's ground-truth
+            ``tool_responses`` (from the benchmark record) into the judge prompt.
+
     Returns a JudgeSummary, or None if the file cannot be read.
     """
+    system = system_prompt or JUDGE_SYSTEM_PROMPT
     # --- Load trajectory file ---
     try:
         with open(trajectory_path, "r", encoding="utf-8") as f:
@@ -368,11 +419,13 @@ def evaluate_trajectory_file(
             success=success,
             error=error,
             total_steps=len(traj_steps),
+            reference_outputs=(bench_entry.get("tool_responses")
+                               if include_reference_outputs else None),
         )
 
         # Call judge
         print(f"  [{i+1}/{total}] {tid}  ", end="", flush=True)
-        parsed = _call_judge_llm(client, JUDGE_SYSTEM_PROMPT, user_prompt, model)
+        parsed = _call_judge_llm(client, system, user_prompt, model)
 
         if parsed is None:
             print("FAILED — using fallback scores")
@@ -580,6 +633,14 @@ def main():
                    help="API key (default: $OPENAI_API_KEY)")
     p.add_argument("--benchmark", default=EVALUATE_JSON_PATH,
                    help="Path to evaluate.json")
+    p.add_argument("--domain", default=None,
+                   help="Override the evaluation-domain sentence in the judge system prompt "
+                        "(default: the remote-sensing description). Use for external datasets, "
+                        "e.g. \"a general tool-using agent environment; tools are external APIs "
+                        "called in sequence\".")
+    p.add_argument("--reference-outputs", action="store_true",
+                   help="Include each task's ground-truth tool_responses (if present in the "
+                        "benchmark) as a reference block in the judge prompt.")
     args = p.parse_args()
 
     # --- API key ---
@@ -598,6 +659,13 @@ def main():
     print(f"Judge model: {args.model}")
     print(f"Benchmark:  {args.benchmark}")
     print(f"Input:      {args.input}")
+    if args.domain:
+        print(f"Domain override: {args.domain}")
+    if args.reference_outputs:
+        print("Reference tool outputs: ON")
+
+    # Build the (optionally domain-overridden) judge system prompt once.
+    system_prompt = build_system_prompt(args.domain)
 
     # --- Load benchmark ---
     benchmark = load_benchmark(args.benchmark)
@@ -626,6 +694,8 @@ def main():
 
         summary = evaluate_trajectory_file(
             fpath, benchmark, client, args.model, out_dir,
+            system_prompt=system_prompt,
+            include_reference_outputs=args.reference_outputs,
         )
         if summary is None:
             continue
