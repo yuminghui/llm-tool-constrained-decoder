@@ -25,7 +25,7 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from agentic.agent import Agent, AgentConfig, AgentResult, AgentStep
-from agentic.tools import ToolRegistry
+from agentic.tools import ToolRegistry, set_summary_backend
 from experiments.trajectory_utils import (
     load_benchmark_tasks,
     evaluate_completion,
@@ -482,7 +482,26 @@ def run_group(
         all_metrics[model_id] = metrics
         _print_model_summary(model_id, metrics)
 
-        _release_backend(backend)
+        # ---- Release GPU memory before next model ---------------------------
+        # Must be INLINE (not a helper function) so ``del backend`` drops the
+        # same-scope variable.  Also needs ``gc.collect()`` to break potential
+        # circular references (e.g. constrained_decoder → model) before
+        # ``torch.cuda.empty_cache()`` can actually reclaim GPU memory.
+        set_summary_backend(None)
+        del backend
+        backend = None
+        try:
+            import gc
+            gc.collect()
+        except Exception:
+            pass
+        try:
+            import torch  # noqa
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
+        # -----------------------------------------------------------------
 
     return all_metrics
 
@@ -588,12 +607,10 @@ def _print_model_summary(model_id, m: Dict[str, Any]) -> None:
           f"avg_tokens={m['avg_tokens']}  errors={m['error_counts']}")
 
 
-def _release_backend(backend) -> None:
-    """Free GPU memory for real backends; no-op for the mock."""
-    try:
-        del backend
-        import torch  # noqa
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-    except Exception:
-        pass
+# ---------------------------------------------------------------------------
+# NOTE: GPU cleanup is done INLINE inside ``run_group``, not via a helper
+# function, because ``del backend`` must drop the same-scope variable so
+# ``torch.cuda.empty_cache()`` sees the freed model.  A helper function would
+# only delete its own parameter binding, leaving the caller's reference alive.
+# See the ``# ---- Release GPU memory before next model ----`` block above.
+# ---------------------------------------------------------------------------
