@@ -190,14 +190,31 @@ def _render_markdown(dataset: str, data: Dict[str, Dict[str, Dict[str, Any]]]) -
 
 
 def _print_console(dataset: str, data: Dict[str, Dict[str, Dict[str, Any]]]) -> None:
-    print(f"\n{'='*72}\n  {dataset}  —  group means (avg over models)\n{'='*72}")
-    print(f"  {'Group':<26s} " + " ".join(f"{lbl:>7s}" for _, lbl in METRIC_KEYS))
+    print(f"\n{'='*92}\n  {dataset}  —  group means (avg over models)\n{'='*92}")
+    header = f"  {'Group':<26s} " + " ".join(f"{lbl:>7s}" for _, lbl in METRIC_KEYS)
+    print(header)
+    print("  " + "-" * (len(header) - 2))
     for g in GROUP_ORDER:
         mean = _mean_over_models(data.get(g, {}))
         if not mean:
             continue
         vals = " ".join(f"{_fmt(k, mean[k]):>7s}" for k, _ in METRIC_KEYS)
         print(f"  {GROUP_LABELS[g]:<26s} {vals}")
+
+    # per-model detail
+    all_models = sorted({m for g in GROUP_ORDER for m in data.get(g, {})})
+    if not all_models:
+        return
+    print(f"\n  --- per-model detail ({len(all_models)} model(s)) ---")
+    for model in all_models:
+        print(f"\n  [{model}]")
+        print(f"  {'Group':<26s} " + " ".join(f"{lbl:>7s}" for _, lbl in METRIC_KEYS))
+        for g in GROUP_ORDER:
+            m = data.get(g, {}).get(model)
+            if not m:
+                continue
+            vals = " ".join(f"{_fmt(k, m[k]):>7s}" for k, _ in METRIC_KEYS)
+            print(f"  {GROUP_LABELS[g]:<26s} {vals}")
 
 
 def main() -> None:
