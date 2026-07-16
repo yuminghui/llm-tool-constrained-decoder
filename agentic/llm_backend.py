@@ -635,9 +635,6 @@ class LLMBackend:
             param_value = pm.group(2).strip()
             args[param_name] = param_value
 
-        if not args:
-            return None
-
         return {"name": tool_name, "arguments": args}
 
     # ------------------------------------------------------------------

@@ -41,25 +41,30 @@ METRIC_KEYS = [
 META_TOOLS = {"plan", "task_summary", "task_done"}
 
 
-def _domain_prec_f1(ev: Dict[str, Any]) -> tuple:
-    """Return ``(precision, f1)`` from an eval block.
+def _domain_rec_prec_f1(ev: Dict[str, Any]) -> tuple:
+    """Return ``(recall, precision, f1)`` from an eval block.
 
-    If ``domain_precision`` / ``domain_f1`` are already saved (new experiments),
-    use them directly.  Otherwise compute from ``called_tools`` + domain counts
-    (backward-compatible with trajectories written before Precision/F1 were added).
+    If the fields are already saved (new experiments), use them directly.
+    Otherwise recompute from the domain count fields + ``called_tools``
+    (backward-compatible with trajectories whose eval blocks only carry
+    ``domain_required_called`` / ``domain_required_total`` etc.).
     """
+    rec = ev.get("domain_recall")
+    if rec is None:
+        req_total = ev.get("domain_required_total", 0)
+        rec = round(ev.get("domain_required_called", 0) / req_total, 3) if req_total else 1.0
+
     if "domain_precision" in ev and "domain_f1" in ev:
-        return ev["domain_precision"], ev["domain_f1"]
+        return rec, ev["domain_precision"], ev["domain_f1"]
 
     # Backward-compat: compute from existing fields.
     called = ev.get("called_tools", [])
     agent_domain = len(set(t for t in called if t not in META_TOOLS))
     tp = ev.get("domain_required_called", 0) + ev.get("domain_optional_called", 0)
     fp = max(agent_domain - tp, 0)
-    rec = ev.get("domain_recall", 0.0)
     prec = round(tp / max(tp + fp, 1), 3)
     f1 = round(2 * prec * rec / max(prec + rec, 1e-9), 3)
-    return prec, f1
+    return rec, prec, f1
 
 
 def _load_model_file(path: str) -> List[Dict[str, Any]]:
@@ -83,8 +88,8 @@ def _model_metrics(records: List[Dict[str, Any]]) -> Dict[str, Any]:
         ev = r.get("eval", {})
         completed += 1 if ev.get("completed") else 0
         success += 1 if r.get("success") else 0
-        dom += ev.get("domain_recall", 0.0)
-        p, f = _domain_prec_f1(ev)
+        rc, p, f = _domain_rec_prec_f1(ev)
+        dom += rc
         prec += p
         f1 += f
         score += ev.get("completion_score", 0.0)
