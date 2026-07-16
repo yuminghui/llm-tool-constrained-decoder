@@ -68,7 +68,9 @@ def _load_model_file(path: str) -> List[Dict[str, Any]]:
             data = json.load(f)
     except Exception:
         return []
-    return [r for r in data if r.get("type") != "_summary"]
+    if not isinstance(data, list):
+        return []
+    return [r for r in data if isinstance(r, dict) and r.get("type") != "_summary"]
 
 
 def _model_metrics(records: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -123,6 +125,9 @@ def _collect_dataset(
             continue
         for fname in os.listdir(gpath):
             if not fname.endswith(".json"):
+                continue
+            # skip non-trajectory files that happen to be JSON
+            if fname in ("report.json",) or fname.endswith("_judge_scores.json"):
                 continue
             if not include_mock and fname.startswith("mock"):
                 continue
