@@ -533,7 +533,9 @@ class Agent:
                 expected = step.get("expected_tools", [])
                 if isinstance(expected, list):
                     for t in expected:
-                        if isinstance(t, str) and t not in seen and self.tools.get(t):
+                        if isinstance(t, str):
+                            t = t.strip()  # normalize — SLMs may inject leading/trailing whitespace
+                        if isinstance(t, str) and t and t not in seen and self.tools.get(t):
                             seen.add(t)
                             result.append(t)
                 # Also try keyword matching on step_name/description as fallback

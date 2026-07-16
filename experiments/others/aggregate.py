@@ -30,11 +30,36 @@ _DIR_TO_GROUP = {v: k for k, v in GROUP_DIRS.items()}
 METRIC_KEYS = [
     ("completion_rate", "Compl"),
     ("avg_domain_recall", "DomRec"),
+    ("avg_domain_precision", "DomPrec"),
+    ("avg_domain_f1", "DomF1"),
     ("success_rate", "Succ"),
     ("avg_completion_score", "Score"),
     ("plan_call_rate", "Plan"),
     ("avg_tokens", "AvgTok"),
 ]
+
+META_TOOLS = {"plan", "task_summary", "task_done"}
+
+
+def _domain_prec_f1(ev: Dict[str, Any]) -> tuple:
+    """Return ``(precision, f1)`` from an eval block.
+
+    If ``domain_precision`` / ``domain_f1`` are already saved (new experiments),
+    use them directly.  Otherwise compute from ``called_tools`` + domain counts
+    (backward-compatible with trajectories written before Precision/F1 were added).
+    """
+    if "domain_precision" in ev and "domain_f1" in ev:
+        return ev["domain_precision"], ev["domain_f1"]
+
+    # Backward-compat: compute from existing fields.
+    called = ev.get("called_tools", [])
+    agent_domain = len(set(t for t in called if t not in META_TOOLS))
+    tp = ev.get("domain_required_called", 0) + ev.get("domain_optional_called", 0)
+    fp = max(agent_domain - tp, 0)
+    rec = ev.get("domain_recall", 0.0)
+    prec = round(tp / max(tp + fp, 1), 3)
+    f1 = round(2 * prec * rec / max(prec + rec, 1e-9), 3)
+    return prec, f1
 
 
 def _load_model_file(path: str) -> List[Dict[str, Any]]:
@@ -51,12 +76,15 @@ def _model_metrics(records: List[Dict[str, Any]]) -> Dict[str, Any]:
     if n == 0:
         return {}
     completed = success = plan = 0
-    dom = score = toks = 0.0
+    dom = prec = f1 = score = toks = 0.0
     for r in records:
         ev = r.get("eval", {})
         completed += 1 if ev.get("completed") else 0
         success += 1 if r.get("success") else 0
         dom += ev.get("domain_recall", 0.0)
+        p, f = _domain_prec_f1(ev)
+        prec += p
+        f1 += f
         score += ev.get("completion_score", 0.0)
         if "plan" in ev.get("called_tools", []):
             plan += 1
@@ -66,6 +94,8 @@ def _model_metrics(records: List[Dict[str, Any]]) -> Dict[str, Any]:
         "completion_rate": completed / n,
         "success_rate": success / n,
         "avg_domain_recall": dom / n,
+        "avg_domain_precision": prec / n,
+        "avg_domain_f1": f1 / n,
         "avg_completion_score": score / n,
         "plan_call_rate": plan / n,
         "avg_tokens": toks / n,

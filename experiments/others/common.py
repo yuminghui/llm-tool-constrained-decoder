@@ -351,6 +351,9 @@ def evaluate_domain_only(agent_steps: list, ground_truth: Dict[str, Any]) -> Dic
 
     Isolates the effect on *real* dataset-tool selection, since task_summary /
     task_done / plan are method-provided closure tools present in the GT.
+
+    Additionally computes domain-level **Precision** and **F1** (Seal-Tools
+    style) to measure whether the agent called irrelevant tools (FP).
     """
     called = [s.tool_name for s in agent_steps if s.tool_name]
     steps = ground_truth.get("steps", [])
@@ -358,14 +361,27 @@ def evaluate_domain_only(agent_steps: list, ground_truth: Dict[str, Any]) -> Dic
                 if s.get("required") and s["action"] not in META_TOOLS]
     optional = [s["action"] for s in steps
                 if not s.get("required") and s["action"] not in META_TOOLS]
+
     req_called = sum(1 for a in required if a in called)
     opt_called = sum(1 for a in optional if a in called)
+    rec = round(req_called / len(required), 3) if required else 1.0
+
+    # Precision/F1: domain tools agent called vs. all domain tools in GT
+    gt_all = set(required) | set(optional)
+    agent_domain = set(t for t in called if t not in META_TOOLS)
+    tp = len(agent_domain & gt_all)
+    fp = len(agent_domain - gt_all)
+    prec = round(tp / max(tp + fp, 1), 3)
+    f1 = round(2 * prec * rec / max(prec + rec, 1e-9), 3)
+
     return {
         "domain_required_called": req_called,
         "domain_required_total": len(required),
         "domain_optional_called": opt_called,
         "domain_optional_total": len(optional),
-        "domain_recall": round(req_called / len(required), 3) if required else 1.0,
+        "domain_recall": rec,
+        "domain_precision": prec,
+        "domain_f1": f1,
     }
 
 
