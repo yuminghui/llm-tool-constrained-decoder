@@ -43,7 +43,7 @@ class ExperimentConfig:
     name: str
     model_id: str
     use_constrained_decoder: bool
-    temperature: float = 0.7
+    temperature: float = 0.2
     max_turns: int = 10
     verbose: bool = False
 

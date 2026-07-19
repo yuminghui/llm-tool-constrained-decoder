@@ -168,7 +168,7 @@ QUANTIZATION: Optional[str] = None
 # Agent hyperparameters (shared across experiments)
 # ---------------------------------------------------------------------------
 
-TEMPERATURE = 0.7
+TEMPERATURE = 0.2
 MAX_TURNS = 10
 
 # Token budget for generation calls

@@ -260,7 +260,7 @@ def main():
         tool_name="plan",
         args_schema=plan_schema,
         max_new_tokens=256,
-        temperature=0.7,
+        temperature=0.2,
         top_p=0.95,
     )
 

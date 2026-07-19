@@ -125,7 +125,7 @@ class ToolConstrainedDecoder:
         tool_name: str,
         args_schema: Dict[str, Any],
         max_new_tokens: int = 256,
-        temperature: float = 1.0,
+        temperature: float = 0.2,
         top_p: float = 1.0,
         top_k: int = 0,
         **extra_kwargs,

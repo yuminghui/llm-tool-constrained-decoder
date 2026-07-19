@@ -402,7 +402,7 @@ class LLMBackend:
         self,
         prompt: str,
         max_new_tokens: int = 512,
-        temperature: float = 0.7,
+        temperature: float = 0.2,
         top_p: float = 0.95,
     ) -> str:
         """Standard unconstrained generation."""
@@ -445,7 +445,7 @@ class LLMBackend:
         tool_name: str,
         args_schema: Dict[str, Any],
         max_new_tokens: int = 256,
-        temperature: float = 0.7,
+        temperature: float = 0.2,
     ) -> DecoderResult:
         """Generate a tool call constrained to *tool_name* with *args_schema*."""
         result = self.constrained_decoder.generate(

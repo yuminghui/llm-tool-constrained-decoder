@@ -146,15 +146,28 @@ This is, to our knowledge, the first open benchmark for remote sensing Agent eva
 
 ## Key Results
 
-On the 7-model benchmark, PTC-Decoder achieves:
+On the 7-model benchmark (200 tasks, LLM-as-Judge + rule-based metrics):
 
-| Metric | Baseline → PTC-Decoder |
-|--------|:----------------------:|
-| Overall Score (Ov.) | +0.89 mean gain |
-| Step Completeness (S.C.) | +1.37 mean gain |
-| Completion Score (C.S.) | +0.605 mean gain |
-| Weakest model relative gain | +245% |
+| Metric | Baseline → PTC-Decoder (Ours) |
+|--------|:-----------------------------:|
+| Overall (Ov.) LLM-Judge | +1.21 mean gain |
+| Recall (tool coverage) | +0.126 mean gain |
+| F1 (tool coverage) | +0.096 mean gain (peak 0.359) |
+| Weakest-model relative gain | +350% |
+
+**Ablation** (PTC-Decoder vs. Plan w/o TC-Decoder):
+
+| Metric | Gain |
+|--------|:----:|
+| Overall (Ov.) | +0.99 |
+| Result Accuracy (R.A.) | +1.42 |
+| Flow Reasonableness (F.R.) | +1.00 |
+| Recall (tool coverage) | +0.146 |
+| F1 (tool coverage) | +0.110 |
+
+TC-Decoder is the decisive component: removing it reduces F1 by 0.110 on average and degrades all quality metrics, yet offers no efficiency advantage.
 
 ## License
 
-This project is released for academic research purposes. Commercial use requires a separate agreement.
+- **Code** ([`LICENSE`](LICENSE)): MIT License — freely usable, modifiable, and distributable for any purpose.
+- **Data / Benchmark** (`experiments/evaluate.json` and other data files): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — free to share and adapt with attribution.

@@ -101,7 +101,7 @@ def _app2_summary(model: str, query: str, json_content: str) -> Optional[str]:
     prompt = APP2_SUMMARY_PROMPT.format(query=query, json_content=json_content)
     try:
         raw = _summary_backend.generate_free(
-            prompt, max_new_tokens=512, temperature=0.3,
+            prompt, max_new_tokens=512, temperature=0.2,
         )
         return raw.strip() if raw else None
     except Exception:

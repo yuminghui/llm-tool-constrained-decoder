@@ -87,7 +87,7 @@ class AgentResult:
 class AgentConfig:
     """Configuration for an Agent instance."""
     max_turns: int = 10
-    temperature: float = 0.7
+    temperature: float = 0.2
     use_constrained_decoder: bool = True
     verbose: bool = True
     system_prompt: Optional[str] = None
